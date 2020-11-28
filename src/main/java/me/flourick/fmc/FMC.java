@@ -136,7 +136,7 @@ public class FMC implements ModInitializer
 			}
 		});
 
-		ClientTickEvents.END_WORLD_TICK.register(client -> {
+		ClientTickEvents.END_WORLD_TICK.register(clientWorld -> {
 			if(FMC.OPTIONS.toolWarning) {
 				ItemStack mainHandItem = FMC.MC.player.getStackInHand(Hand.MAIN_HAND);
 				ItemStack offHandItem = FMC.MC.player.getStackInHand(Hand.OFF_HAND);
@@ -176,19 +176,19 @@ public class FMC implements ModInitializer
 						FMC.MC.options.keyUse.setPressed(true);
 						FMC.VARS.autoEating = true;
 					}
-					else if(FMC.VARS.autoEating == true) {
+					else if(FMC.VARS.autoEating) {
 						FMC.VARS.autoEating = false;
 						FMC.MC.options.keyUse.setPressed(false);
 					}
 				}
-				else if(FMC.VARS.autoEating == true) {
+				else if(FMC.VARS.autoEating) {
 					FMC.VARS.autoEating = false;
 					FMC.MC.options.keyUse.setPressed(false);
 				}
 			}
 		});
 
-		ClientTickEvents.START_WORLD_TICK.register(client -> {
+		ClientTickEvents.START_WORLD_TICK.register(clientWorld -> {
 			if(FMC.OPTIONS.triggerBot && FMC.MC.currentScreen == null) {
 				if(FMC.MC.crosshairTarget != null && FMC.MC.crosshairTarget.getType() == Type.ENTITY && FMC.MC.player.getAttackCooldownProgress(0.0f) >= 1.0f) {
 					if(((EntityHitResult)FMC.MC.crosshairTarget).getEntity() instanceof LivingEntity) {
