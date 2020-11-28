@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -50,6 +51,24 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 			FMC.VARS.isAfterDeath = false;
 			FMC.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText(String.format("You died at X: %.01f Z: %.01f Y: %.01f in %s!", FMC.VARS.getLastDeathX(), FMC.VARS.getLastDeathZ(), FMC.VARS.getLastDeathY(), FMC.VARS.getLastDeathWorld())), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 		}
+	}
+
+	@Inject(method = "move", at = @At("HEAD"), cancellable = true)
+	private void onMove(CallbackInfo info)
+	{
+		if(FMC.VARS.freecam) {
+			info.cancel();
+		}
+	}
+
+	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasVehicle()Z", ordinal = 0), method = "tick()V")
+	private boolean hijackHasVehicle(ClientPlayerEntity player)
+	{
+		if(FMC.VARS.freecam) {
+			return false;
+		}
+
+		return this.hasVehicle();
 	}
 
 	@Inject(method = "tickMovement", at = @At("HEAD"), cancellable = true)
