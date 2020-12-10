@@ -8,7 +8,7 @@ Various tweaks fabric mod, compatible with Sodium.
 
 2. Download latest FMC-fabric release from [here](https://github.com/Flourick/FMC-fabric/releases).
 
-3. Once you run fabric loader a mods folder will be created in your *.minecraft* directory. Move the `fmc-fabric-*.jar` and `fabric-api-*.jar` there.
+3. Once you run fabric loader a *mods* folder will be created in your *.minecraft* directory. Move the `fmc-fabric-*.jar` and `fabric-api-*.jar` there.
 
 ## Features
 
@@ -68,7 +68,7 @@ Will try to automatically reconnect you to the server you got disconnected from.
 
 ### Offhand Autoeat
 
-Once you lose two hunger will automatically eat from your offhand, won't work if you for example aim at a chest.
+Will automatically eat the food in your offhand as soon as you loose enough hunger for it to be fully utilized, will also eat if your health is low. Won't work if you for example aim at a chest or have a block in your main hand that can be placed.
 
 ### Random Block Placement (keybindable)
 
