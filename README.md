@@ -10,9 +10,9 @@ Various tweaks fabric mod, compatible with Sodium.
 
 3. Once you run fabric loader a *mods* folder will be created in your *.minecraft* directory. Move the `fvt-fabric-*.jar` and `fabric-api-*.jar` there.
 
-## Features
+## Toggleable Features
 
-List of main features. Configuration is in in-game options menu called 'FVT...'. Keybindings are configured in the usual Controls menu (FVT category) and are by default unset.
+List of all toggleable features. Configuration is in in-game options menu called 'FVT...'. Keybindings are configured in the usual Controls menu (FVT category) and are by default unset.
 
 ### Crosshair
 
