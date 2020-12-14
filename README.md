@@ -1,4 +1,4 @@
-# FMC
+# FVT (**F**lour's **V**arious **T**weaks)
 
 Various tweaks fabric mod, compatible with Sodium.
 
