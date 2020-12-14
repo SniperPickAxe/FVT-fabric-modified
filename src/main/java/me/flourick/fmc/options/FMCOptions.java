@@ -97,7 +97,7 @@ public class FMCOptions
 			FMC.OPTIONS.autoReconnectTimeout = MathHelper.ceil(timeout);
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Timeout: " + BigDecimal.valueOf(FMC.OPTIONS.autoReconnectTimeout).setScale(0, RoundingMode.HALF_UP) + "s");
+			return new LiteralText("Autoreconnect Timeout: " + BigDecimal.valueOf(FMC.OPTIONS.autoReconnectTimeout).setScale(0, RoundingMode.HALF_UP) + "s");
 		}
 	);
 
@@ -109,7 +109,7 @@ public class FMCOptions
 			FMC.OPTIONS.autoReconnectMaxTries = MathHelper.ceil(tries);
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Max Tries: " + BigDecimal.valueOf(FMC.OPTIONS.autoReconnectMaxTries).setScale(0, RoundingMode.HALF_UP));
+			return new LiteralText("Autoreconnect Tries: " + BigDecimal.valueOf(FMC.OPTIONS.autoReconnectMaxTries).setScale(0, RoundingMode.HALF_UP));
 		}
 	);
 
@@ -253,7 +253,7 @@ public class FMCOptions
 			FMC.OPTIONS.crosshairColor = new Color(FMC.OPTIONS.crosshairColor.getAlpha(), red.intValue(), FMC.OPTIONS.crosshairColor.getGreen(), FMC.OPTIONS.crosshairColor.getBlue());
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Crosshair Red Component: " + FMC.OPTIONS.crosshairColor.getRed());
+			return new LiteralText("Red Component: " + FMC.OPTIONS.crosshairColor.getRed());
 		}
 	);
 
@@ -265,7 +265,7 @@ public class FMCOptions
 			FMC.OPTIONS.crosshairColor = new Color(FMC.OPTIONS.crosshairColor.getAlpha(), FMC.OPTIONS.crosshairColor.getRed(), green.intValue(), FMC.OPTIONS.crosshairColor.getBlue());
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Crosshair Green Component: " + FMC.OPTIONS.crosshairColor.getGreen());
+			return new LiteralText("Green Component: " + FMC.OPTIONS.crosshairColor.getGreen());
 		}
 	);
 
@@ -277,7 +277,7 @@ public class FMCOptions
 			FMC.OPTIONS.crosshairColor = new Color(FMC.OPTIONS.crosshairColor.getAlpha(), FMC.OPTIONS.crosshairColor.getRed(), FMC.OPTIONS.crosshairColor.getGreen(), blue.intValue());
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Crosshair Blue Component: " + FMC.OPTIONS.crosshairColor.getBlue());
+			return new LiteralText("Blue Component: " + FMC.OPTIONS.crosshairColor.getBlue());
 		}
 	);
 
@@ -289,7 +289,7 @@ public class FMCOptions
 			FMC.OPTIONS.crosshairScale = scale;
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Crosshair Scale: " + BigDecimal.valueOf(FMC.OPTIONS.crosshairScale).setScale(2, RoundingMode.HALF_UP));
+			return new LiteralText("Scale: " + BigDecimal.valueOf(FMC.OPTIONS.crosshairScale).setScale(2, RoundingMode.HALF_UP));
 		}
 	);
 
@@ -298,7 +298,7 @@ public class FMCOptions
 			FMC.OPTIONS.crosshairStaticColor = !FMC.OPTIONS.crosshairStaticColor;
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("Crosshair Static Color: " + (FMC.OPTIONS.crosshairStaticColor ? "ON" : "OFF"));
+			return new LiteralText("Static Color: " + (FMC.OPTIONS.crosshairStaticColor ? "ON" : "OFF"));
 		}
 	);
 
