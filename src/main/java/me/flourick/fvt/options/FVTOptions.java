@@ -29,7 +29,7 @@ public class FVTOptions
 
 	public FVTOptions()
 	{
-		this.optionsFile = new File(FVT.MC.runDirectory, "fmcoptions.txt");
+		this.optionsFile = new File(FVT.MC.runDirectory, "fvtoptions.txt");
 
 		init();
 	}
@@ -307,7 +307,7 @@ public class FVTOptions
 			FVT.OPTIONS.buttonPosition = ButtonPosition.getOption(FVT.OPTIONS.buttonPosition.getId() + integer);
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("FMC Button Position: " + FVT.OPTIONS.buttonPosition);
+			return new LiteralText("FVT Button Position: " + FVT.OPTIONS.buttonPosition);
 		}
 	);
 
@@ -395,7 +395,7 @@ public class FVTOptions
 			printWriter.println("triggerBot:" + this.triggerBot);
 		}
 		catch(FileNotFoundException e) {
-			LogManager.getLogger().error("Failed to load FMCOptions", e);
+			LogManager.getLogger().error("Failed to write to fvtoptions.txt", e);
 		}
 	}
 
@@ -535,7 +535,7 @@ public class FVTOptions
 			});
 		}
 		catch(IOException e) {
-			LogManager.getLogger().error("Failed to write to FMCOptions", e);
+			LogManager.getLogger().error("Failed to read to FVTOptions", e);
 		}
 	}
 

@@ -1,4 +1,4 @@
-# FVT (**F**lour's **V**arious **T**weaks)
+# FVT (Flour's Various Tweaks)
 
 Various tweaks fabric mod, compatible with Sodium.
 
@@ -90,7 +90,7 @@ Allows you to leave your body and explore your surroundings. Works similar to sp
 
 Automatically attacks entities if you place your crosshair over them and in reach. Primarily meant for AFK farms.
 
-## Preview (v1.4.2)
+## Preview (v1.4.3)
 
 Static crosshair color, HUD info, death message & tool breaking warning.
 
@@ -98,7 +98,7 @@ Static crosshair color, HUD info, death message & tool breaking warning.
 
 Ingame menu (default settings)
 
-![menu](https://user-images.githubusercontent.com/33128006/100463928-ed710200-30cc-11eb-8581-d863d62a94f5.png)
+![menu](https://user-images.githubusercontent.com/33128006/102080035-0a683d80-3e0e-11eb-8336-5ea6576fc49b.png)
 
 ----
 

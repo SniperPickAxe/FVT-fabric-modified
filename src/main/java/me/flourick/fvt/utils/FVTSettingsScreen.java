@@ -19,7 +19,7 @@ public class FVTSettingsScreen extends GameOptionsScreen
 
 	public FVTSettingsScreen(Screen parent, GameOptions gameOptions)
 	{
-		super(parent, gameOptions, new LiteralText("FMC Options"));
+		super(parent, gameOptions, new LiteralText("FVT Options"));
 	}
 
 	protected void init()
