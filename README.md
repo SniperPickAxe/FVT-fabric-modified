@@ -92,13 +92,21 @@ Automatically attacks entities if you place your crosshair over them and in reac
 
 ## Preview (v1.4.3)
 
-Static crosshair color, HUD info, death message & tool breaking warning.
+<details><summary>Static crosshair color, HUD info, death message & tool breaking warning. (CLICK ME)</summary>
+<p>
 
 ![hud](https://user-images.githubusercontent.com/33128006/91038667-70387b80-e60b-11ea-9ee0-2e28d4d7d6f2.png)
 
-Ingame menu (default settings)
+</p>
+</details>
+
+<details><summary>Ingame menu with default settings. (CLICK ME)</summary>
+<p>
 
 ![menu](https://user-images.githubusercontent.com/33128006/102080035-0a683d80-3e0e-11eb-8336-5ea6576fc49b.png)
+
+</p>
+</details>
 
 ----
 
