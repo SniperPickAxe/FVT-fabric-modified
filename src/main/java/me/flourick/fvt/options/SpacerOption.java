@@ -1,7 +1,6 @@
-package me.flourick.fmc.options;
+package me.flourick.fvt.options;
 
-import me.flourick.fmc.FMC;
-
+import me.flourick.fvt.FVT;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
@@ -65,7 +64,7 @@ public class SpacerOption extends Option
 		public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
 		{
 			if(this.visible) {
-				DrawableHelper.drawCenteredText(matrices, FMC.MC.textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, 16777215);
+				DrawableHelper.drawCenteredText(matrices, FVT.MC.textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, 16777215);
 			}
 		}
 

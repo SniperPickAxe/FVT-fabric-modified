@@ -1,4 +1,4 @@
-package me.flourick.fmc.mixin;
+package me.flourick.fvt.mixin;
 
 import net.minecraft.client.render.Camera;
 import net.minecraft.entity.Entity;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import me.flourick.fmc.FMC;
+import me.flourick.fvt.FVT;
 
 @Mixin(Camera.class)
 public class CameraMixin
@@ -31,12 +31,12 @@ public class CameraMixin
 	@Inject(method = "update", at = @At("HEAD"), cancellable = true)
 	private void onUpdate(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo info)
 	{
-		if(FMC.VARS.freecam) {
+		if(FVT.VARS.freecam) {
 			this.ready = true;
 			this.area = area;
 
-			this.setRotation((float)FMC.VARS.freecamYaw, (float)FMC.VARS.freecamPitch);
-			this.setPos(MathHelper.lerp((double)tickDelta, FMC.VARS.prevFreecamX, FMC.VARS.freecamX), MathHelper.lerp((double)tickDelta, FMC.VARS.prevFreecamY, FMC.VARS.freecamY), MathHelper.lerp((double)tickDelta, FMC.VARS.prevFreecamZ, FMC.VARS.freecamZ));
+			this.setRotation((float)FVT.VARS.freecamYaw, (float)FVT.VARS.freecamPitch);
+			this.setPos(MathHelper.lerp((double)tickDelta, FVT.VARS.prevFreecamX, FVT.VARS.freecamX), MathHelper.lerp((double)tickDelta, FVT.VARS.prevFreecamY, FVT.VARS.freecamY), MathHelper.lerp((double)tickDelta, FVT.VARS.prevFreecamZ, FVT.VARS.freecamZ));
 
 			info.cancel();
 		}
@@ -45,7 +45,7 @@ public class CameraMixin
 	@Inject(method = "isThirdPerson", at = @At("HEAD"), cancellable = true)
 	public void onIsThirdPerson(CallbackInfoReturnable<Boolean> info)
 	{
-		if(FMC.VARS.freecam) {
+		if(FVT.VARS.freecam) {
 			info.setReturnValue(true);
 		}
 	}

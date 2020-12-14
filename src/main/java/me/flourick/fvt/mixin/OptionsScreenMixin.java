@@ -1,4 +1,4 @@
-package me.flourick.fmc.mixin;
+package me.flourick.fvt.mixin;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.options.OptionsScreen;
@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import me.flourick.fmc.FMC;
-import me.flourick.fmc.utils.FMCSettingsScreen;
+import me.flourick.fvt.FVT;
+import me.flourick.fvt.utils.FVTSettingsScreen;
 
 @Mixin(OptionsScreen.class)
 public class OptionsScreenMixin extends Screen
@@ -38,7 +38,7 @@ public class OptionsScreenMixin extends Screen
 	{
 		int x, y, l;
 
-		switch(FMC.OPTIONS.buttonPosition) {
+		switch(FVT.OPTIONS.buttonPosition) {
 			case CENTER:
 				x = this.width / 2 - 155;
 				y = this.height / 6 + 24 - 6;
@@ -58,8 +58,8 @@ public class OptionsScreenMixin extends Screen
 				break;
 		}
 
-		this.addButton(new ButtonWidget(x, y, l, 20, new LiteralText("FMC..."), (buttonWidget) -> {
-			this.client.openScreen(new FMCSettingsScreen(this, this.settings));
+		this.addButton(new ButtonWidget(x, y, l, 20, new LiteralText("FVT..."), (buttonWidget) -> {
+			this.client.openScreen(new FVTSettingsScreen(this, this.settings));
 		}));
 	}
 }

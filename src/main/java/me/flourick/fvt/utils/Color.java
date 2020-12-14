@@ -1,4 +1,4 @@
-package me.flourick.fmc.utils;
+package me.flourick.fvt.utils;
 
 import net.minecraft.util.math.MathHelper;
 

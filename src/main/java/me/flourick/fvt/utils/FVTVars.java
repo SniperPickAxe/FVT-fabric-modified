@@ -1,10 +1,10 @@
-package me.flourick.fmc.utils;
+package me.flourick.fvt.utils;
 
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 
-public class FMCVars
+public class FVTVars
 {
 	public boolean autoEating;
 
@@ -47,7 +47,7 @@ public class FMCVars
 	public ItemStack offHandToolItemStack;
 	public Hand toolHand;
 
-	public FMCVars()
+	public FVTVars()
 	{
 		this.deathX = 0;
 		this.deathY = 0;

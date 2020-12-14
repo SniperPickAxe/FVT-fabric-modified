@@ -1,4 +1,4 @@
-package me.flourick.fmc.mixin;
+package me.flourick.fvt.mixin;
 
 import net.minecraft.client.render.SkyProperties;
 
@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
-import me.flourick.fmc.FMC;
+import me.flourick.fvt.FVT;
 
 @Mixin(SkyProperties.class)
 public class SkyPropertiesMixin
@@ -21,7 +21,7 @@ public class SkyPropertiesMixin
 			return cloudsHeight;
 		}
 		else {
-			return (float)FMC.OPTIONS.cloudHeight;
+			return (float)FVT.OPTIONS.cloudHeight;
 		}
 	}	
 }

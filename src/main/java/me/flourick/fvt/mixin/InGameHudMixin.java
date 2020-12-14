@@ -1,4 +1,4 @@
-package me.flourick.fmc.mixin;
+package me.flourick.fvt.mixin;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -10,9 +10,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import me.flourick.fmc.FMC;
-import me.flourick.fmc.utils.OnScreenText;
-
+import me.flourick.fvt.FVT;
+import me.flourick.fvt.utils.OnScreenText;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -32,19 +31,19 @@ public class InGameHudMixin extends DrawableHelper
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void onTick(CallbackInfo info)
 	{
-		FMC.VARS.tickToolWarningTicks();
+		FVT.VARS.tickToolWarningTicks();
 	}
 
 	@Inject(method = "render", at = @At("HEAD"))
 	private void onRender(MatrixStack matrixStack, float f, CallbackInfo info)
 	{
 		// renders on screen text only if not in debug or hud is hidden or if options don't say so
-		if(this.client.options.debugEnabled || this.client.options.hudHidden || !FMC.OPTIONS.showHUDInfo) {
+		if(this.client.options.debugEnabled || this.client.options.hudHidden || !FVT.OPTIONS.showHUDInfo) {
 			return;
 		}
 
 		// HUD info moves to the top if chat is open
-		if(FMC.MC.currentScreen instanceof ChatScreen) {
+		if(FVT.MC.currentScreen instanceof ChatScreen) {
 			OnScreenText.drawCoordinatesTextUpper(matrixStack);
 			OnScreenText.drawLightLevelTextUpper(matrixStack);
 			OnScreenText.drawPFTextUpper(matrixStack);
@@ -55,10 +54,10 @@ public class InGameHudMixin extends DrawableHelper
 			OnScreenText.drawPFTextLower(matrixStack);
 		}
 
-		if(FMC.VARS.getToolWarningTextTicksLeft() > 0) {
+		if(FVT.VARS.getToolWarningTextTicksLeft() > 0) {
 			matrixStack.push();
 			matrixStack.translate((double)(this.client.getWindow().getScaledWidth() / 2.0d), (double)(this.client.getWindow().getScaledHeight() / 2.0d), (double)this.getZOffset());
-			matrixStack.scale((float)FMC.OPTIONS.toolBreakingWarningScale, (float)FMC.OPTIONS.toolBreakingWarningScale, 1.0f);
+			matrixStack.scale((float)FVT.OPTIONS.toolBreakingWarningScale, (float)FVT.OPTIONS.toolBreakingWarningScale, 1.0f);
 			OnScreenText.drawToolWarningText(matrixStack);
 			matrixStack.pop();
 		}
@@ -87,15 +86,15 @@ public class InGameHudMixin extends DrawableHelper
 				RenderSystem.translatef((float)(scaledWidth / 2), (float)(scaledHeight / 2), (float)this.getZOffset());
 
 				RenderSystem.enableBlend();
-				if(FMC.OPTIONS.crosshairStaticColor) {
-					RenderSystem.blendColor(FMC.OPTIONS.crosshairColor.getNormRed(), FMC.OPTIONS.crosshairColor.getNormGreen(), FMC.OPTIONS.crosshairColor.getNormBlue(), FMC.OPTIONS.crosshairColor.getNormAlpha());
+				if(FVT.OPTIONS.crosshairStaticColor) {
+					RenderSystem.blendColor(FVT.OPTIONS.crosshairColor.getNormRed(), FVT.OPTIONS.crosshairColor.getNormGreen(), FVT.OPTIONS.crosshairColor.getNormBlue(), FVT.OPTIONS.crosshairColor.getNormAlpha());
 					RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.CONSTANT_COLOR, GlStateManager.DstFactor.ZERO, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 				}
 				else {
 					RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.ONE_MINUS_DST_COLOR, GlStateManager.DstFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 				}
 				
-				RenderSystem.scaled(FMC.OPTIONS.crosshairScale, FMC.OPTIONS.crosshairScale, 1.0d);
+				RenderSystem.scaled(FVT.OPTIONS.crosshairScale, FVT.OPTIONS.crosshairScale, 1.0d);
 				this.drawTexture(matrixStack, -15/2, -15/2, 0, 0, 15, 15);
 				RenderSystem.disableBlend();
 				RenderSystem.popMatrix();

@@ -1,4 +1,4 @@
-package me.flourick.fmc.mixin;
+package me.flourick.fvt.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import me.flourick.fmc.FMC;
+import me.flourick.fvt.FVT;
 
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
@@ -39,24 +39,24 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "<init>", at = @At("RETURN"))
 	private void onConstructor(MinecraftClient client, ClientWorld world, ClientPlayNetworkHandler networkHandler, StatHandler stats, ClientRecipeBook recipeBook, boolean lastSneaking, boolean lastSprinting, CallbackInfo info)
 	{
-		if(FMC.OPTIONS.autoReconnect) {
-			FMC.VARS.autoReconnectTries = 0;
+		if(FVT.OPTIONS.autoReconnect) {
+			FVT.VARS.autoReconnectTries = 0;
 		}
 	}
 
 	@Inject(method = "setShowsDeathScreen", at = @At("HEAD"))
 	private void onSetShowsDeathScreen(CallbackInfo info)
 	{
-		if(FMC.VARS.isAfterDeath && FMC.OPTIONS.sendDeathCoordinates) {
-			FMC.VARS.isAfterDeath = false;
-			FMC.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText(String.format("You died at X: %.01f Z: %.01f Y: %.01f in %s!", FMC.VARS.getLastDeathX(), FMC.VARS.getLastDeathZ(), FMC.VARS.getLastDeathY(), FMC.VARS.getLastDeathWorld())), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+		if(FVT.VARS.isAfterDeath && FVT.OPTIONS.sendDeathCoordinates) {
+			FVT.VARS.isAfterDeath = false;
+			FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText(String.format("You died at X: %.01f Z: %.01f Y: %.01f in %s!", FVT.VARS.getLastDeathX(), FVT.VARS.getLastDeathZ(), FVT.VARS.getLastDeathY(), FVT.VARS.getLastDeathWorld())), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 		}
 	}
 
 	@Inject(method = "move", at = @At("HEAD"), cancellable = true)
 	private void onMove(CallbackInfo info)
 	{
-		if(FMC.VARS.freecam) {
+		if(FVT.VARS.freecam) {
 			info.cancel();
 		}
 	}
@@ -64,7 +64,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasVehicle()Z", ordinal = 0), method = "tick()V")
 	private boolean hijackHasVehicle(ClientPlayerEntity player)
 	{
-		if(FMC.VARS.freecam) {
+		if(FVT.VARS.freecam) {
 			return false;
 		}
 
@@ -74,30 +74,30 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "tickMovement", at = @At("HEAD"), cancellable = true)
 	private void onTickMovement(CallbackInfo info)
 	{
-		if(FMC.OPTIONS.disableWToSprint) {
+		if(FVT.OPTIONS.disableWToSprint) {
 			this.ticksLeftToDoubleTapSprint = -1;
 		}
 
-		if(FMC.VARS.freecam) {
-			float forward = FMC.MC.player.input.movementForward;
-			float up = (FMC.MC.player.input.jumping ? 1.0f : 0.0f) - (FMC.MC.player.input.sneaking ? 1.0f : 0.0f);
-            float side = FMC.MC.player.input.movementSideways;
+		if(FVT.VARS.freecam) {
+			float forward = FVT.MC.player.input.movementForward;
+			float up = (FVT.MC.player.input.jumping ? 1.0f : 0.0f) - (FVT.MC.player.input.sneaking ? 1.0f : 0.0f);
+            float side = FVT.MC.player.input.movementSideways;
 			
-            FMC.VARS.freecamForwardSpeed = forward != 0 ? updateMotion(FMC.VARS.freecamForwardSpeed, forward) : FMC.VARS.freecamForwardSpeed * 0.5f;
-            FMC.VARS.freecamUpSpeed = up != 0 ?  updateMotion(FMC.VARS.freecamUpSpeed, up) : FMC.VARS.freecamUpSpeed * 0.5f;
-            FMC.VARS.freecamSideSpeed = side != 0 ?  updateMotion(FMC.VARS.freecamSideSpeed , side) : FMC.VARS.freecamSideSpeed * 0.5f;
+            FVT.VARS.freecamForwardSpeed = forward != 0 ? updateMotion(FVT.VARS.freecamForwardSpeed, forward) : FVT.VARS.freecamForwardSpeed * 0.5f;
+            FVT.VARS.freecamUpSpeed = up != 0 ?  updateMotion(FVT.VARS.freecamUpSpeed, up) : FVT.VARS.freecamUpSpeed * 0.5f;
+            FVT.VARS.freecamSideSpeed = side != 0 ?  updateMotion(FVT.VARS.freecamSideSpeed , side) : FVT.VARS.freecamSideSpeed * 0.5f;
 
-            double rotateX = Math.sin(FMC.VARS.freecamYaw * Math.PI / 180.0D);
-			double rotateZ = Math.cos(FMC.VARS.freecamYaw * Math.PI / 180.0D);
-			double speed = FMC.MC.player.isSprinting() ? 1.2D : 0.55D;
+            double rotateX = Math.sin(FVT.VARS.freecamYaw * Math.PI / 180.0D);
+			double rotateZ = Math.cos(FVT.VARS.freecamYaw * Math.PI / 180.0D);
+			double speed = FVT.MC.player.isSprinting() ? 1.2D : 0.55D;
 
-			FMC.VARS.prevFreecamX = FMC.VARS.freecamX;
-			FMC.VARS.prevFreecamY = FMC.VARS.freecamY;
-			FMC.VARS.prevFreecamZ = FMC.VARS.freecamZ;
+			FVT.VARS.prevFreecamX = FVT.VARS.freecamX;
+			FVT.VARS.prevFreecamY = FVT.VARS.freecamY;
+			FVT.VARS.prevFreecamZ = FVT.VARS.freecamZ;
 
-			FMC.VARS.freecamX += (FMC.VARS.freecamSideSpeed * rotateZ - FMC.VARS.freecamForwardSpeed * rotateX) * speed;
-			FMC.VARS.freecamY += FMC.VARS.freecamUpSpeed * speed;
-			FMC.VARS.freecamZ += (FMC.VARS.freecamForwardSpeed * rotateZ + FMC.VARS.freecamSideSpeed * rotateX) * speed;
+			FVT.VARS.freecamX += (FVT.VARS.freecamSideSpeed * rotateZ - FVT.VARS.freecamForwardSpeed * rotateX) * speed;
+			FVT.VARS.freecamY += FVT.VARS.freecamUpSpeed * speed;
+			FVT.VARS.freecamZ += (FVT.VARS.freecamForwardSpeed * rotateZ + FVT.VARS.freecamSideSpeed * rotateX) * speed;
 		}
 	}
 
@@ -110,7 +110,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "isCamera", at = @At("HEAD"), cancellable = true)
 	private void onIsCamera(CallbackInfoReturnable<Boolean> info)
 	{
-		if(FMC.VARS.freecam) {
+		if(FVT.VARS.freecam) {
 			info.setReturnValue(false);
 		}
 	}
@@ -119,7 +119,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "isSneaking", at = @At("HEAD"), cancellable = true)
     private void onIsSneaking(CallbackInfoReturnable<Boolean> info)
     {
-        if(FMC.VARS.freecam) {
+        if(FVT.VARS.freecam) {
             info.setReturnValue(false);
         }
     }
@@ -127,9 +127,9 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Override
 	public void changeLookDirection(double cursorDeltaX, double cursorDeltaY)
 	{
-		if(FMC.VARS.freecam) {
-			FMC.VARS.freecamYaw += cursorDeltaX * 0.15D;
-			FMC.VARS.freecamPitch = MathHelper.clamp(FMC.VARS.freecamPitch + cursorDeltaY * 0.15D, -90, 90);
+		if(FVT.VARS.freecam) {
+			FVT.VARS.freecamYaw += cursorDeltaX * 0.15D;
+			FVT.VARS.freecamPitch = MathHelper.clamp(FVT.VARS.freecamPitch + cursorDeltaY * 0.15D, -90, 90);
 		}
 		else {
 			super.changeLookDirection(cursorDeltaX, cursorDeltaY);

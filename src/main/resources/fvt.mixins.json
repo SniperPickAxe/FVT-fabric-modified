@@ -1,7 +1,7 @@
 {
 	"required": true,
 	"minVersion": "0.8",
-	"package": "me.flourick.fmc.mixin",
+	"package": "me.flourick.fvt.mixin",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
 	],

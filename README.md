@@ -6,13 +6,13 @@ Various tweaks fabric mod, compatible with Sodium.
 
 1. Download fabric loader from [here](https://fabricmc.net/use/) (**REQUIRES** Fabric-API! Get it [here](https://www.curseforge.com/minecraft/mc-mods/fabric-api))
 
-2. Download latest FMC-fabric release from [here](https://github.com/Flourick/FMC-fabric/releases).
+2. Download latest FVT-fabric release from [here](https://github.com/Flourick/FVT-fabric/releases).
 
-3. Once you run fabric loader a *mods* folder will be created in your *.minecraft* directory. Move the `fmc-fabric-*.jar` and `fabric-api-*.jar` there.
+3. Once you run fabric loader a *mods* folder will be created in your *.minecraft* directory. Move the `fvt-fabric-*.jar` and `fabric-api-*.jar` there.
 
 ## Features
 
-List of main features. Configuration is in in-game options menu called 'FMC...'. Keybindings are configured in the usual Controls menu (FMC category) and are by default unset.
+List of main features. Configuration is in in-game options menu called 'FVT...'. Keybindings are configured in the usual Controls menu (FVT category) and are by default unset.
 
 ### Crosshair
 

@@ -1,4 +1,4 @@
-package me.flourick.fmc.options;
+package me.flourick.fvt.options;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,19 +17,19 @@ import com.google.common.io.Files;
 
 import org.apache.logging.log4j.LogManager;
 
-import me.flourick.fmc.FMC;
-import me.flourick.fmc.utils.Color;
+import me.flourick.fvt.FVT;
+import me.flourick.fvt.utils.Color;
 import net.minecraft.client.options.DoubleOption;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.MathHelper;
 
-public class FMCOptions
+public class FVTOptions
 {
 	private File optionsFile;
 
-	public FMCOptions()
+	public FVTOptions()
 	{
-		this.optionsFile = new File(FMC.MC.runDirectory, "fmcoptions.txt");
+		this.optionsFile = new File(FVT.MC.runDirectory, "fmcoptions.txt");
 
 		init();
 	}
@@ -73,241 +73,241 @@ public class FMCOptions
 
 	public static final MyBooleanOption TRIGGER_BOT = new MyBooleanOption("Trigger Autoattack",
 		(gameOptions) -> {
-			return FMC.OPTIONS.triggerBot;
+			return FVT.OPTIONS.triggerBot;
 		},
 		(gameOptions, bool) -> {
-			FMC.OPTIONS.triggerBot = bool;
+			FVT.OPTIONS.triggerBot = bool;
 		}
 	);
 
 	public static final MyBooleanOption AUTOEAT = new MyBooleanOption("Offhand Autoeat",
 		(gameOptions) -> {
-			return FMC.OPTIONS.autoEat;
+			return FVT.OPTIONS.autoEat;
 		},
 		(gameOptions, bool) -> {
-			FMC.OPTIONS.autoEat = bool;
+			FVT.OPTIONS.autoEat = bool;
 		}
 	);
 
 	public static final DoubleOption AUTORECONNECT_TIMEOUT = new DoubleOption("nope", 3.0d, 300.0d, 1.0f,
 		(gameOptions) -> {
-			return (double)FMC.OPTIONS.autoReconnectTimeout;
+			return (double)FVT.OPTIONS.autoReconnectTimeout;
 		},
 		(gameOptions, timeout) -> {
-			FMC.OPTIONS.autoReconnectTimeout = MathHelper.ceil(timeout);
+			FVT.OPTIONS.autoReconnectTimeout = MathHelper.ceil(timeout);
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Autoreconnect Timeout: " + BigDecimal.valueOf(FMC.OPTIONS.autoReconnectTimeout).setScale(0, RoundingMode.HALF_UP) + "s");
+			return new LiteralText("Autoreconnect Timeout: " + BigDecimal.valueOf(FVT.OPTIONS.autoReconnectTimeout).setScale(0, RoundingMode.HALF_UP) + "s");
 		}
 	);
 
 	public static final DoubleOption AUTORECONNECT_MAX_TRIES = new DoubleOption("nope", 1.0d, 100.0d, 1.0f,
 		(gameOptions) -> {
-			return (double)FMC.OPTIONS.autoReconnectMaxTries;
+			return (double)FVT.OPTIONS.autoReconnectMaxTries;
 		},
 		(gameOptions, tries) -> {
-			FMC.OPTIONS.autoReconnectMaxTries = MathHelper.ceil(tries);
+			FVT.OPTIONS.autoReconnectMaxTries = MathHelper.ceil(tries);
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Autoreconnect Tries: " + BigDecimal.valueOf(FMC.OPTIONS.autoReconnectMaxTries).setScale(0, RoundingMode.HALF_UP));
+			return new LiteralText("Autoreconnect Tries: " + BigDecimal.valueOf(FVT.OPTIONS.autoReconnectMaxTries).setScale(0, RoundingMode.HALF_UP));
 		}
 	);
 
 	public static final MyBooleanOption AUTORECONNECT = new MyBooleanOption("Autoreconnect",
 		(gameOptions) -> {
-			return FMC.OPTIONS.autoReconnect;
+			return FVT.OPTIONS.autoReconnect;
 		},
 		(gameOptions, bool) -> {
-			FMC.OPTIONS.autoReconnect = bool;
+			FVT.OPTIONS.autoReconnect = bool;
 		}
 	);
 
 	public static final MyBooleanOption REFILL_HAND = new MyBooleanOption("Refill Hand",
 		(gameOptions) -> {
-			return FMC.OPTIONS.refillHand;
+			return FVT.OPTIONS.refillHand;
 		},
 		(gameOptions, bool) -> {
-			FMC.OPTIONS.refillHand = bool;
+			FVT.OPTIONS.refillHand = bool;
 		}
 	);
 
 	public static final MyBooleanOption NO_BLOCK_BREAK_PARTICLES = new MyBooleanOption("No Block Break Particles",
 		(gameOptions) -> {
-			return FMC.OPTIONS.noBlockBreakParticles;
+			return FVT.OPTIONS.noBlockBreakParticles;
 		},
 		(gameOptions, bool) -> {
-			FMC.OPTIONS.noBlockBreakParticles = bool;
+			FVT.OPTIONS.noBlockBreakParticles = bool;
 		}
 	);
 
 	public static final MyBooleanOption NO_NETHER_FOG = new MyBooleanOption("No Nether Fog",
 		(gameOptions) -> {
-			return FMC.OPTIONS.noNetherFog;
+			return FVT.OPTIONS.noNetherFog;
 		},
 		(gameOptions, bool) -> {
-			FMC.OPTIONS.noNetherFog = bool;
+			FVT.OPTIONS.noNetherFog = bool;
 		}
 	);
 
 	public static final MyBooleanOption RANDOM_PLACEMENT = new MyBooleanOption("Random Placement",
 		(gameOptions) -> {
-			return FMC.OPTIONS.randomPlacement;
+			return FVT.OPTIONS.randomPlacement;
 		},
 		(gameOptions, bool) -> {
-			FMC.OPTIONS.randomPlacement = bool;
+			FVT.OPTIONS.randomPlacement = bool;
 		}
 	);
 
 	public static final DoubleOption CLOUD_HEIGHT = new DoubleOption("nope", 0.0d, 256.0d, 1.0f,
 		(gameOptions) -> {
-			return FMC.OPTIONS.cloudHeight;
+			return FVT.OPTIONS.cloudHeight;
 		},
 		(gameOptions, height) -> {
-			FMC.OPTIONS.cloudHeight = height;
+			FVT.OPTIONS.cloudHeight = height;
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Cloud Height: " + BigDecimal.valueOf(FMC.OPTIONS.cloudHeight).setScale(0, RoundingMode.HALF_UP));
+			return new LiteralText("Cloud Height: " + BigDecimal.valueOf(FVT.OPTIONS.cloudHeight).setScale(0, RoundingMode.HALF_UP));
 		}
 	);
 
 	public static final MyCyclingOption UPPER_TOOL_BREAKING_WARNING = new MyCyclingOption(
 		(gameOptions, integer) -> {
-			FMC.OPTIONS.upperToolBreakingWarning = !FMC.OPTIONS.upperToolBreakingWarning;
+			FVT.OPTIONS.upperToolBreakingWarning = !FVT.OPTIONS.upperToolBreakingWarning;
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("Warning Position: " + (FMC.OPTIONS.upperToolBreakingWarning ? "Top" : "Bottom"));
+			return new LiteralText("Warning Position: " + (FVT.OPTIONS.upperToolBreakingWarning ? "Top" : "Bottom"));
 		}
 	);
 
 	public static final DoubleOption TOOL_BREAKING_WARNING_SCALE = new DoubleOption("nope", 1.0d, 4.0d, 0.01f,
 		(gameOptions) -> {
-			return FMC.OPTIONS.toolBreakingWarningScale;
+			return FVT.OPTIONS.toolBreakingWarningScale;
 		},
 		(gameOptions, scale) -> {
-			FMC.OPTIONS.toolBreakingWarningScale = scale;
+			FVT.OPTIONS.toolBreakingWarningScale = scale;
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Warning Text Scale: " + BigDecimal.valueOf(FMC.OPTIONS.toolBreakingWarningScale).setScale(2, RoundingMode.HALF_UP));
+			return new LiteralText("Warning Text Scale: " + BigDecimal.valueOf(FVT.OPTIONS.toolBreakingWarningScale).setScale(2, RoundingMode.HALF_UP));
 		}
 	);
 
 	public static final MyBooleanOption TOOL_WARNING = new MyBooleanOption("Show Warning",
 		(gameOptions) -> {
-			return FMC.OPTIONS.toolWarning;
+			return FVT.OPTIONS.toolWarning;
 		},
 		(gameOptions, bool) -> {
-			FMC.OPTIONS.toolWarning = bool;
+			FVT.OPTIONS.toolWarning = bool;
 		}
 	);
 
 	public static final MyBooleanOption NO_TOOL_BREAKING = new MyBooleanOption("Prevent Breaking",
 		(gameOptions) -> {
-			return FMC.OPTIONS.noToolBreaking;
+			return FVT.OPTIONS.noToolBreaking;
 		},
 		(gameOptions, bool) -> {
-			FMC.OPTIONS.noToolBreaking = bool;
+			FVT.OPTIONS.noToolBreaking = bool;
 		}
 	);
 
 	public static final MyCyclingOption SHOW_HUD_INFO = new MyCyclingOption(
 		(gameOptions, integer) -> {
-			FMC.OPTIONS.showHUDInfo = !FMC.OPTIONS.showHUDInfo;
+			FVT.OPTIONS.showHUDInfo = !FVT.OPTIONS.showHUDInfo;
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("HUD Info: " + (FMC.OPTIONS.showHUDInfo ? "Visible" : "Hidden"));
+			return new LiteralText("HUD Info: " + (FVT.OPTIONS.showHUDInfo ? "Visible" : "Hidden"));
 		}
 	);
 
 	public static final MyCyclingOption HUD_VERTICAL_COORDINATES = new MyCyclingOption(
 		(gameOptions, integer) -> {
-			FMC.OPTIONS.verticalCoordinates = !FMC.OPTIONS.verticalCoordinates;
+			FVT.OPTIONS.verticalCoordinates = !FVT.OPTIONS.verticalCoordinates;
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("Coords Position: " + (FMC.OPTIONS.verticalCoordinates ? "Vertical" : "Horizontal"));
+			return new LiteralText("Coords Position: " + (FVT.OPTIONS.verticalCoordinates ? "Vertical" : "Horizontal"));
 		}
 	);
 
 	public static final MyBooleanOption SEND_DEATH_COORDINATES = new MyBooleanOption("Send Death Coordinates",
 		(gameOptions) -> {
-			return FMC.OPTIONS.sendDeathCoordinates;
+			return FVT.OPTIONS.sendDeathCoordinates;
 		},
 		(gameOptions, bool) -> {
-			FMC.OPTIONS.sendDeathCoordinates = bool;
+			FVT.OPTIONS.sendDeathCoordinates = bool;
 		}
 	);
 
 	public static final MyBooleanOption DISABLE_W_TO_SPRINT = new MyBooleanOption("Disable 'W' To Sprint",
 		(gameOptions) -> {
-			return FMC.OPTIONS.disableWToSprint;
+			return FVT.OPTIONS.disableWToSprint;
 		},
 		(gameOptions, bool) -> {
-			FMC.OPTIONS.disableWToSprint = bool;
+			FVT.OPTIONS.disableWToSprint = bool;
 		}
 	);
 
 	public static final DoubleOption CROSSHAIR_RED_COMPONENT = new DoubleOption("nope", 0.0d, 255.0d, 1.0f,
 		(gameOptions) -> {
-			return (double)FMC.OPTIONS.crosshairColor.getRed();
+			return (double)FVT.OPTIONS.crosshairColor.getRed();
 		},
 		(gameOptions, red) -> {
-			FMC.OPTIONS.crosshairColor = new Color(FMC.OPTIONS.crosshairColor.getAlpha(), red.intValue(), FMC.OPTIONS.crosshairColor.getGreen(), FMC.OPTIONS.crosshairColor.getBlue());
+			FVT.OPTIONS.crosshairColor = new Color(FVT.OPTIONS.crosshairColor.getAlpha(), red.intValue(), FVT.OPTIONS.crosshairColor.getGreen(), FVT.OPTIONS.crosshairColor.getBlue());
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Red Component: " + FMC.OPTIONS.crosshairColor.getRed());
+			return new LiteralText("Red Component: " + FVT.OPTIONS.crosshairColor.getRed());
 		}
 	);
 
 	public static final DoubleOption CROSSHAIR_GREEN_COMPONENT = new DoubleOption("nope", 0.0d, 255.0d, 1.0f,
 		(gameOptions) -> {
-			return (double)FMC.OPTIONS.crosshairColor.getGreen();
+			return (double)FVT.OPTIONS.crosshairColor.getGreen();
 		},
 		(gameOptions, green) -> {
-			FMC.OPTIONS.crosshairColor = new Color(FMC.OPTIONS.crosshairColor.getAlpha(), FMC.OPTIONS.crosshairColor.getRed(), green.intValue(), FMC.OPTIONS.crosshairColor.getBlue());
+			FVT.OPTIONS.crosshairColor = new Color(FVT.OPTIONS.crosshairColor.getAlpha(), FVT.OPTIONS.crosshairColor.getRed(), green.intValue(), FVT.OPTIONS.crosshairColor.getBlue());
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Green Component: " + FMC.OPTIONS.crosshairColor.getGreen());
+			return new LiteralText("Green Component: " + FVT.OPTIONS.crosshairColor.getGreen());
 		}
 	);
 
 	public static final DoubleOption CROSSHAIR_BLUE_COMPONENT = new DoubleOption("nope", 0.0d, 255.0d, 1.0f,
 		(gameOptions) -> {
-			return (double)FMC.OPTIONS.crosshairColor.getBlue();
+			return (double)FVT.OPTIONS.crosshairColor.getBlue();
 		},
 		(gameOptions, blue) -> {
-			FMC.OPTIONS.crosshairColor = new Color(FMC.OPTIONS.crosshairColor.getAlpha(), FMC.OPTIONS.crosshairColor.getRed(), FMC.OPTIONS.crosshairColor.getGreen(), blue.intValue());
+			FVT.OPTIONS.crosshairColor = new Color(FVT.OPTIONS.crosshairColor.getAlpha(), FVT.OPTIONS.crosshairColor.getRed(), FVT.OPTIONS.crosshairColor.getGreen(), blue.intValue());
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Blue Component: " + FMC.OPTIONS.crosshairColor.getBlue());
+			return new LiteralText("Blue Component: " + FVT.OPTIONS.crosshairColor.getBlue());
 		}
 	);
 
 	public static final DoubleOption CROSSHAIR_SCALE = new DoubleOption("nope", 0.0d, 2.0d, 0.01f,
 		(gameOptions) -> {
-			return FMC.OPTIONS.crosshairScale;
+			return FVT.OPTIONS.crosshairScale;
 		},
 		(gameOptions, scale) -> {
-			FMC.OPTIONS.crosshairScale = scale;
+			FVT.OPTIONS.crosshairScale = scale;
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Scale: " + BigDecimal.valueOf(FMC.OPTIONS.crosshairScale).setScale(2, RoundingMode.HALF_UP));
+			return new LiteralText("Scale: " + BigDecimal.valueOf(FVT.OPTIONS.crosshairScale).setScale(2, RoundingMode.HALF_UP));
 		}
 	);
 
 	public static final MyCyclingOption CROSSHAIR_STATIC_COLOR = new MyCyclingOption(
 		(gameOptions, integer) -> {
-			FMC.OPTIONS.crosshairStaticColor = !FMC.OPTIONS.crosshairStaticColor;
+			FVT.OPTIONS.crosshairStaticColor = !FVT.OPTIONS.crosshairStaticColor;
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("Static Color: " + (FMC.OPTIONS.crosshairStaticColor ? "ON" : "OFF"));
+			return new LiteralText("Static Color: " + (FVT.OPTIONS.crosshairStaticColor ? "ON" : "OFF"));
 		}
 	);
 
 	public static final MyCyclingOption BUTTON_POSITION = new MyCyclingOption(
 		(gameOptions, integer) -> {
-			FMC.OPTIONS.buttonPosition = ButtonPosition.getOption(FMC.OPTIONS.buttonPosition.getId() + integer);
+			FVT.OPTIONS.buttonPosition = ButtonPosition.getOption(FVT.OPTIONS.buttonPosition.getId() + integer);
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("FMC Button Position: " + FMC.OPTIONS.buttonPosition);
+			return new LiteralText("FMC Button Position: " + FVT.OPTIONS.buttonPosition);
 		}
 	);
 

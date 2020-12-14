@@ -1,4 +1,4 @@
-package me.flourick.fmc.options;
+package me.flourick.fvt.options;
 
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;

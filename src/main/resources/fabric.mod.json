@@ -1,29 +1,29 @@
 {
 	"schemaVersion": 1,
-	"id": "fmc",
+	"id": "fvt",
 	"version": "${version}",
 
-	"name": "FMC",
+	"name": "FVT",
 	"description": "Various tweaks client-side mod",
 	"authors": [
 		"Flourick"
 	],
 	"contact": {
-		"sources": "https://github.com/Flourick/FMC-fabric",
-    	"issues": "https://github.com/Flourick/FMC-fabric/issues"
+		"sources": "https://github.com/Flourick/FVT-fabric",
+    	"issues": "https://github.com/Flourick/FVT-fabric/issues"
 	},
 
 	"license": "MIT",
-	"icon": "assets/fmc/icon.png",
+	"icon": "assets/fvt/icon.png",
 	"environment": "*",
 
 	"entrypoints": {
 		"main": [
-			"me.flourick.fmc.FMC"
+			"me.flourick.fvt.FVT"
 		]
 	},
 	"mixins": [
-		"fmc.mixins.json"
+		"fvt.mixins.json"
 	],
 
 	"depends": {

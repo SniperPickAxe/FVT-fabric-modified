@@ -1,4 +1,4 @@
-package me.flourick.fmc.mixin;
+package me.flourick.fvt.mixin;
 
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.entity.player.PlayerInventory;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import me.flourick.fmc.FMC;
+import me.flourick.fvt.FVT;
 
 @Mixin(ClientPlayerInteractionManager.class)
 public class ClientPlayerInteractionManagerMixin
@@ -25,8 +25,8 @@ public class ClientPlayerInteractionManagerMixin
 	@Inject(method = "interactBlock", at = @At("HEAD"))
 	private void onInteractBlock(CallbackInfoReturnable<ActionResult> info)
 	{
-		if(FMC.OPTIONS.randomPlacement) {
-			PlayerInventory inventory  = FMC.MC.player.inventory;
+		if(FVT.OPTIONS.randomPlacement) {
+			PlayerInventory inventory  = FVT.MC.player.inventory;
 
 			// need to hold a block first for it to pick a block
 			if(inventory.getStack(inventory.selectedSlot).getItem() instanceof BlockItem || inventory.getStack(inventory.selectedSlot).getItem() == Items.AIR) {
@@ -44,8 +44,8 @@ public class ClientPlayerInteractionManagerMixin
 			}
 		}
 
-		if(FMC.OPTIONS.refillHand) {
-			PlayerInventory inventory  = FMC.MC.player.inventory;
+		if(FVT.OPTIONS.refillHand) {
+			PlayerInventory inventory  = FVT.MC.player.inventory;
 
 			if(inventory.getStack(inventory.selectedSlot).getItem() instanceof BlockItem) {
 				ItemStack using = inventory.getStack(inventory.selectedSlot);
@@ -55,7 +55,7 @@ public class ClientPlayerInteractionManagerMixin
 					int sz = inventory.main.size();
 
 					// if random placement enabled don't take items from hotbar
-					int begIdx = FMC.OPTIONS.randomPlacement ? 9 : 0;
+					int begIdx = FVT.OPTIONS.randomPlacement ? 9 : 0;
 
 					// reverse search to pick items from back of the inventory first rather than hotbar
 					for(int i = sz-1; i >= begIdx; i--) {
@@ -66,13 +66,13 @@ public class ClientPlayerInteractionManagerMixin
 
 							// hotbar
 							if(i < 9) {
-								FMC.MC.interactionManager.clickSlot(FMC.MC.player.playerScreenHandler.syncId, i + 36, mouse, SlotActionType.PICKUP, FMC.MC.player);
+								FVT.MC.interactionManager.clickSlot(FVT.MC.player.playerScreenHandler.syncId, i + 36, mouse, SlotActionType.PICKUP, FVT.MC.player);
 							}
 							else {
-								FMC.MC.interactionManager.clickSlot(FMC.MC.player.playerScreenHandler.syncId, i, mouse, SlotActionType.PICKUP, FMC.MC.player);
+								FVT.MC.interactionManager.clickSlot(FVT.MC.player.playerScreenHandler.syncId, i, mouse, SlotActionType.PICKUP, FVT.MC.player);
 							}
                     		
-                    		FMC.MC.interactionManager.clickSlot(FMC.MC.player.playerScreenHandler.syncId, inventory.selectedSlot + 36, 0, SlotActionType.PICKUP, FMC.MC.player);
+                    		FVT.MC.interactionManager.clickSlot(FVT.MC.player.playerScreenHandler.syncId, inventory.selectedSlot + 36, 0, SlotActionType.PICKUP, FVT.MC.player);
 
 							break;
 						}
