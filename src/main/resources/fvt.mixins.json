@@ -17,7 +17,6 @@
 		"LightmapTextureManagerMixin",
 		"CameraMixin",
 		"GameRendererMixin",
-		"WorldRendererMixin",
 		"ParticleManagerMixin",
 		"DisconnectedScreenMixin"
 	],

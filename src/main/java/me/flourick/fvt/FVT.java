@@ -6,6 +6,7 @@ import org.lwjgl.glfw.GLFW;
 
 import me.flourick.fvt.options.FVTOptions;
 import me.flourick.fvt.utils.FVTVars;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -62,6 +63,8 @@ public class FVT implements ModInitializer
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if(FVT.MC.player == null && FVT.VARS.freecam) {
+				// disables freecam if leaving a world
+				FVT.MC.chunkCullingEnabled = true;
 				FVT.VARS.freecam = false;
 			}
 
@@ -81,6 +84,8 @@ public class FVT implements ModInitializer
 				FVT.VARS.freecam = !FVT.VARS.freecam;
 
 				if(FVT.VARS.freecam && FVT.MC.player != null) {
+					FVT.MC.chunkCullingEnabled = false;
+
 					FVT.VARS.freecamPitch = FVT.MC.player.pitch;
 					FVT.VARS.freecamYaw = FVT.MC.player.yaw;
 
@@ -92,6 +97,8 @@ public class FVT implements ModInitializer
 					FVT.VARS.freecamZ = FVT.VARS.prevFreecamZ = FVT.MC.gameRenderer.getCamera().getPos().getZ();
 				}
 				else {
+					FVT.MC.chunkCullingEnabled = true;
+
 					FVT.MC.player.pitch = (float) FVT.VARS.playerPitch;
 					FVT.MC.player.yaw = (float) FVT.VARS.playerYaw;
 
