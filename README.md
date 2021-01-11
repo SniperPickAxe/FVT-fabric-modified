@@ -14,6 +14,14 @@ Various tweaks fabric mod, compatible with Sodium.
 
 List of all toggleable features. Configuration is in in-game options menu called 'FVT...'. Keybindings are configured in the usual Controls menu (FVT category) and are by default unset.
 
+### FVT Button Position
+
+The most useful part of this mod. Adds the option to change the 'FVT...' button position in settings menu.
+
+### Toggle Feature Chat Messages 
+
+If enabled sends a chat message (only visible to you) whenever you enable/disable a feature using assigned key.
+
 ### Crosshair
 
 This disables crosshair changing it's color based on background and instead let's you choose the static color yourself. You can also set the scale of the crosshair. You can still scale the crosshair even if you don't use the static color feature.
