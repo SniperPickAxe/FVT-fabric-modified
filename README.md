@@ -10,6 +10,14 @@ Various tweaks fabric mod, compatible with Sodium.
 
 3. Once you run fabric loader a *mods* folder will be created in your *.minecraft* directory. Move the `fvt-fabric-*.jar` and `fabric-api-*.jar` there.
 
+## Passive Features
+
+Features that are always enabled and don't have a switch.
+
+### Mount Hunger
+
+When riding a mount that has health your hunger bar will be still visible instead of the vanilla behavior which hides it completely.
+
 ## Toggleable Features
 
 List of all toggleable features. Configuration is in in-game options menu called 'FVT...'. Keybindings are configured in the usual Controls menu (FVT category) and are by default unset.
@@ -18,7 +26,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
 The most useful part of this mod. Adds the option to change the 'FVT...' button position in settings menu.
 
-### Toggle Feature Chat Messages 
+### Toggle Feature Chat Messages
 
 If enabled sends a chat message (only visible to you) whenever you enable/disable a feature using assigned key.
 

@@ -1,5 +1,7 @@
 package me.flourick.fvt.mixin;
 
+import java.util.Random;
+
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -8,6 +10,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import me.flourick.fvt.FVT;
@@ -21,12 +24,32 @@ import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 
 @Mixin(InGameHud.class)
 public class InGameHudMixin extends DrawableHelper
 {
 	@Shadow
 	MinecraftClient client;
+
+	@Shadow
+	private Random random;
+
+	@Shadow
+	private int ticks;
+
+	@Shadow
+	private LivingEntity getRiddenEntity() {return null;}
+
+	@Shadow
+	private int getHeartCount(LivingEntity entity) {return 0;}
+
+	@Shadow
+	private int getHeartRows(int heartCount) {return 0;}
+
+	@Shadow
+	private PlayerEntity getCameraPlayer() {return null;}
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void onTick(CallbackInfo info)
@@ -60,6 +83,93 @@ public class InGameHudMixin extends DrawableHelper
 			matrixStack.scale((float)FVT.OPTIONS.toolBreakingWarningScale, (float)FVT.OPTIONS.toolBreakingWarningScale, 1.0f);
 			OnScreenText.drawToolWarningText(matrixStack);
 			matrixStack.pop();
+		}
+	}
+
+	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;getHeartRows(I)I", ordinal = 0), method = "renderStatusBars(Lnet/minecraft/client/util/math/MatrixStack;)V")
+	private int hijackGetHeartRows(InGameHud igHud, int heartCount)
+	{
+		// super rare thing but the air bubbles would overlap mount health if shown (ex. popping out of water and straight onto a horse), so yeah this fixes that
+		if(this.getCameraPlayer() != null && this.getHeartCount(this.getRiddenEntity()) != 0 && FVT.MC.interactionManager.hasStatusBars()) {
+			return this.getHeartRows(heartCount) + 1;
+		}
+		else {
+			return this.getHeartRows(heartCount);
+		}
+	}
+
+	@Inject(method = "renderMountHealth", at = @At("HEAD"), cancellable = true)
+	private void onRenderMountHealth(MatrixStack matrices, CallbackInfo info)
+	{
+		PlayerEntity playerEntity = this.getCameraPlayer();
+		LivingEntity livingEntity = this.getRiddenEntity();
+		int riddenEntityHearts = this.getHeartCount(livingEntity);
+
+		// custom behavior only if these, else use vanillas impl
+		if(playerEntity != null && riddenEntityHearts != 0 && FVT.MC.interactionManager.hasStatusBars()) {
+			int playerFoodLevel = playerEntity.getHungerManager().getFoodLevel();
+			int foodRectY = FVT.MC.getWindow().getScaledHeight() - 39;
+			int foodRectX = FVT.MC.getWindow().getScaledWidth() / 2 + 91;
+
+			// PLAYER FOOD
+			FVT.MC.getProfiler().swap("food");
+
+			for(int i = 0; i < 10; ++i) {
+				int currentRowY = foodRectY;
+				int currentFoodX = foodRectX - i*8 - 9;
+				int hungerEffectU = 16;
+				int hungerEffectBackgroundU = 0;
+
+				if(playerEntity.hasStatusEffect(StatusEffects.HUNGER)) {
+					hungerEffectU += 36;
+					hungerEffectBackgroundU = 13;
+				}
+
+				// hunger bar bobbing effect if no saturation
+				if(playerEntity.getHungerManager().getSaturationLevel() <= 0.0F && this.ticks % (playerFoodLevel * 3 + 1) == 0) {
+					currentRowY = foodRectY + (this.random.nextInt(3) - 1);
+				}
+
+				this.drawTexture(matrices, currentFoodX, currentRowY, 16 + hungerEffectBackgroundU * 9, 27, 9, 9);
+				if(i*2 + 1 < playerFoodLevel) {
+					this.drawTexture(matrices, currentFoodX, currentRowY, hungerEffectU + 36, 27, 9, 9);
+				}
+
+				if(i*2 + 1 == playerFoodLevel) {
+					this.drawTexture(matrices, currentFoodX, currentRowY, hungerEffectU + 45, 27, 9, 9);
+				}
+			}
+
+			// MOUNT HEALTH
+			FVT.MC.getProfiler().swap("mountHealth");
+
+			int subRiddenEntityHealth = riddenEntityHearts;
+			int riddenEntityHealth = (int)Math.ceil((double)livingEntity.getHealth());
+			int mountRectY = foodRectY - 10;
+			int mountRectX = foodRectX;
+			int currentRowY = mountRectY;
+
+			for(int i = 0; subRiddenEntityHealth > 0; i += 20) {
+				int riddenEntityHealthRowOffset = Math.min(subRiddenEntityHealth, 10);
+				subRiddenEntityHealth -= riddenEntityHealthRowOffset;
+
+				for(int j = 0; j < riddenEntityHealthRowOffset; ++j) {
+					int currentHeartX = mountRectX - j * 8 - 9;
+
+					this.drawTexture(matrices, currentHeartX, currentRowY, 52, 9, 9, 9);
+					if(j*2 + 1 + i < riddenEntityHealth) {
+						this.drawTexture(matrices, currentHeartX, currentRowY, 88, 9, 9, 9);
+					}
+
+					if(j*2 + 1 + i == riddenEntityHealth) {
+						this.drawTexture(matrices, currentHeartX, currentRowY, 97, 9, 9, 9);
+					}
+				}
+
+				currentRowY -= 10;
+			}
+
+			info.cancel();
 		}
 	}
 
