@@ -71,18 +71,54 @@ public class FVT implements ModInitializer
 
 			while(fullbrightKeybind.wasPressed()) {
 				FVT.VARS.fullbright = !FVT.VARS.fullbright;
+
+				if(FVT.OPTIONS.featureToggleMessages) {
+					if(FVT.VARS.fullbright) {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Fullbright is now enabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+					else {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Fullbright is now disabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+				}
 			}
 
 			while(entityOutlineKeybind.wasPressed()) {
 				FVT.VARS.entityOutline = !FVT.VARS.entityOutline;
+
+				if(FVT.OPTIONS.featureToggleMessages) {
+					if(FVT.VARS.entityOutline) {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Entity Outline is now enabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+					else {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Entity Outline is now disabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+				}
 			}
 
 			while(autoAttackKeybind.wasPressed()) {
 				FVT.OPTIONS.triggerBot = !FVT.OPTIONS.triggerBot;
+
+				if(FVT.OPTIONS.featureToggleMessages) {
+					if(FVT.OPTIONS.triggerBot) {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Trigger Autoattack is now enabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+					else {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Trigger Autoattack is now disabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+				}
 			}
 
 			while(freecamKeybind.wasPressed()) {
 				FVT.VARS.freecam = !FVT.VARS.freecam;
+
+				if(FVT.OPTIONS.featureToggleMessages) {
+					if(FVT.VARS.freecam) {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Freecam is now enabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+					else {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Freecam is now disabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+				}
 
 				if(FVT.VARS.freecam && FVT.MC.player != null) {
 					FVT.MC.chunkCullingEnabled = false;
@@ -112,11 +148,13 @@ public class FVT implements ModInitializer
 			while(randomPlacementKeybind.wasPressed()) {
 				FVT.OPTIONS.randomPlacement = !FVT.OPTIONS.randomPlacement;
 
-				if(FVT.OPTIONS.randomPlacement) {
-					FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Random Block Placement is now enabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
-				}
-				else {
-					FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Random Block Placement is now disabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+				if(FVT.OPTIONS.featureToggleMessages) {
+					if(FVT.OPTIONS.randomPlacement) {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Random Block Placement is now enabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+					else {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Random Block Placement is now disabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
 				}
 			}
 

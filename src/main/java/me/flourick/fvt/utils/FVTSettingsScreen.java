@@ -25,7 +25,7 @@ public class FVTSettingsScreen extends GameOptionsScreen
 	protected void init()
 	{
 		this.list = new ButtonListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
-		this.list.addSingleOptionEntry(FVTOptions.BUTTON_POSITION);
+		this.list.addAll(new Option[] {FVTOptions.BUTTON_POSITION, FVTOptions.FEATURE_TOGGLE_MESSAGES});
 		this.list.addSingleOptionEntry(new SpacerOption("Crosshair"));
 		this.list.addAll(new Option[] {FVTOptions.CROSSHAIR_STATIC_COLOR, FVTOptions.CROSSHAIR_SCALE});
 		this.list.addSingleOptionEntry(FVTOptions.CROSSHAIR_RED_COMPONENT);

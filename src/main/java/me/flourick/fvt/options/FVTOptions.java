@@ -47,6 +47,7 @@ public class FVTOptions
 	}
 
 	public ButtonPosition buttonPosition;
+	public boolean featureToggleMessages;
 	public boolean crosshairStaticColor;
 	public Color crosshairColor;
 	public double crosshairScale;
@@ -302,6 +303,15 @@ public class FVTOptions
 		}
 	);
 
+	public static final MyBooleanOption FEATURE_TOGGLE_MESSAGES = new MyBooleanOption("Toggle Chat Messages",
+		(gameOptions) -> {
+			return FVT.OPTIONS.featureToggleMessages;
+		},
+		(gameOptions, bool) -> {
+			FVT.OPTIONS.featureToggleMessages = bool;
+		}
+	);
+
 	public static final MyCyclingOption BUTTON_POSITION = new MyCyclingOption(
 		(gameOptions, integer) -> {
 			FVT.OPTIONS.buttonPosition = ButtonPosition.getOption(FVT.OPTIONS.buttonPosition.getId() + integer);
@@ -372,6 +382,7 @@ public class FVTOptions
 	{
 		try(PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(optionsFile), StandardCharsets.UTF_8));) {
 			printWriter.println("buttonPosition:" + this.buttonPosition);
+			printWriter.println("featureToggleMessages:" + this.featureToggleMessages);
 			printWriter.println("crosshairStaticColor:" + this.crosshairStaticColor);
 			printWriter.println("crosshairScale:" + BigDecimal.valueOf(this.crosshairScale).setScale(2, RoundingMode.HALF_UP));
 			printWriter.println("crosshairColor:" + this.crosshairColor.getPacked());
@@ -417,6 +428,11 @@ public class FVTOptions
 						else {
 							LogManager.getLogger().warn("Skipping bad option (" + value + ")" + " for " + key);
 						}
+
+						break;
+
+					case "featureToggleMessages":
+						this.featureToggleMessages = "true".equalsIgnoreCase(value);
 
 						break;
 					
@@ -542,6 +558,7 @@ public class FVTOptions
 	private void loadDefaults()
 	{
 		this.buttonPosition = ButtonPosition.RIGHT;
+		this.featureToggleMessages = true;
 		this.crosshairStaticColor = true;
 		this.crosshairScale = 1.0d;
 		this.crosshairColor = new Color(255, 255, 255);
