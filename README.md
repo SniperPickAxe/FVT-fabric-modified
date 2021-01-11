@@ -4,7 +4,7 @@ Various tweaks fabric mod, compatible with Sodium.
 
 ## Installation
 
-1. Download fabric loader from [here](https://fabricmc.net/use/) (**REQUIRES** Fabric-API! Get it [here](https://www.curseforge.com/minecraft/mc-mods/fabric-api))
+1. Download fabric loader from [here](https://fabricmc.net/use/) (**REQUIRES** Fabric-API! Get it [here](https://www.curseforge.com/minecraft/mc-mods/fabric-api/files))
 
 2. Download latest FVT-fabric release from [here](https://github.com/Flourick/FVT-fabric/releases).
 

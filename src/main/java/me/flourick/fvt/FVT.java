@@ -18,6 +18,7 @@ import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.LiteralText;
@@ -177,7 +178,7 @@ public class FVT implements ModInitializer
 
 				// checks if we hungry and have food in your offhand
 				if(foodLevel < 20 && FVT.MC.player.getOffHandStack().isFood()) {
-					// either we on low health so eat anyway or eat hunger is low enough for the food to be fully utilized
+					// either we on low health so eat anyway or hunger is low enough for the food to be fully utilized
 					if(FVT.MC.player.getOffHandStack().getItem().getFoodComponent().getHunger() + foodLevel <= 20 || FVT.MC.player.getHealth() <= 12.0f) {
 						FVT.MC.options.keyUse.setPressed(true);
 						FVT.VARS.autoEating = true;
@@ -200,7 +201,9 @@ public class FVT implements ModInitializer
 					if(((EntityHitResult)FVT.MC.crosshairTarget).getEntity() instanceof LivingEntity) {
 						LivingEntity livingEntity = (LivingEntity)((EntityHitResult)FVT.MC.crosshairTarget).getEntity();
 
-						if(livingEntity.isAttackable() && livingEntity.hurtTime == 0 && livingEntity.isAlive()) {
+						System.out.println(livingEntity.isAttackable() + " / " + livingEntity.hurtTime + " / " + livingEntity.isAlive());
+
+						if(livingEntity.isAttackable() && (livingEntity.hurtTime == 0 || livingEntity instanceof WitherEntity) && livingEntity.isAlive()) {
 							FVT.MC.interactionManager.attackEntity(FVT.MC.player, livingEntity);
 							FVT.MC.player.swingHand(Hand.MAIN_HAND);
 						}
