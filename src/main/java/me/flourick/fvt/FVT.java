@@ -21,7 +21,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.MessageType;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult.Type;
@@ -55,42 +55,42 @@ public class FVT implements ModInitializer
 
 	private void registerKeys()
 	{
-		KeyBinding fullbrightKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("Fullbright", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
-		KeyBinding freecamKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("Freecam", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
-		KeyBinding randomPlacementKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("Random Placement", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
-		KeyBinding entityOutlineKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("Entity Outline", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
-		KeyBinding autoAttackKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("Trigger Autoattack", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
-		toolBreakingOverrideKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("Tool Breaking Override", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_ALT, "FVT"));
+		KeyBinding fullbrightKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.fullbright", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
+		KeyBinding freecamKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.freecam", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
+		KeyBinding randomPlacementKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.random_placement", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
+		KeyBinding entityOutlineKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.entity_outline", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
+		KeyBinding autoAttackKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.trigger_autoattack", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
+		toolBreakingOverrideKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.tool_breaking_override", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_ALT, "FVT"));
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if(FVT.MC.player == null && FVT.VARS.freecam) {
+			if(FVT.MC.player == null && FVT.OPTIONS.freecam) {
 				// disables freecam if leaving a world
 				FVT.MC.chunkCullingEnabled = true;
-				FVT.VARS.freecam = false;
+				FVT.OPTIONS.freecam = false;
 			}
 
 			while(fullbrightKeybind.wasPressed()) {
-				FVT.VARS.fullbright = !FVT.VARS.fullbright;
+				FVT.OPTIONS.fullbright = !FVT.OPTIONS.fullbright;
 
 				if(FVT.OPTIONS.featureToggleMessages) {
-					if(FVT.VARS.fullbright) {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Fullbright is now enabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					if(FVT.OPTIONS.fullbright) {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.fullbright")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Fullbright is now disabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.fullbright")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 				}
 			}
 
 			while(entityOutlineKeybind.wasPressed()) {
-				FVT.VARS.entityOutline = !FVT.VARS.entityOutline;
+				FVT.OPTIONS.entityOutline = !FVT.OPTIONS.entityOutline;
 
 				if(FVT.OPTIONS.featureToggleMessages) {
-					if(FVT.VARS.entityOutline) {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Entity Outline is now enabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					if(FVT.OPTIONS.entityOutline) {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.entity_outline")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Entity Outline is now disabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.entity_outline")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 				}
 			}
@@ -100,27 +100,27 @@ public class FVT implements ModInitializer
 
 				if(FVT.OPTIONS.featureToggleMessages) {
 					if(FVT.OPTIONS.triggerBot) {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Trigger Autoattack is now enabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.trigger_autoattack")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Trigger Autoattack is now disabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.trigger_autoattack")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 				}
 			}
 
 			while(freecamKeybind.wasPressed()) {
-				FVT.VARS.freecam = !FVT.VARS.freecam;
+				FVT.OPTIONS.freecam = !FVT.OPTIONS.freecam;
 
 				if(FVT.OPTIONS.featureToggleMessages) {
-					if(FVT.VARS.freecam) {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Freecam is now enabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					if(FVT.OPTIONS.freecam) {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.freecam")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Freecam is now disabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.freecam")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 				}
 
-				if(FVT.VARS.freecam && FVT.MC.player != null) {
+				if(FVT.OPTIONS.freecam && FVT.MC.player != null) {
 					FVT.MC.chunkCullingEnabled = false;
 
 					FVT.VARS.freecamPitch = FVT.MC.player.pitch;
@@ -150,10 +150,10 @@ public class FVT implements ModInitializer
 
 				if(FVT.OPTIONS.featureToggleMessages) {
 					if(FVT.OPTIONS.randomPlacement) {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Random Block Placement is now enabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.random_placement")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText("Random Block Placement is now disabled!"), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.random_placement")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 				}
 			}
@@ -216,7 +216,7 @@ public class FVT implements ModInitializer
 
 				// checks if we hungry and have food in your offhand
 				if(foodLevel < 20 && FVT.MC.player.getOffHandStack().isFood()) {
-					// either we on low health so eat anyway or hunger is low enough for the food to be fully utilized
+					// either we low on health so eat anyway or hunger is low enough for the food to be fully utilized
 					if(FVT.MC.player.getOffHandStack().getItem().getFoodComponent().getHunger() + foodLevel <= 20 || FVT.MC.player.getHealth() <= 12.0f) {
 						FVT.MC.options.keyUse.setPressed(true);
 						FVT.VARS.autoEating = true;
@@ -238,8 +238,6 @@ public class FVT implements ModInitializer
 				if(FVT.MC.crosshairTarget != null && FVT.MC.crosshairTarget.getType() == Type.ENTITY && FVT.MC.player.getAttackCooldownProgress(0.0f) >= 1.0f) {
 					if(((EntityHitResult)FVT.MC.crosshairTarget).getEntity() instanceof LivingEntity) {
 						LivingEntity livingEntity = (LivingEntity)((EntityHitResult)FVT.MC.crosshairTarget).getEntity();
-
-						System.out.println(livingEntity.isAttackable() + " / " + livingEntity.hurtTime + " / " + livingEntity.isAlive());
 
 						if(livingEntity.isAttackable() && (livingEntity.hurtTime == 0 || livingEntity instanceof WitherEntity) && livingEntity.isAlive()) {
 							FVT.MC.interactionManager.attackEntity(FVT.MC.player, livingEntity);

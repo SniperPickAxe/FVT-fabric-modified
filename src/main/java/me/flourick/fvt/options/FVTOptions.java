@@ -40,12 +40,13 @@ public class FVTOptions
 
 		if(!optionsFile.exists()) {
 			write();
-			return;
 		}
-
-		read();
+		else {
+			read();
+		}
 	}
 
+	// all the FEATURES
 	public ButtonPosition buttonPosition;
 	public boolean featureToggleMessages;
 	public boolean crosshairStaticColor;
@@ -60,6 +61,8 @@ public class FVTOptions
 	public double toolBreakingWarningScale;
 	public boolean upperToolBreakingWarning;
 	public double cloudHeight;
+	public boolean entityOutline;
+	public boolean fullbright;
 	public boolean randomPlacement;
 	public boolean noNetherFog;
 	public boolean noBlockBreakParticles;
@@ -69,8 +72,18 @@ public class FVTOptions
 	public int autoReconnectTimeout;
 	public boolean autoEat;
 	public boolean triggerBot;
+	public boolean freecam;
 
 	//region OPTIONS
+
+	public static final MyBooleanOption FREECAM = new MyBooleanOption("Freecam",
+		(gameOptions) -> {
+			return FVT.OPTIONS.freecam;
+		},
+		(gameOptions, bool) -> {
+			FVT.OPTIONS.freecam = bool;
+		}
+	);
 
 	public static final MyBooleanOption TRIGGER_BOT = new MyBooleanOption("Trigger Autoattack",
 		(gameOptions) -> {
@@ -156,6 +169,24 @@ public class FVTOptions
 		},
 		(gameOptions, bool) -> {
 			FVT.OPTIONS.randomPlacement = bool;
+		}
+	);
+
+	public static final MyBooleanOption FULLBRIGHT = new MyBooleanOption("Fullbright",
+		(gameOptions) -> {
+			return FVT.OPTIONS.fullbright;
+		},
+		(gameOptions, bool) -> {
+			FVT.OPTIONS.fullbright = bool;
+		}
+	);
+
+	public static final MyBooleanOption ENTITY_OUTLINE = new MyBooleanOption("Entity Outline",
+		(gameOptions) -> {
+			return FVT.OPTIONS.entityOutline;
+		},
+		(gameOptions, bool) -> {
+			FVT.OPTIONS.entityOutline = bool;
 		}
 	);
 
@@ -395,6 +426,8 @@ public class FVTOptions
 			printWriter.println("toolBreakingWarningScale:" + BigDecimal.valueOf(this.toolBreakingWarningScale).setScale(2, RoundingMode.HALF_UP));
 			printWriter.println("upperToolBreakingWarning:" + this.upperToolBreakingWarning);
 			printWriter.println("cloudHeight:" + this.cloudHeight);
+			printWriter.println("fullbright:" + this.fullbright);
+			printWriter.println("entityOutline:" + this.entityOutline);
 			printWriter.println("randomPlacement:" + this.randomPlacement);
 			printWriter.println("noNetherFog:" + this.noNetherFog);
 			printWriter.println("noBlockBreakParticles:" + this.noBlockBreakParticles);
@@ -507,6 +540,14 @@ public class FVTOptions
 						}
 						break;
 
+					case "entityOutline":
+						this.entityOutline = "true".equalsIgnoreCase(value);
+						break;
+
+					case "fullbright":
+						this.fullbright = "true".equalsIgnoreCase(value);
+						break;
+
 					case "randomPlacement":
 						this.randomPlacement = "true".equalsIgnoreCase(value);
 						break;
@@ -571,6 +612,8 @@ public class FVTOptions
 		this.toolBreakingWarningScale = 1.5d;
 		this.upperToolBreakingWarning = false;
 		this.cloudHeight = 128.0d;
+		this.entityOutline = false;
+		this.fullbright = false;
 		this.randomPlacement = false;
 		this.noNetherFog = false;
 		this.noBlockBreakParticles = false;
@@ -580,5 +623,6 @@ public class FVTOptions
 		this.autoReconnectTimeout = 5;
 		this.autoEat = false;
 		this.triggerBot = false;
+		this.freecam = false;
 	}
 }

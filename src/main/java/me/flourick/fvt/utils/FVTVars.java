@@ -8,8 +8,6 @@ public class FVTVars
 {
 	public boolean autoEating;
 
-	public boolean freecam;
-
 	public double freecamYaw;
 	public double freecamPitch;
 
@@ -31,9 +29,6 @@ public class FVTVars
 	public int autoReconnectTries;
 	public int autoReconnectTicks;
 	public ServerInfo lastJoinedServer;
-
-	public boolean fullbright;
-	public boolean entityOutline;
 
 	private double deathX;
 	private double deathY;

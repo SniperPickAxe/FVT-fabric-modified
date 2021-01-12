@@ -39,6 +39,7 @@ public class FVTSettingsScreen extends GameOptionsScreen
 		this.list.addSingleOptionEntry(new SpacerOption("Render"));
 		this.list.addAll(new Option[] {FVTOptions.NO_NETHER_FOG, FVTOptions.NO_BLOCK_BREAK_PARTICLES});
 		this.list.addSingleOptionEntry(FVTOptions.CLOUD_HEIGHT);
+		this.list.addAll(new Option[] {FVTOptions.FULLBRIGHT, FVTOptions.ENTITY_OUTLINE});
 		this.list.addSingleOptionEntry(new SpacerOption("Auto"));
 		this.list.addAll(new Option[] {FVTOptions.AUTORECONNECT, FVTOptions.AUTORECONNECT_MAX_TRIES});
 		this.list.addSingleOptionEntry(FVTOptions.AUTORECONNECT_TIMEOUT);

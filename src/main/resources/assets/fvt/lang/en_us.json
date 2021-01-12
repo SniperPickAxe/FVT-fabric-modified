@@ -1,0 +1,11 @@
+{
+	"fvt.feature.name.fullbright": "Fullbright",
+	"fvt.feature.name.freecam": "Freecam",
+	"fvt.feature.name.random_placement": "Random Placement",
+	"fvt.feature.name.entity_outline": "Entity Outline",
+	"fvt.feature.name.trigger_autoattack": "Trigger Autoattack",
+	"fvt.feature.name.tool_breaking_override": "Tool Breaking Override",
+	
+	"fvt.feature.enabled": "%s is now enabled!",
+	"fvt.feature.disabled": "%s is now disabled!"
+}

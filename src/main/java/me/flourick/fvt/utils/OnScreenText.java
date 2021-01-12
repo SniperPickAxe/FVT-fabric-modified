@@ -11,9 +11,9 @@ public class OnScreenText
 	public static void drawCoordinatesTextLower(MatrixStack matrixStack)
 	{
 		if(FVT.OPTIONS.verticalCoordinates) {
-			final String X = String.format("X: %.01f", FVT.VARS.freecam ? FVT.VARS.freecamX : FVT.MC.player.getX());	
-			final String Y = String.format("Y: %.01f", FVT.VARS.freecam ? FVT.VARS.freecamY : FVT.MC.player.getY());
-			final String Z = String.format("Z: %.01f", FVT.VARS.freecam ? FVT.VARS.freecamZ : FVT.MC.player.getZ());
+			final String X = String.format("X: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamX : FVT.MC.player.getX());	
+			final String Y = String.format("Y: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamY : FVT.MC.player.getY());
+			final String Z = String.format("Z: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamZ : FVT.MC.player.getZ());
 
 			FVT.MC.textRenderer.drawWithShadow(matrixStack, X, 2, FVT.MC.getWindow().getScaledHeight() - 3*FVT.MC.textRenderer.fontHeight - 2, Color.WHITE.getPacked());
 			FVT.MC.textRenderer.drawWithShadow(matrixStack, Y, 2, FVT.MC.getWindow().getScaledHeight() - 2*FVT.MC.textRenderer.fontHeight - 1, Color.WHITE.getPacked());
@@ -28,9 +28,9 @@ public class OnScreenText
 	public static void drawCoordinatesTextUpper(MatrixStack matrixStack)
 	{
 		if(FVT.OPTIONS.verticalCoordinates) {
-			final String X = String.format("X: %.01f", FVT.VARS.freecam ? FVT.VARS.freecamX : FVT.MC.player.getX());		
-			final String Y = String.format("Y: %.01f", FVT.VARS.freecam ? FVT.VARS.freecamY : FVT.MC.player.getY());
-			final String Z = String.format("Z: %.01f", FVT.VARS.freecam ? FVT.VARS.freecamZ : FVT.MC.player.getZ());
+			final String X = String.format("X: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamX : FVT.MC.player.getX());		
+			final String Y = String.format("Y: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamY : FVT.MC.player.getY());
+			final String Z = String.format("Z: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamZ : FVT.MC.player.getZ());
 
 			FVT.MC.textRenderer.drawWithShadow(matrixStack, X, 2, 2, Color.WHITE.getPacked());
 			FVT.MC.textRenderer.drawWithShadow(matrixStack, Y, 2, 3 + FVT.MC.textRenderer.fontHeight, Color.WHITE.getPacked());

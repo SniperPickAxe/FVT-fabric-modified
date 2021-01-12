@@ -56,7 +56,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "move", at = @At("HEAD"), cancellable = true)
 	private void onMove(CallbackInfo info)
 	{
-		if(FVT.VARS.freecam) {
+		if(FVT.OPTIONS.freecam) {
 			info.cancel();
 		}
 	}
@@ -64,7 +64,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasVehicle()Z", ordinal = 0), method = "tick()V")
 	private boolean hijackHasVehicle(ClientPlayerEntity player)
 	{
-		if(FVT.VARS.freecam) {
+		if(FVT.OPTIONS.freecam) {
 			return false;
 		}
 
@@ -78,7 +78,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 			this.ticksLeftToDoubleTapSprint = -1;
 		}
 
-		if(FVT.VARS.freecam) {
+		if(FVT.OPTIONS.freecam) {
 			float forward = FVT.MC.player.input.movementForward;
 			float up = (FVT.MC.player.input.jumping ? 1.0f : 0.0f) - (FVT.MC.player.input.sneaking ? 1.0f : 0.0f);
             float side = FVT.MC.player.input.movementSideways;
@@ -110,7 +110,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "isCamera", at = @At("HEAD"), cancellable = true)
 	private void onIsCamera(CallbackInfoReturnable<Boolean> info)
 	{
-		if(FVT.VARS.freecam) {
+		if(FVT.OPTIONS.freecam) {
 			info.setReturnValue(false);
 		}
 	}
@@ -119,7 +119,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "isSneaking", at = @At("HEAD"), cancellable = true)
     private void onIsSneaking(CallbackInfoReturnable<Boolean> info)
     {
-        if(FVT.VARS.freecam) {
+        if(FVT.OPTIONS.freecam) {
             info.setReturnValue(false);
         }
     }
@@ -127,7 +127,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Override
 	public void changeLookDirection(double cursorDeltaX, double cursorDeltaY)
 	{
-		if(FVT.VARS.freecam) {
+		if(FVT.OPTIONS.freecam) {
 			FVT.VARS.freecamYaw += cursorDeltaX * 0.15D;
 			FVT.VARS.freecamPitch = MathHelper.clamp(FVT.VARS.freecamPitch + cursorDeltaY * 0.15D, -90, 90);
 		}

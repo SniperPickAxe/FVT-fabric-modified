@@ -51,7 +51,7 @@ public class MinecraftClientMixin
 			}
 		}
 
-		if(FVT.VARS.freecam) {
+		if(FVT.OPTIONS.freecam) {
 			info.cancel();
 		}
 	}
@@ -81,7 +81,7 @@ public class MinecraftClientMixin
 			}
 		}
 
-		if(FVT.VARS.freecam) {
+		if(FVT.OPTIONS.freecam) {
 			info.cancel();
 		}
 	}
@@ -140,7 +140,7 @@ public class MinecraftClientMixin
 			}
 		}
 
-		if(FVT.VARS.freecam) {
+		if(FVT.OPTIONS.freecam) {
 			info.cancel();
 		}
 	}
@@ -148,7 +148,7 @@ public class MinecraftClientMixin
 	@Inject(method = "hasOutline", at = @At("HEAD"), cancellable = true)
 	public void onHasOutline(Entity entity, CallbackInfoReturnable<Boolean> info)
 	{
-		if(FVT.VARS.entityOutline && entity.getType() != EntityType.PLAYER || (FVT.VARS.freecam && entity.equals(FVT.MC.player))) {
+		if(FVT.OPTIONS.entityOutline && entity.getType() != EntityType.PLAYER || (FVT.OPTIONS.freecam && entity.equals(FVT.MC.player))) {
 			info.setReturnValue(true);
 		}
 	}
