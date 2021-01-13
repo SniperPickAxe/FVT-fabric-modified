@@ -80,7 +80,7 @@ public class InGameHudMixin extends DrawableHelper
 		if(FVT.VARS.getToolWarningTextTicksLeft() > 0) {
 			matrixStack.push();
 			matrixStack.translate((double)(this.client.getWindow().getScaledWidth() / 2.0d), (double)(this.client.getWindow().getScaledHeight() / 2.0d), (double)this.getZOffset());
-			matrixStack.scale((float)FVT.OPTIONS.toolBreakingWarningScale, (float)FVT.OPTIONS.toolBreakingWarningScale, 1.0f);
+			matrixStack.scale((float)FVT.OPTIONS.toolWarningScale, (float)FVT.OPTIONS.toolWarningScale, 1.0f);
 			OnScreenText.drawToolWarningText(matrixStack);
 			matrixStack.pop();
 		}

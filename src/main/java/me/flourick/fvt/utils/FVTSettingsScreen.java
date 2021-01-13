@@ -32,10 +32,10 @@ public class FVTSettingsScreen extends GameOptionsScreen
 		this.list.addSingleOptionEntry(FVTOptions.CROSSHAIR_GREEN_COMPONENT);
 		this.list.addSingleOptionEntry(FVTOptions.CROSSHAIR_BLUE_COMPONENT);
 		this.list.addSingleOptionEntry(new SpacerOption("HUD")); 
-		this.list.addAll(new Option[] {FVTOptions.SHOW_HUD_INFO, FVTOptions.HUD_VERTICAL_COORDINATES});
+		this.list.addAll(new Option[] {FVTOptions.SHOW_HUD_INFO, FVTOptions.HUD_COORDINATES_POSITION});
 		this.list.addSingleOptionEntry(new SpacerOption("Tools"));
 		this.list.addAll(new Option[] {FVTOptions.NO_TOOL_BREAKING, FVTOptions.TOOL_WARNING});
-		this.list.addAll(new Option[] {FVTOptions.UPPER_TOOL_BREAKING_WARNING, FVTOptions.TOOL_BREAKING_WARNING_SCALE});
+		this.list.addAll(new Option[] {FVTOptions.TOOL_WARNING_POSITION, FVTOptions.TOOL_WARNING_SCALE});
 		this.list.addSingleOptionEntry(new SpacerOption("Render"));
 		this.list.addAll(new Option[] {FVTOptions.NO_NETHER_FOG, FVTOptions.NO_BLOCK_BREAK_PARTICLES});
 		this.list.addSingleOptionEntry(FVTOptions.CLOUD_HEIGHT);

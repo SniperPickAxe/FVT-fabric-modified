@@ -54,12 +54,12 @@ public class FVTOptions
 	public double crosshairScale;
 	public boolean disableWToSprint;
 	public boolean sendDeathCoordinates;
-	public boolean verticalCoordinates;
+	public boolean coordinatesPosition;
 	public boolean showHUDInfo;
 	public boolean noToolBreaking;
 	public boolean toolWarning;
-	public double toolBreakingWarningScale;
-	public boolean upperToolBreakingWarning;
+	public double toolWarningScale;
+	public boolean toolWarningPosition;
 	public double cloudHeight;
 	public boolean entityOutline;
 	public boolean fullbright;
@@ -103,7 +103,7 @@ public class FVTOptions
 		}
 	);
 
-	public static final DoubleOption AUTORECONNECT_TIMEOUT = new DoubleOption("nope", 3.0d, 300.0d, 1.0f,
+	public static final DoubleOption AUTORECONNECT_TIMEOUT = new DoubleOption("fvt.feature.name.autoreconnect.timeout", 3.0d, 300.0d, 1.0f,
 		(gameOptions) -> {
 			return (double)FVT.OPTIONS.autoReconnectTimeout;
 		},
@@ -111,11 +111,11 @@ public class FVTOptions
 			FVT.OPTIONS.autoReconnectTimeout = MathHelper.ceil(timeout);
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Autoreconnect Timeout: " + BigDecimal.valueOf(FVT.OPTIONS.autoReconnectTimeout).setScale(0, RoundingMode.HALF_UP) + "s");
+			return new LiteralText(String.valueOf(FVT.OPTIONS.autoReconnectTimeout));
 		}
 	);
 
-	public static final DoubleOption AUTORECONNECT_MAX_TRIES = new DoubleOption("nope", 1.0d, 100.0d, 1.0f,
+	public static final DoubleOption AUTORECONNECT_MAX_TRIES = new DoubleOption("fvt.feature.name.autoreconnect.tries", 1.0d, 100.0d, 1.0f,
 		(gameOptions) -> {
 			return (double)FVT.OPTIONS.autoReconnectMaxTries;
 		},
@@ -123,7 +123,7 @@ public class FVTOptions
 			FVT.OPTIONS.autoReconnectMaxTries = MathHelper.ceil(tries);
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Autoreconnect Tries: " + BigDecimal.valueOf(FVT.OPTIONS.autoReconnectMaxTries).setScale(0, RoundingMode.HALF_UP));
+			return doubleOption.getDisplayString(gameOptions);
 		}
 	);
 
@@ -202,24 +202,24 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyCyclingOption UPPER_TOOL_BREAKING_WARNING = new MyCyclingOption(
+	public static final MyCyclingOption TOOL_WARNING_POSITION = new MyCyclingOption(
 		(gameOptions, integer) -> {
-			FVT.OPTIONS.upperToolBreakingWarning = !FVT.OPTIONS.upperToolBreakingWarning;
+			FVT.OPTIONS.toolWarningPosition = !FVT.OPTIONS.toolWarningPosition;
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("Warning Position: " + (FVT.OPTIONS.upperToolBreakingWarning ? "Top" : "Bottom"));
+			return new LiteralText("Warning Position: " + (FVT.OPTIONS.toolWarningPosition ? "Top" : "Bottom"));
 		}
 	);
 
-	public static final DoubleOption TOOL_BREAKING_WARNING_SCALE = new DoubleOption("nope", 1.0d, 4.0d, 0.01f,
+	public static final DoubleOption TOOL_WARNING_SCALE = new DoubleOption("nope", 1.0d, 4.0d, 0.01f,
 		(gameOptions) -> {
-			return FVT.OPTIONS.toolBreakingWarningScale;
+			return FVT.OPTIONS.toolWarningScale;
 		},
 		(gameOptions, scale) -> {
-			FVT.OPTIONS.toolBreakingWarningScale = scale;
+			FVT.OPTIONS.toolWarningScale = scale;
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Warning Text Scale: " + BigDecimal.valueOf(FVT.OPTIONS.toolBreakingWarningScale).setScale(2, RoundingMode.HALF_UP));
+			return new LiteralText("Warning Text Scale: " + BigDecimal.valueOf(FVT.OPTIONS.toolWarningScale).setScale(2, RoundingMode.HALF_UP));
 		}
 	);
 
@@ -250,12 +250,12 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyCyclingOption HUD_VERTICAL_COORDINATES = new MyCyclingOption(
+	public static final MyCyclingOption HUD_COORDINATES_POSITION = new MyCyclingOption(
 		(gameOptions, integer) -> {
-			FVT.OPTIONS.verticalCoordinates = !FVT.OPTIONS.verticalCoordinates;
+			FVT.OPTIONS.coordinatesPosition = !FVT.OPTIONS.coordinatesPosition;
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("Coords Position: " + (FVT.OPTIONS.verticalCoordinates ? "Vertical" : "Horizontal"));
+			return new LiteralText("Coords Position: " + (FVT.OPTIONS.coordinatesPosition ? "Vertical" : "Horizontal"));
 		}
 	);
 
@@ -419,12 +419,12 @@ public class FVTOptions
 			printWriter.println("crosshairColor:" + this.crosshairColor.getPacked());
 			printWriter.println("disableWToSprint:" + this.disableWToSprint);
 			printWriter.println("sendDeathCoordinates:" + this.sendDeathCoordinates);
-			printWriter.println("verticalCoordinates:" + this.verticalCoordinates);
+			printWriter.println("coordinatesPosition:" + this.coordinatesPosition);
 			printWriter.println("showHUDInfo:" + this.showHUDInfo);
 			printWriter.println("noToolBreaking:" + this.noToolBreaking);
 			printWriter.println("toolWarning:" + this.toolWarning);
-			printWriter.println("toolBreakingWarningScale:" + BigDecimal.valueOf(this.toolBreakingWarningScale).setScale(2, RoundingMode.HALF_UP));
-			printWriter.println("upperToolBreakingWarning:" + this.upperToolBreakingWarning);
+			printWriter.println("toolWarningScale:" + BigDecimal.valueOf(this.toolWarningScale).setScale(2, RoundingMode.HALF_UP));
+			printWriter.println("toolWarningPosition:" + this.toolWarningPosition);
 			printWriter.println("cloudHeight:" + this.cloudHeight);
 			printWriter.println("fullbright:" + this.fullbright);
 			printWriter.println("entityOutline:" + this.entityOutline);
@@ -501,8 +501,8 @@ public class FVTOptions
 						this.sendDeathCoordinates = "true".equalsIgnoreCase(value);
 						break;
 
-					case "verticalCoordinates":
-						this.verticalCoordinates = "true".equalsIgnoreCase(value);
+					case "coordinatesPosition":
+						this.coordinatesPosition = "true".equalsIgnoreCase(value);
 						break;
 
 					case "showHUDInfo":
@@ -517,9 +517,9 @@ public class FVTOptions
 						this.toolWarning = "true".equalsIgnoreCase(value);
 						break;
 
-					case "toolBreakingWarningScale":
+					case "toolWarningScale":
 						try {
-							this.toolBreakingWarningScale = MathHelper.clamp(Double.parseDouble(value), 1.0d, 4.0d);
+							this.toolWarningScale = MathHelper.clamp(Double.parseDouble(value), 1.0d, 4.0d);
 						}
 						catch(NumberFormatException e) {
 							LogManager.getLogger().warn("Skipping bad option (" + value + ")" + " for " + key);
@@ -527,8 +527,8 @@ public class FVTOptions
 
 						break;
 
-					case "upperToolBreakingWarning":
-						this.upperToolBreakingWarning = "true".equalsIgnoreCase(value);
+					case "toolWarningPosition":
+						this.toolWarningPosition = "true".equalsIgnoreCase(value);
 						break;
 
 					case "cloudHeight":
@@ -605,12 +605,12 @@ public class FVTOptions
 		this.crosshairColor = new Color(255, 255, 255);
 		this.disableWToSprint = true;
 		this.sendDeathCoordinates = true;
-		this.verticalCoordinates = true;
+		this.coordinatesPosition = true;
 		this.showHUDInfo = true;
 		this.noToolBreaking = false;
 		this.toolWarning = true;
-		this.toolBreakingWarningScale = 1.5d;
-		this.upperToolBreakingWarning = false;
+		this.toolWarningScale = 1.5d;
+		this.toolWarningPosition = false;
 		this.cloudHeight = 128.0d;
 		this.entityOutline = false;
 		this.fullbright = false;

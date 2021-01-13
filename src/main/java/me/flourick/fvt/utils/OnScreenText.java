@@ -10,7 +10,7 @@ public class OnScreenText
 {
 	public static void drawCoordinatesTextLower(MatrixStack matrixStack)
 	{
-		if(FVT.OPTIONS.verticalCoordinates) {
+		if(FVT.OPTIONS.coordinatesPosition) {
 			final String X = String.format("X: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamX : FVT.MC.player.getX());	
 			final String Y = String.format("Y: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamY : FVT.MC.player.getY());
 			final String Z = String.format("Z: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamZ : FVT.MC.player.getZ());
@@ -27,7 +27,7 @@ public class OnScreenText
 
 	public static void drawCoordinatesTextUpper(MatrixStack matrixStack)
 	{
-		if(FVT.OPTIONS.verticalCoordinates) {
+		if(FVT.OPTIONS.coordinatesPosition) {
 			final String X = String.format("X: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamX : FVT.MC.player.getX());		
 			final String Y = String.format("Y: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamY : FVT.MC.player.getY());
 			final String Z = String.format("Z: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamZ : FVT.MC.player.getZ());
@@ -82,11 +82,11 @@ public class OnScreenText
 		int alpha = MathHelper.clamp(MathHelper.ceil(25.5f * FVT.VARS.getToolWarningTextTicksLeft()), 0, 255);
 
 		int y;
-		if(FVT.OPTIONS.upperToolBreakingWarning) {
-			y = (int)((-(FVT.MC.getWindow().getScaledHeight() / 2 * 1/FVT.OPTIONS.toolBreakingWarningScale)) + (2/FVT.OPTIONS.toolBreakingWarningScale));
+		if(FVT.OPTIONS.toolWarningPosition) {
+			y = (int)((-(FVT.MC.getWindow().getScaledHeight() / 2 * 1/FVT.OPTIONS.toolWarningScale)) + (2/FVT.OPTIONS.toolWarningScale));
 		}
 		else {
-			y = (int)(((FVT.MC.getWindow().getScaledHeight() / 2 * 1/FVT.OPTIONS.toolBreakingWarningScale)) - (FVT.MC.textRenderer.fontHeight + 60/FVT.OPTIONS.toolBreakingWarningScale));
+			y = (int)(((FVT.MC.getWindow().getScaledHeight() / 2 * 1/FVT.OPTIONS.toolWarningScale)) - (FVT.MC.textRenderer.fontHeight + 60/FVT.OPTIONS.toolWarningScale));
 		}
 
 		final String ToolWarningText = (FVT.VARS.toolHand.equals(Hand.MAIN_HAND) ? "Main hand" : "Offhand") + " tool has " + FVT.VARS.toolDurability + " durability left!";
