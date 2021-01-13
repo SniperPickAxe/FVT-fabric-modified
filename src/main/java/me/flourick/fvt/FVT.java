@@ -120,29 +120,7 @@ public class FVT implements ModInitializer
 					}
 				}
 
-				if(FVT.OPTIONS.freecam && FVT.MC.player != null) {
-					FVT.MC.chunkCullingEnabled = false;
-
-					FVT.VARS.freecamPitch = FVT.MC.player.pitch;
-					FVT.VARS.freecamYaw = FVT.MC.player.yaw;
-
-					FVT.VARS.playerPitch = FVT.MC.player.pitch;
-					FVT.VARS.playerYaw = FVT.MC.player.yaw;
-
-					FVT.VARS.freecamX = FVT.VARS.prevFreecamX = FVT.MC.gameRenderer.getCamera().getPos().getX();
-					FVT.VARS.freecamY = FVT.VARS.prevFreecamY = FVT.MC.gameRenderer.getCamera().getPos().getY();
-					FVT.VARS.freecamZ = FVT.VARS.prevFreecamZ = FVT.MC.gameRenderer.getCamera().getPos().getZ();
-				}
-				else {
-					FVT.MC.chunkCullingEnabled = true;
-
-					FVT.MC.player.pitch = (float) FVT.VARS.playerPitch;
-					FVT.MC.player.yaw = (float) FVT.VARS.playerYaw;
-
-					FVT.VARS.freecamForwardSpeed = 0.0f;
-					FVT.VARS.freecamUpSpeed = 0.0f;
-					FVT.VARS.freecamSideSpeed = 0.0f;
-				}
+				freecamToggleCheck();
 			}
 
 			while(randomPlacementKeybind.wasPressed()) {
@@ -247,5 +225,32 @@ public class FVT implements ModInitializer
 				}
 			}
 		});
+	}
+
+	public void freecamToggleCheck()
+	{
+		if(FVT.OPTIONS.freecam && FVT.MC.player != null) {
+			FVT.MC.chunkCullingEnabled = false;
+
+			FVT.VARS.freecamPitch = FVT.MC.player.pitch;
+			FVT.VARS.freecamYaw = FVT.MC.player.yaw;
+
+			FVT.VARS.playerPitch = FVT.MC.player.pitch;
+			FVT.VARS.playerYaw = FVT.MC.player.yaw;
+
+			FVT.VARS.freecamX = FVT.VARS.prevFreecamX = FVT.MC.gameRenderer.getCamera().getPos().getX();
+			FVT.VARS.freecamY = FVT.VARS.prevFreecamY = FVT.MC.gameRenderer.getCamera().getPos().getY();
+			FVT.VARS.freecamZ = FVT.VARS.prevFreecamZ = FVT.MC.gameRenderer.getCamera().getPos().getZ();
+		}
+		else {
+			FVT.MC.chunkCullingEnabled = true;
+
+			FVT.MC.player.pitch = (float) FVT.VARS.playerPitch;
+			FVT.MC.player.yaw = (float) FVT.VARS.playerYaw;
+
+			FVT.VARS.freecamForwardSpeed = 0.0f;
+			FVT.VARS.freecamUpSpeed = 0.0f;
+			FVT.VARS.freecamSideSpeed = 0.0f;
+		}
 	}
 }

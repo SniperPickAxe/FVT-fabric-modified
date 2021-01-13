@@ -8,23 +8,19 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.Option;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 
 public class SpacerOption extends Option
 {
-	private String text;
-
-	public SpacerOption(String text)
+	public SpacerOption(String key)
 	{
-		super("nope");
-		this.text = text;
+		super(key);
 	}
 
 	@Override
 	public AbstractButtonWidget createButton(GameOptions options, int x, int y, int width)
 	{
-		return new SpacerButtonWidget(x, y, width, 20, new LiteralText(text), (buttonWidget) -> {
+		return new SpacerButtonWidget(x, y, width, 20, this.getDisplayPrefix(), (buttonWidget) -> {
 			// nada
 		});
 	}

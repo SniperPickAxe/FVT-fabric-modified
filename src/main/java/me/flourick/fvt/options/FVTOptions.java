@@ -19,8 +19,10 @@ import org.apache.logging.log4j.LogManager;
 
 import me.flourick.fvt.FVT;
 import me.flourick.fvt.utils.Color;
+import net.minecraft.client.options.BooleanOption;
+import net.minecraft.client.options.CyclingOption;
 import net.minecraft.client.options.DoubleOption;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.MathHelper;
 
 public class FVTOptions
@@ -76,16 +78,17 @@ public class FVTOptions
 
 	//region OPTIONS
 
-	public static final MyBooleanOption FREECAM = new MyBooleanOption("Freecam",
+	public static final BooleanOption FREECAM = new BooleanOption("fvt.feature.name.freecam",
 		(gameOptions) -> {
 			return FVT.OPTIONS.freecam;
 		},
 		(gameOptions, bool) -> {
 			FVT.OPTIONS.freecam = bool;
+			FVT.INSTANCE.freecamToggleCheck();
 		}
 	);
 
-	public static final MyBooleanOption TRIGGER_BOT = new MyBooleanOption("Trigger Autoattack",
+	public static final BooleanOption TRIGGER_BOT = new BooleanOption("fvt.feature.name.trigger_autoattack",
 		(gameOptions) -> {
 			return FVT.OPTIONS.triggerBot;
 		},
@@ -94,7 +97,7 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyBooleanOption AUTOEAT = new MyBooleanOption("Offhand Autoeat",
+	public static final BooleanOption AUTOEAT = new BooleanOption("fvt.feature.name.autoeat",
 		(gameOptions) -> {
 			return FVT.OPTIONS.autoEat;
 		},
@@ -111,7 +114,7 @@ public class FVTOptions
 			FVT.OPTIONS.autoReconnectTimeout = MathHelper.ceil(timeout);
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText(String.valueOf(FVT.OPTIONS.autoReconnectTimeout));
+			return new TranslatableText("fvt.feature.name.autoreconnect.timeout").append(": " + FVT.OPTIONS.autoReconnectTimeout + "s");
 		}
 	);
 
@@ -123,11 +126,11 @@ public class FVTOptions
 			FVT.OPTIONS.autoReconnectMaxTries = MathHelper.ceil(tries);
 		},
 		(gameOptions, doubleOption) -> {
-			return doubleOption.getDisplayString(gameOptions);
+			return new TranslatableText("fvt.feature.name.autoreconnect.tries").append(": " + FVT.OPTIONS.autoReconnectMaxTries);
 		}
 	);
 
-	public static final MyBooleanOption AUTORECONNECT = new MyBooleanOption("Autoreconnect",
+	public static final BooleanOption AUTORECONNECT = new BooleanOption("fvt.feature.name.autoreconnect",
 		(gameOptions) -> {
 			return FVT.OPTIONS.autoReconnect;
 		},
@@ -136,7 +139,7 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyBooleanOption REFILL_HAND = new MyBooleanOption("Refill Hand",
+	public static final BooleanOption REFILL_HAND = new BooleanOption("fvt.feature.name.refill_hand",
 		(gameOptions) -> {
 			return FVT.OPTIONS.refillHand;
 		},
@@ -145,7 +148,7 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyBooleanOption NO_BLOCK_BREAK_PARTICLES = new MyBooleanOption("No Block Break Particles",
+	public static final BooleanOption NO_BLOCK_BREAK_PARTICLES = new BooleanOption("fvt.feature.name.no_block_break_particles",
 		(gameOptions) -> {
 			return FVT.OPTIONS.noBlockBreakParticles;
 		},
@@ -154,7 +157,7 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyBooleanOption NO_NETHER_FOG = new MyBooleanOption("No Nether Fog",
+	public static final BooleanOption NO_NETHER_FOG = new BooleanOption("fvt.feature.name.no_nether_fog",
 		(gameOptions) -> {
 			return FVT.OPTIONS.noNetherFog;
 		},
@@ -163,7 +166,7 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyBooleanOption RANDOM_PLACEMENT = new MyBooleanOption("Random Placement",
+	public static final BooleanOption RANDOM_PLACEMENT = new BooleanOption("fvt.feature.name.random_placement",
 		(gameOptions) -> {
 			return FVT.OPTIONS.randomPlacement;
 		},
@@ -172,7 +175,7 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyBooleanOption FULLBRIGHT = new MyBooleanOption("Fullbright",
+	public static final BooleanOption FULLBRIGHT = new BooleanOption("fvt.feature.name.fullbright",
 		(gameOptions) -> {
 			return FVT.OPTIONS.fullbright;
 		},
@@ -181,7 +184,7 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyBooleanOption ENTITY_OUTLINE = new MyBooleanOption("Entity Outline",
+	public static final BooleanOption ENTITY_OUTLINE = new BooleanOption("fvt.feature.name.entity_outline",
 		(gameOptions) -> {
 			return FVT.OPTIONS.entityOutline;
 		},
@@ -190,7 +193,7 @@ public class FVTOptions
 		}
 	);
 
-	public static final DoubleOption CLOUD_HEIGHT = new DoubleOption("nope", 0.0d, 256.0d, 1.0f,
+	public static final DoubleOption CLOUD_HEIGHT = new DoubleOption("fvt.feature.name.cloud_height", 0.0d, 256.0d, 1.0f,
 		(gameOptions) -> {
 			return FVT.OPTIONS.cloudHeight;
 		},
@@ -198,20 +201,20 @@ public class FVTOptions
 			FVT.OPTIONS.cloudHeight = height;
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Cloud Height: " + BigDecimal.valueOf(FVT.OPTIONS.cloudHeight).setScale(0, RoundingMode.HALF_UP));
+			return new TranslatableText("fvt.feature.name.cloud_height").append(": " + BigDecimal.valueOf(FVT.OPTIONS.cloudHeight).setScale(0, RoundingMode.HALF_UP));
 		}
 	);
 
-	public static final MyCyclingOption TOOL_WARNING_POSITION = new MyCyclingOption(
+	public static final CyclingOption TOOL_WARNING_POSITION = new CyclingOption("fvt.feature.name.tool_warning.position",
 		(gameOptions, integer) -> {
 			FVT.OPTIONS.toolWarningPosition = !FVT.OPTIONS.toolWarningPosition;
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("Warning Position: " + (FVT.OPTIONS.toolWarningPosition ? "Top" : "Bottom"));
+			return new TranslatableText("fvt.feature.name.tool_warning.position").append(": ").append(new TranslatableText(FVT.OPTIONS.toolWarningPosition ? "fvt.feature.name.tool_warning.position.top" : "fvt.feature.name.tool_warning.position.bottom"));
 		}
 	);
 
-	public static final DoubleOption TOOL_WARNING_SCALE = new DoubleOption("nope", 1.0d, 4.0d, 0.01f,
+	public static final DoubleOption TOOL_WARNING_SCALE = new DoubleOption("fvt.feature.name.tool_warning.scale", 1.0d, 4.0d, 0.01f,
 		(gameOptions) -> {
 			return FVT.OPTIONS.toolWarningScale;
 		},
@@ -219,11 +222,11 @@ public class FVTOptions
 			FVT.OPTIONS.toolWarningScale = scale;
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Warning Text Scale: " + BigDecimal.valueOf(FVT.OPTIONS.toolWarningScale).setScale(2, RoundingMode.HALF_UP));
+			return new TranslatableText("fvt.feature.name.tool_warning.scale").append(": " + BigDecimal.valueOf(FVT.OPTIONS.toolWarningScale * 100).setScale(0, RoundingMode.HALF_UP)).append("%");
 		}
 	);
 
-	public static final MyBooleanOption TOOL_WARNING = new MyBooleanOption("Show Warning",
+	public static final BooleanOption TOOL_WARNING = new BooleanOption("fvt.feature.name.tool_warning",
 		(gameOptions) -> {
 			return FVT.OPTIONS.toolWarning;
 		},
@@ -232,7 +235,7 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyBooleanOption NO_TOOL_BREAKING = new MyBooleanOption("Prevent Breaking",
+	public static final BooleanOption NO_TOOL_BREAKING = new BooleanOption("fvt.feature.name.no_tool_breaking",
 		(gameOptions) -> {
 			return FVT.OPTIONS.noToolBreaking;
 		},
@@ -241,25 +244,25 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyCyclingOption SHOW_HUD_INFO = new MyCyclingOption(
+	public static final CyclingOption SHOW_HUD_INFO = new CyclingOption("fvt.feature.name.show_hud_info",
 		(gameOptions, integer) -> {
 			FVT.OPTIONS.showHUDInfo = !FVT.OPTIONS.showHUDInfo;
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("HUD Info: " + (FVT.OPTIONS.showHUDInfo ? "Visible" : "Hidden"));
+			return new TranslatableText("fvt.feature.name.show_hud_info").append(": ").append(new TranslatableText(FVT.OPTIONS.showHUDInfo ? "fvt.feature.name.show_hud_info.visible" : "fvt.feature.name.show_hud_info.hidden"));
 		}
 	);
 
-	public static final MyCyclingOption HUD_COORDINATES_POSITION = new MyCyclingOption(
+	public static final CyclingOption HUD_COORDINATES_POSITION = new CyclingOption("fvt.feature.name.hud_coordinates",
 		(gameOptions, integer) -> {
 			FVT.OPTIONS.coordinatesPosition = !FVT.OPTIONS.coordinatesPosition;
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("Coords Position: " + (FVT.OPTIONS.coordinatesPosition ? "Vertical" : "Horizontal"));
+			return new TranslatableText("fvt.feature.name.hud_coordinates").append(": ").append(new TranslatableText(FVT.OPTIONS.coordinatesPosition ? "fvt.feature.name.hud_coordinates.vertical" : "fvt.feature.name.hud_coordinates.horizontal"));
 		}
 	);
 
-	public static final MyBooleanOption SEND_DEATH_COORDINATES = new MyBooleanOption("Send Death Coordinates",
+	public static final BooleanOption SEND_DEATH_COORDINATES = new BooleanOption("fvt.feature.name.send_death_coordinates",
 		(gameOptions) -> {
 			return FVT.OPTIONS.sendDeathCoordinates;
 		},
@@ -268,7 +271,7 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyBooleanOption DISABLE_W_TO_SPRINT = new MyBooleanOption("Disable 'W' To Sprint",
+	public static final BooleanOption DISABLE_W_TO_SPRINT = new BooleanOption("fvt.feature.name.disable_w_to_sprint",
 		(gameOptions) -> {
 			return FVT.OPTIONS.disableWToSprint;
 		},
@@ -277,7 +280,7 @@ public class FVTOptions
 		}
 	);
 
-	public static final DoubleOption CROSSHAIR_RED_COMPONENT = new DoubleOption("nope", 0.0d, 255.0d, 1.0f,
+	public static final DoubleOption CROSSHAIR_RED_COMPONENT = new DoubleOption("fvt.feature.name.crosshair_static_color.red_component", 0.0d, 255.0d, 1.0f,
 		(gameOptions) -> {
 			return (double)FVT.OPTIONS.crosshairColor.getRed();
 		},
@@ -285,11 +288,11 @@ public class FVTOptions
 			FVT.OPTIONS.crosshairColor = new Color(FVT.OPTIONS.crosshairColor.getAlpha(), red.intValue(), FVT.OPTIONS.crosshairColor.getGreen(), FVT.OPTIONS.crosshairColor.getBlue());
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Red Component: " + FVT.OPTIONS.crosshairColor.getRed());
+			return new TranslatableText("fvt.feature.name.crosshair_static_color.red_component").append(": " + FVT.OPTIONS.crosshairColor.getRed());
 		}
 	);
 
-	public static final DoubleOption CROSSHAIR_GREEN_COMPONENT = new DoubleOption("nope", 0.0d, 255.0d, 1.0f,
+	public static final DoubleOption CROSSHAIR_GREEN_COMPONENT = new DoubleOption("fvt.feature.name.crosshair_static_color.green_component", 0.0d, 255.0d, 1.0f,
 		(gameOptions) -> {
 			return (double)FVT.OPTIONS.crosshairColor.getGreen();
 		},
@@ -297,11 +300,11 @@ public class FVTOptions
 			FVT.OPTIONS.crosshairColor = new Color(FVT.OPTIONS.crosshairColor.getAlpha(), FVT.OPTIONS.crosshairColor.getRed(), green.intValue(), FVT.OPTIONS.crosshairColor.getBlue());
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Green Component: " + FVT.OPTIONS.crosshairColor.getGreen());
+			return new TranslatableText("fvt.feature.name.crosshair_static_color.green_component").append(": " + FVT.OPTIONS.crosshairColor.getGreen());
 		}
 	);
 
-	public static final DoubleOption CROSSHAIR_BLUE_COMPONENT = new DoubleOption("nope", 0.0d, 255.0d, 1.0f,
+	public static final DoubleOption CROSSHAIR_BLUE_COMPONENT = new DoubleOption("fvt.feature.name.crosshair_static_color.blue_component", 0.0d, 255.0d, 1.0f,
 		(gameOptions) -> {
 			return (double)FVT.OPTIONS.crosshairColor.getBlue();
 		},
@@ -309,11 +312,11 @@ public class FVTOptions
 			FVT.OPTIONS.crosshairColor = new Color(FVT.OPTIONS.crosshairColor.getAlpha(), FVT.OPTIONS.crosshairColor.getRed(), FVT.OPTIONS.crosshairColor.getGreen(), blue.intValue());
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Blue Component: " + FVT.OPTIONS.crosshairColor.getBlue());
+			return new TranslatableText("fvt.feature.name.crosshair_static_color.blue_component").append(": " + FVT.OPTIONS.crosshairColor.getBlue());
 		}
 	);
 
-	public static final DoubleOption CROSSHAIR_SCALE = new DoubleOption("nope", 0.0d, 2.0d, 0.01f,
+	public static final DoubleOption CROSSHAIR_SCALE = new DoubleOption("fvt.feature.name.crosshair_scale", 0.0d, 2.0d, 0.01f,
 		(gameOptions) -> {
 			return FVT.OPTIONS.crosshairScale;
 		},
@@ -321,20 +324,20 @@ public class FVTOptions
 			FVT.OPTIONS.crosshairScale = scale;
 		},
 		(gameOptions, doubleOption) -> {
-			return new LiteralText("Scale: " + BigDecimal.valueOf(FVT.OPTIONS.crosshairScale).setScale(2, RoundingMode.HALF_UP));
+			return new TranslatableText("fvt.feature.name.crosshair_scale").append(": " + BigDecimal.valueOf(FVT.OPTIONS.crosshairScale * 100).setScale(0, RoundingMode.HALF_UP)).append("%");
 		}
 	);
 
-	public static final MyCyclingOption CROSSHAIR_STATIC_COLOR = new MyCyclingOption(
-		(gameOptions, integer) -> {
-			FVT.OPTIONS.crosshairStaticColor = !FVT.OPTIONS.crosshairStaticColor;
+	public static final BooleanOption CROSSHAIR_STATIC_COLOR = new BooleanOption("fvt.feature.name.crosshair_static_color",
+		(gameOptions) -> {
+			return FVT.OPTIONS.crosshairStaticColor;
 		},
-		(gameOptions, cyclingOption) -> {
-			return new LiteralText("Static Color: " + (FVT.OPTIONS.crosshairStaticColor ? "ON" : "OFF"));
+		(gameOptions, bool) -> {
+			FVT.OPTIONS.crosshairStaticColor = !FVT.OPTIONS.crosshairStaticColor;
 		}
 	);
 
-	public static final MyBooleanOption FEATURE_TOGGLE_MESSAGES = new MyBooleanOption("Toggle Chat Messages",
+	public static final BooleanOption FEATURE_TOGGLE_MESSAGES = new BooleanOption("fvt.feature.name.feature_toggle_messages",
 		(gameOptions) -> {
 			return FVT.OPTIONS.featureToggleMessages;
 		},
@@ -343,12 +346,12 @@ public class FVTOptions
 		}
 	);
 
-	public static final MyCyclingOption BUTTON_POSITION = new MyCyclingOption(
+	public static final CyclingOption BUTTON_POSITION = new CyclingOption("fvt.feature.name.button_position",
 		(gameOptions, integer) -> {
 			FVT.OPTIONS.buttonPosition = ButtonPosition.getOption(FVT.OPTIONS.buttonPosition.getId() + integer);
 		},
 		(gameOptions, cyclingOption) -> {
-			return new LiteralText("FVT Button Position: " + FVT.OPTIONS.buttonPosition);
+			return new TranslatableText("fvt.feature.name.button_position").append(": ").append(FVT.OPTIONS.buttonPosition.getTranslated());
 		}
 	);
 
@@ -358,17 +361,19 @@ public class FVTOptions
 
 	public enum ButtonPosition
 	{
-		RIGHT(0, "Right"), LEFT(1, "Left"), CENTER(2, "Center");
+		RIGHT(0, "right", "fvt.feature.name.button_position.right"), LEFT(1, "left", "fvt.feature.name.button_position.left"), CENTER(2, "center", "fvt.feature.name.button_position.center");
 
 		private static final ButtonPosition[] BUTTON_POSITIONS = (ButtonPosition[]) Arrays.stream(values()).sorted(Comparator.comparingInt(ButtonPosition::getId)).toArray((i) -> {
 			return new ButtonPosition[i];
 		});
 
+		private TranslatableText positionTranslated;
 		private String position;
 		private int id;
 
-		private ButtonPosition(int id, String position)
+		private ButtonPosition(int id, String position, String positionTranslationKey)
 		{
+			this.positionTranslated = new TranslatableText(positionTranslationKey);
 			this.position = position;
 			this.id = id;
 		}
@@ -384,6 +389,11 @@ public class FVTOptions
 			return position;
 		}
 
+		public TranslatableText getTranslated()
+		{
+			return positionTranslated;
+		}
+
 		public int getId()
 		{
 			return id;
@@ -392,13 +402,13 @@ public class FVTOptions
 		public static ButtonPosition match(String m)
 		{
 			switch(m) {
-				case "Right":
+				case "right":
 					return ButtonPosition.RIGHT;
 
-				case "Left":
+				case "left":
 					return ButtonPosition.LEFT;
 
-				case "Center":
+				case "center":
 					return ButtonPosition.CENTER;
 
 				default:
