@@ -2,6 +2,7 @@ package me.flourick.fvt.utils;
 
 import me.flourick.fvt.FVT;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LightType;
@@ -89,7 +90,7 @@ public class OnScreenText
 			y = (int)(((FVT.MC.getWindow().getScaledHeight() / 2 * 1/FVT.OPTIONS.toolWarningScale)) - (FVT.MC.textRenderer.fontHeight + 60/FVT.OPTIONS.toolWarningScale));
 		}
 
-		final String ToolWarningText = (FVT.VARS.toolHand.equals(Hand.MAIN_HAND) ? "Main hand" : "Offhand") + " tool has " + FVT.VARS.toolDurability + " durability left!";
+		final String ToolWarningText = FVT.VARS.toolHand.equals(Hand.MAIN_HAND) ? new TranslatableText("fvt.feature.name.tool_warning.text.main_hand", FVT.VARS.toolDurability).getString() : new TranslatableText("fvt.feature.name.tool_warning.text.offhand", FVT.VARS.toolDurability).getString();
 		FVT.MC.textRenderer.drawWithShadow(matrixStack, ToolWarningText, (float) -(FVT.MC.textRenderer.getWidth(ToolWarningText) / 2), y, new Color(alpha, 255, 0, 0).getPacked());
 	}
 }

@@ -8,11 +8,12 @@ import net.minecraft.client.recipebook.ClientRecipeBook;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.MessageType;
 import net.minecraft.stat.StatHandler;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.UUID;
 
+import com.ibm.icu.math.BigDecimal;
 import com.mojang.authlib.GameProfile;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -49,7 +50,11 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	{
 		if(FVT.VARS.isAfterDeath && FVT.OPTIONS.sendDeathCoordinates) {
 			FVT.VARS.isAfterDeath = false;
-			FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new LiteralText(String.format("You died at X: %.01f Z: %.01f Y: %.01f in %s!", FVT.VARS.getLastDeathX(), FVT.VARS.getLastDeathZ(), FVT.VARS.getLastDeathY(), FVT.VARS.getLastDeathWorld())), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+			FVT.MC.inGameHud.addChatMessage(
+				MessageType.CHAT, 
+				new TranslatableText("fvt.feature.name.send_death_coordinates.message", BigDecimal.valueOf(FVT.VARS.getLastDeathX()).setScale(2, BigDecimal.ROUND_DOWN).doubleValue(), BigDecimal.valueOf(FVT.VARS.getLastDeathZ()).setScale(2, BigDecimal.ROUND_DOWN).doubleValue(), BigDecimal.valueOf(FVT.VARS.getLastDeathY()).setScale(2, BigDecimal.ROUND_DOWN).doubleValue(), FVT.VARS.getLastDeathWorld()), 
+				UUID.fromString("00000000-0000-0000-0000-000000000000")
+			);
 		}
 	}
 

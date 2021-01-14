@@ -8,45 +8,70 @@
 	"fvt.feature_category.auto": "Auto",
 	"fvt.feature_category.other": "Other",
 
+	
 	"fvt.feature.name.button_position": "FVT Button Position",
+
 	"fvt.feature.name.button_position.right": "Right",
 	"fvt.feature.name.button_position.left": "Left",
 	"fvt.feature.name.button_position.center": "Center",
+
 	"fvt.feature.name.feature_toggle_messages": "Toggle Chat Messages",
+
 	"fvt.feature.name.crosshair_scale": "Scale",
 	"fvt.feature.name.crosshair_static_color": "Static Color",
 	"fvt.feature.name.crosshair_static_color.blue_component": "Blue Component",
 	"fvt.feature.name.crosshair_static_color.green_component": "Green Component",
 	"fvt.feature.name.crosshair_static_color.red_component": "Red Component",
+
 	"fvt.feature.name.disable_w_to_sprint": "Disable 'W' To Sprint",
+
 	"fvt.feature.name.send_death_coordinates": "Death Coordinates",
+	"fvt.feature.name.send_death_coordinates.message": "You died at X: %d Z: %d Y: %d in %s.",
+
 	"fvt.feature.name.hud_coordinates": "Coords Position",
 	"fvt.feature.name.hud_coordinates.vertical": "Vertical",
 	"fvt.feature.name.hud_coordinates.horizontal": "Horizontal",
+
 	"fvt.feature.name.show_hud_info": "HUD Info",
 	"fvt.feature.name.show_hud_info.visible": "Visible",
 	"fvt.feature.name.show_hud_info.hidden": "Hidden",
+
 	"fvt.feature.name.no_tool_breaking": "Prevent Breaking",
 	"fvt.feature.name.tool_breaking_override": "Tool Breaking Override",
+
 	"fvt.feature.name.tool_warning": "Show Warning",
+	"fvt.feature.name.tool_warning.text.main_hand": "Main hand tool has %d durability left!",
+	"fvt.feature.name.tool_warning.text.offhand": "Offhand tool has %d durability left!",
 	"fvt.feature.name.tool_warning.scale": "Warning Text Scale",
 	"fvt.feature.name.tool_warning.position": "Warning Position",
 	"fvt.feature.name.tool_warning.position.top": "Top",
 	"fvt.feature.name.tool_warning.position.bottom": "Bottom",
+
 	"fvt.feature.name.cloud_height": "Cloud Height",
+
 	"fvt.feature.name.entity_outline": "Entity Outline",
+
 	"fvt.feature.name.fullbright": "Fullbright",
+
 	"fvt.feature.name.random_placement": "Random Placement",
+
 	"fvt.feature.name.no_nether_fog": "No Nether Fog",
+
 	"fvt.feature.name.no_block_break_particles": "No Block Break Particles",
+
 	"fvt.feature.name.refill_hand": "Refill Hand",
+
 	"fvt.feature.name.autoreconnect": "Autoreconnect",
 	"fvt.feature.name.autoreconnect.tries": "Autoreconnect Tries",
 	"fvt.feature.name.autoreconnect.timeout": "Autoreconnect Timeout",
+	"fvt.feature.name.autoreconnect.message": "Reconnecting in: %ds (%d tries left)",
 	"fvt.feature.name.autoeat": "Offhand Autoeat",
+
 	"fvt.feature.name.trigger_autoattack": "Trigger Autoattack",
+
 	"fvt.feature.name.freecam": "Freecam",
 	
+
 	"fvt.feature.enabled": "%s is now enabled!",
 	"fvt.feature.disabled": "%s is now disabled!"
 }

@@ -3,6 +3,7 @@ package me.flourick.fvt.mixin;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.MathHelper;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,7 +34,9 @@ public class DisconnectedScreenMixin
     private void onRender(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo info)
     {
         if(FVT.OPTIONS.autoReconnect && FVT.MC.currentScreen != null && (FVT.VARS.autoReconnectTries <= FVT.OPTIONS.autoReconnectMaxTries && FVT.VARS.autoReconnectTries > 0)) {
-			DrawableHelper.drawCenteredString(matrices, FVT.MC.textRenderer, "Reconnecting in: " + MathHelper.ceil(FVT.VARS.autoReconnectTicks / 20.0f) + "s (" + (FVT.OPTIONS.autoReconnectMaxTries + 1 - FVT.VARS.autoReconnectTries) + " tries left)", FVT.MC.currentScreen.width / 2, FVT.MC.currentScreen.height - this.reasonHeight / 2 - 2*FVT.MC.textRenderer.fontHeight, Color.WHITE.getPacked());
+			DrawableHelper.drawCenteredString(matrices, FVT.MC.textRenderer, new TranslatableText("fvt.feature.name.autoreconnect.message", MathHelper.ceil(FVT.VARS.autoReconnectTicks / 20.0f), (FVT.OPTIONS.autoReconnectMaxTries + 1 - FVT.VARS.autoReconnectTries)).getString(), FVT.MC.currentScreen.width / 2, FVT.MC.currentScreen.height - this.reasonHeight / 2 - 2*FVT.MC.textRenderer.fontHeight, Color.WHITE.getPacked());
 		}
+
+		//sString msg = "Reconnecting in: " + MathHelper.ceil(FVT.VARS.autoReconnectTicks / 20.0f) + "s (" + (FVT.OPTIONS.autoReconnectMaxTries + 1 - FVT.VARS.autoReconnectTries) + " tries left)";
     }
 }
