@@ -1,75 +1,108 @@
 {
 	"fvt.options_title": "FVT Options",
 
+	"fvt.options.tooltips.show": "Show feature tooltips.",
+	"fvt.options.tooltips.hide": "Hide feature tooltips.",
+
 	"fvt.feature_category.crosshair": "Crosshair",
 	"fvt.feature_category.hud": "HUD",
 	"fvt.feature_category.tools": "Tools",
 	"fvt.feature_category.render": "Render",
 	"fvt.feature_category.auto": "Auto",
 	"fvt.feature_category.other": "Other",
+	
+	"fvt.feature.default": "Default: %s",
 
 	
 	"fvt.feature.name.button_position": "FVT Button Position",
-
 	"fvt.feature.name.button_position.right": "Right",
 	"fvt.feature.name.button_position.left": "Left",
 	"fvt.feature.name.button_position.center": "Center",
+	"fvt.feature.name.button_position.tooltip": "Changes the 'FVT...' button position in settings menu.",
 
 	"fvt.feature.name.feature_toggle_messages": "Toggle Chat Messages",
+	"fvt.feature.name.feature_toggle_messages.tooltip": "Sends a chat message (only visible to you) whenever you enable/disable a feature using assigned key.",
 
 	"fvt.feature.name.crosshair_scale": "Scale",
+	"fvt.feature.name.crosshair_scale.tooltip": "Let's you make the crosshair bigger or smaller. Values close to zero percent make it disappear.",
 	"fvt.feature.name.crosshair_static_color": "Static Color",
+	"fvt.feature.name.crosshair_static_color.tooltip": "Disables crosshair changing it's color based on background and instead let's you choose the color yourself using RGB scheme.",
 	"fvt.feature.name.crosshair_static_color.blue_component": "Blue Component",
+	"fvt.feature.name.crosshair_static_color.blue_component.tooltip": "Represents the blue part of crosshair color.",
 	"fvt.feature.name.crosshair_static_color.green_component": "Green Component",
+	"fvt.feature.name.crosshair_static_color.green_component.tooltip": "Represents the green part of crosshair color.",
 	"fvt.feature.name.crosshair_static_color.red_component": "Red Component",
+	"fvt.feature.name.crosshair_static_color.red_component.tooltip": "Represents the red part of crosshair color.",
 
 	"fvt.feature.name.disable_w_to_sprint": "Disable 'W' To Sprint",
+	"fvt.feature.name.disable_w_to_sprint.tooltip": "Double tapping 'W' will no longer make you sprint.",
 
 	"fvt.feature.name.send_death_coordinates": "Death Coordinates",
 	"fvt.feature.name.send_death_coordinates.message": "You died at X: %d Z: %d Y: %d in %s.",
+	"fvt.feature.name.send_death_coordinates.tooltip": "Sends your last death coordinates in chat after you respawn (only visible to you).",
 
 	"fvt.feature.name.hud_coordinates": "Coords Position",
 	"fvt.feature.name.hud_coordinates.vertical": "Vertical",
 	"fvt.feature.name.hud_coordinates.horizontal": "Horizontal",
+	"fvt.feature.name.hud_coordinates.tooltip": "Defines coordinates stacking, either on one line or each coordinate on it's own line.",
 
 	"fvt.feature.name.show_hud_info": "HUD Info",
 	"fvt.feature.name.show_hud_info.visible": "Visible",
 	"fvt.feature.name.show_hud_info.hidden": "Hidden",
+	"fvt.feature.name.show_hud_info.tooltip": "Shows your location, pitch, cardinal direction and block light while ingame. Sort of like a mini F3 screen.",
 
 	"fvt.feature.name.no_tool_breaking": "Prevent Breaking",
+	"fvt.feature.name.no_tool_breaking.tooltip": "Makes your tools stop working at certain durability (will stop at 2 durability for most tools). This includes swords, pickaxes, axes, shovels, hoes, tridents, bows and crossbows.",
 	"fvt.feature.name.tool_breaking_override": "Tool Breaking Override",
 
 	"fvt.feature.name.tool_warning": "Show Warning",
+	"fvt.feature.name.tool_warning.tooltip": "When your active tool goes below 10% durability and have 12 or less uses a red warning text appears on your screen for two seconds.",
 	"fvt.feature.name.tool_warning.text.main_hand": "Main hand tool has %d durability left!",
 	"fvt.feature.name.tool_warning.text.offhand": "Offhand tool has %d durability left!",
 	"fvt.feature.name.tool_warning.scale": "Warning Text Scale",
+	"fvt.feature.name.tool_warning.scale.tooltip": "How big the warning text should be.",
 	"fvt.feature.name.tool_warning.position": "Warning Position",
+	"fvt.feature.name.tool_warning.position.tooltip": "States where the warning text should appear.",
 	"fvt.feature.name.tool_warning.position.top": "Top",
 	"fvt.feature.name.tool_warning.position.bottom": "Bottom",
 
 	"fvt.feature.name.cloud_height": "Cloud Height",
+	"fvt.feature.name.cloud_height.tooltip": "Sets the height at which clouds render.",
 
 	"fvt.feature.name.entity_outline": "Entity Outline",
+	"fvt.feature.name.entity_outline.tooltip": "Makes all entities (except players) glow white and be seen through walls.",
 
 	"fvt.feature.name.fullbright": "Fullbright",
+	"fvt.feature.name.fullbright.tooltip": "Makes you see in dark just as if it was a bright day.",
 
 	"fvt.feature.name.random_placement": "Random Placement",
+	"fvt.feature.name.random_placement.tooltip": "Randomly selects a block from your hotbar to place every time you try to place a block or when you have an empty hand.",
 
 	"fvt.feature.name.no_nether_fog": "No Nether Fog",
+	"fvt.feature.name.no_nether_fog.tooltip": "Disables the thick fog found in Nether.",
 
-	"fvt.feature.name.no_block_break_particles": "No Block Break Particles",
+	"fvt.feature.name.no_block_break_particles": "No Block Particles",
+	"fvt.feature.name.no_block_break_particles.tooltip": "Disables rendering the particles that spawn when you break a block.",
 
 	"fvt.feature.name.refill_hand": "Refill Hand",
+	"fvt.feature.name.refill_hand.tooltip": "Once the stack in your main hand is below 50% automatically finds the same item in your inventory and restocks it.",
 
 	"fvt.feature.name.autoreconnect": "Autoreconnect",
-	"fvt.feature.name.autoreconnect.tries": "Autoreconnect Tries",
-	"fvt.feature.name.autoreconnect.timeout": "Autoreconnect Timeout",
+	"fvt.feature.name.autoreconnect.tooltip": "Will try to automatically reconnect you to the server you got disconnected from.",
 	"fvt.feature.name.autoreconnect.message": "Reconnecting in: %ds (%d tries left)",
+	"fvt.feature.name.autoreconnect.tries": "Autoreconnect Tries",
+	"fvt.feature.name.autoreconnect.tries.tooltip": "Number of times it will try to reconnect you after which it just gives up.",
+	"fvt.feature.name.autoreconnect.timeout": "Autoreconnect Timeout",
+	"fvt.feature.name.autoreconnect.timeout.tooltip": "States how long it should wait before every reconnect attempt.",
+
 	"fvt.feature.name.autoeat": "Offhand Autoeat",
+	"fvt.feature.name.autoeat.tooltip": "Will automatically eat the food in your offhand as soon as you loose enough hunger for it to be fully utilized, will also eat if your health is low. Won't work if you for example aim at a chest or have a block in your main hand that can be placed.",
 
 	"fvt.feature.name.trigger_autoattack": "Trigger Autoattack",
+	"fvt.feature.name.trigger_autoattack.tooltip": "Automatically attacks entities if you place your crosshair over them and in reach.",
 
 	"fvt.feature.name.freecam": "Freecam",
+	"fvt.feature.name.freecam.tooltip": "Allows you to leave your body and explore your surroundings. Works similar to spectator.",
 	
 
 	"fvt.feature.enabled": "%s is now enabled!",

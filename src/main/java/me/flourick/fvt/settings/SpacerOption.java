@@ -1,4 +1,4 @@
-package me.flourick.fvt.options;
+package me.flourick.fvt.settings;
 
 import me.flourick.fvt.FVT;
 import net.minecraft.client.MinecraftClient;
@@ -9,12 +9,17 @@ import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.Option;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 
 public class SpacerOption extends Option
 {
+	private Text text;
+
 	public SpacerOption(String key)
 	{
 		super(key);
+		this.text = new TranslatableText(key).formatted(Formatting.BOLD);
 	}
 
 	@Override
@@ -60,7 +65,7 @@ public class SpacerOption extends Option
 		public void render(MatrixStack matrices, int mouseX, int mouseY, float delta)
 		{
 			if(this.visible) {
-				DrawableHelper.drawCenteredText(matrices, FVT.MC.textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, 16777215);
+				DrawableHelper.drawCenteredText(matrices, FVT.MC.textRenderer, text, this.x + this.width / 2, this.y + (this.height - 8) / 2, 16777215);
 			}
 		}
 

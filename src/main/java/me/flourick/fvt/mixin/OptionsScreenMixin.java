@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import me.flourick.fvt.FVT;
-import me.flourick.fvt.utils.FVTSettingsScreen;
+import me.flourick.fvt.settings.FVTSettingsScreen;
 
 @Mixin(OptionsScreen.class)
 public class OptionsScreenMixin extends Screen

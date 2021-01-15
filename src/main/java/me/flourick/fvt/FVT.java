@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.lwjgl.glfw.GLFW;
 
-import me.flourick.fvt.options.FVTOptions;
+import me.flourick.fvt.settings.FVTOptions;
 import me.flourick.fvt.utils.FVTVars;
 
 import net.fabricmc.api.ModInitializer;

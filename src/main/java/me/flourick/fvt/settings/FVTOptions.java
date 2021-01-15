@@ -1,4 +1,4 @@
-package me.flourick.fvt.options;
+package me.flourick.fvt.settings;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -75,6 +75,33 @@ public class FVTOptions
 	public boolean autoEat;
 	public boolean triggerBot;
 	public boolean freecam;
+
+	public final ButtonPosition buttonPositionDefault = ButtonPosition.RIGHT;
+	public final boolean featureToggleMessagesDefault = true;
+	public final boolean crosshairStaticColorDefault = true;
+	public final Color crosshairColorDefault = new Color(255, 255, 255);
+	public final double crosshairScaleDefault = 1.0d;
+	public final boolean disableWToSprintDefault = true;
+	public final boolean sendDeathCoordinatesDefault = true;
+	public final boolean coordinatesPositionDefault = true;
+	public final boolean showHUDInfoDefault = true;
+	public final boolean noToolBreakingDefault = false;
+	public final boolean toolWarningDefault = true;
+	public final double toolWarningScaleDefault = 1.5d;
+	public final boolean toolWarningPositionDefault = false;
+	public final double cloudHeightDefault = 128.0d;
+	public final boolean entityOutlineDefault = false;
+	public final boolean fullbrightDefault = false;
+	public final boolean randomPlacementDefault = false;
+	public final boolean noNetherFogDefault = false;
+	public final boolean noBlockBreakParticlesDefault = false;
+	public final boolean refillHandDefault = false;
+	public final boolean autoReconnectDefault = false;
+	public final int autoReconnectMaxTriesDefault = 5;
+	public final int autoReconnectTimeoutDefault = 5;
+	public final boolean autoEatDefault = false;
+	public final boolean triggerBotDefault = false;
+	public final boolean freecamDefault = false;
 
 	//region OPTIONS
 
@@ -351,7 +378,7 @@ public class FVTOptions
 			FVT.OPTIONS.buttonPosition = ButtonPosition.getOption(FVT.OPTIONS.buttonPosition.getId() + integer);
 		},
 		(gameOptions, cyclingOption) -> {
-			return new TranslatableText("fvt.feature.name.button_position").append(": ").append(FVT.OPTIONS.buttonPosition.getTranslated());
+			return new TranslatableText("fvt.feature.name.button_position").append(": ").append(FVT.OPTIONS.buttonPosition.toString());
 		}
 	);
 
@@ -361,37 +388,25 @@ public class FVTOptions
 
 	public enum ButtonPosition
 	{
-		RIGHT(0, "right", "fvt.feature.name.button_position.right"), LEFT(1, "left", "fvt.feature.name.button_position.left"), CENTER(2, "center", "fvt.feature.name.button_position.center");
+		RIGHT(0, "fvt.feature.name.button_position.right"), LEFT(1, "fvt.feature.name.button_position.left"), CENTER(2, "fvt.feature.name.button_position.center");
 
 		private static final ButtonPosition[] BUTTON_POSITIONS = (ButtonPosition[]) Arrays.stream(values()).sorted(Comparator.comparingInt(ButtonPosition::getId)).toArray((i) -> {
 			return new ButtonPosition[i];
 		});
 
-		private TranslatableText positionTranslated;
-		private String position;
+		private TranslatableText position;
 		private int id;
 
-		private ButtonPosition(int id, String position, String positionTranslationKey)
+		private ButtonPosition(int id, String positionTranslationKey)
 		{
-			this.positionTranslated = new TranslatableText(positionTranslationKey);
-			this.position = position;
+			this.position = new TranslatableText(positionTranslationKey);
 			this.id = id;
-		}
-
-		public static ButtonPosition getOption(int id)
-		{
-			return BUTTON_POSITIONS[MathHelper.floorMod(id, BUTTON_POSITIONS.length)];
 		}
 
 		@Override
 		public String toString()
 		{
-			return position;
-		}
-
-		public TranslatableText getTranslated()
-		{
-			return positionTranslated;
+			return position.getString();
 		}
 
 		public int getId()
@@ -399,21 +414,9 @@ public class FVTOptions
 			return id;
 		}
 
-		public static ButtonPosition match(String m)
+		public static ButtonPosition getOption(int id)
 		{
-			switch(m) {
-				case "right":
-					return ButtonPosition.RIGHT;
-
-				case "left":
-					return ButtonPosition.LEFT;
-
-				case "center":
-					return ButtonPosition.CENTER;
-
-				default:
-					return null;
-			}
+			return BUTTON_POSITIONS[MathHelper.floorMod(id, BUTTON_POSITIONS.length)];
 		}
 	}
 
@@ -422,7 +425,7 @@ public class FVTOptions
 	public void write()
 	{
 		try(PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(optionsFile), StandardCharsets.UTF_8));) {
-			printWriter.println("buttonPosition:" + this.buttonPosition);
+			printWriter.println("buttonPosition:" + this.buttonPosition.getId());
 			printWriter.println("featureToggleMessages:" + this.featureToggleMessages);
 			printWriter.println("crosshairStaticColor:" + this.crosshairStaticColor);
 			printWriter.println("crosshairScale:" + BigDecimal.valueOf(this.crosshairScale).setScale(2, RoundingMode.HALF_UP));
@@ -463,12 +466,10 @@ public class FVTOptions
 
 				switch(key) {
 					case "buttonPosition":
-						ButtonPosition bPos = ButtonPosition.match(value);
-
-						if(bPos != null) {
-							this.buttonPosition = bPos;
+						try {
+							this.buttonPosition = ButtonPosition.getOption(Integer.parseInt(value));
 						}
-						else {
+						catch(NumberFormatException e) {
 							LogManager.getLogger().warn("Skipping bad option (" + value + ")" + " for " + key);
 						}
 
@@ -608,31 +609,31 @@ public class FVTOptions
 
 	private void loadDefaults()
 	{
-		this.buttonPosition = ButtonPosition.RIGHT;
-		this.featureToggleMessages = true;
-		this.crosshairStaticColor = true;
-		this.crosshairScale = 1.0d;
-		this.crosshairColor = new Color(255, 255, 255);
-		this.disableWToSprint = true;
-		this.sendDeathCoordinates = true;
-		this.coordinatesPosition = true;
-		this.showHUDInfo = true;
-		this.noToolBreaking = false;
-		this.toolWarning = true;
-		this.toolWarningScale = 1.5d;
-		this.toolWarningPosition = false;
-		this.cloudHeight = 128.0d;
-		this.entityOutline = false;
-		this.fullbright = false;
-		this.randomPlacement = false;
-		this.noNetherFog = false;
-		this.noBlockBreakParticles = false;
-		this.refillHand = false;
-		this.autoReconnect = false;
-		this.autoReconnectMaxTries = 5;
-		this.autoReconnectTimeout = 5;
-		this.autoEat = false;
-		this.triggerBot = false;
-		this.freecam = false;
+		this.buttonPosition = buttonPositionDefault;
+		this.featureToggleMessages = featureToggleMessagesDefault;
+		this.crosshairStaticColor = crosshairStaticColorDefault;
+		this.crosshairScale = crosshairScaleDefault;
+		this.crosshairColor = crosshairColorDefault;
+		this.disableWToSprint = disableWToSprintDefault;
+		this.sendDeathCoordinates = sendDeathCoordinatesDefault;
+		this.coordinatesPosition = coordinatesPositionDefault;
+		this.showHUDInfo = showHUDInfoDefault;
+		this.noToolBreaking = noToolBreakingDefault;
+		this.toolWarning = toolWarningDefault;
+		this.toolWarningScale = toolWarningScaleDefault;
+		this.toolWarningPosition = toolWarningPositionDefault;
+		this.cloudHeight = cloudHeightDefault;
+		this.entityOutline = entityOutlineDefault;
+		this.fullbright = fullbrightDefault;
+		this.randomPlacement = randomPlacementDefault;
+		this.noNetherFog = noNetherFogDefault;
+		this.noBlockBreakParticles = noBlockBreakParticlesDefault;
+		this.refillHand = refillHandDefault;
+		this.autoReconnect = autoReconnectDefault;
+		this.autoReconnectMaxTries = autoReconnectMaxTriesDefault;
+		this.autoReconnectTimeout = autoReconnectTimeoutDefault;
+		this.autoEat = autoEatDefault;
+		this.triggerBot = triggerBotDefault;
+		this.freecam = freecamDefault;
 	}
 }
