@@ -186,7 +186,6 @@ public class FVTSettingsScreen extends GameOptionsScreen
 
 	private void createFeatureTooltips()
 	{
-		createFeatureTooltip("fvt.feature.name.button_position.tooltip", FVT.OPTIONS.buttonPositionDefault, FVTOptions.BUTTON_POSITION);
 		createFeatureTooltip("fvt.feature.name.feature_toggle_messages.tooltip", FVT.OPTIONS.featureToggleMessagesDefault, FVTOptions.FEATURE_TOGGLE_MESSAGES);
 		createFeatureTooltip("fvt.feature.name.crosshair_static_color.tooltip", FVT.OPTIONS.crosshairStaticColorDefault, FVTOptions.CROSSHAIR_STATIC_COLOR);
 		createFeatureTooltip("fvt.feature.name.crosshair_scale.tooltip", FVT.OPTIONS.crosshairScaleDefault, FVTOptions.CROSSHAIR_SCALE);

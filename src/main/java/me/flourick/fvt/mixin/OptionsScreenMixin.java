@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import me.flourick.fvt.FVT;
+import me.flourick.fvt.settings.FVTOptions;
 import me.flourick.fvt.settings.FVTSettingsScreen;
 
 @Mixin(OptionsScreen.class)
@@ -38,20 +38,20 @@ public class OptionsScreenMixin extends Screen
 	{
 		int x, y, l;
 
-		switch(FVT.OPTIONS.buttonPosition) {
-			case CENTER:
+		switch(FVTOptions.BUTTON_POSITION.getCurrentAsString()) {
+			case "2": // CENTER
 				x = this.width / 2 - 155;
 				y = this.height / 6 + 24 - 6;
 				l = 310;
 				break;
 
-			case LEFT:
+			case "1": // LEFT
 				x = this.width / 2 - 155;
 				y = this.height / 6 + 24 - 6;
 				l = 150;
 				break;
 
-			default: // RIGHT
+			default:  // RIGHT
 				x = this.width / 2 + 5;
 				y = this.height / 6 + 24 - 6;
 				l = 150;

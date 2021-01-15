@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Comparator;
 
 import com.google.common.io.Files;
 
@@ -49,7 +48,6 @@ public class FVTOptions
 	}
 
 	// all the FEATURES
-	public ButtonPosition buttonPosition;
 	public boolean featureToggleMessages;
 	public boolean crosshairStaticColor;
 	public Color crosshairColor;
@@ -76,7 +74,6 @@ public class FVTOptions
 	public boolean triggerBot;
 	public boolean freecam;
 
-	public final ButtonPosition buttonPositionDefault = ButtonPosition.RIGHT;
 	public final boolean featureToggleMessagesDefault = true;
 	public final boolean crosshairStaticColorDefault = true;
 	public final Color crosshairColorDefault = new Color(255, 255, 255);
@@ -373,59 +370,27 @@ public class FVTOptions
 		}
 	);
 
-	public static final CyclingOption BUTTON_POSITION = new CyclingOption("fvt.feature.name.button_position",
-		(gameOptions, integer) -> {
-			FVT.OPTIONS.buttonPosition = ButtonPosition.getOption(FVT.OPTIONS.buttonPosition.getId() + integer);
-		},
-		(gameOptions, cyclingOption) -> {
-			return new TranslatableText("fvt.feature.name.button_position").append(": ").append(FVT.OPTIONS.buttonPosition.toString());
-		}
+	// public static final CyclingOption BUTTON_POSITION = new CyclingOption("fvt.feature.name.button_position",
+	// 	(gameOptions, integer) -> {
+	// 		FVT.OPTIONS.buttonPosition = ButtonPosition.getOption(FVT.OPTIONS.buttonPosition.getId() + integer);
+	// 	},
+	// 	(gameOptions, cyclingOption) -> {
+	// 		return new TranslatableText("fvt.feature.name.button_position").append(": ").append(FVT.OPTIONS.buttonPosition.toString());
+	// 	}
+	// );
+
+	public static final FVTCyclingOption BUTTON_POSITION = new FVTCyclingOption(
+		"fvt.feature.name.button_position", 
+		"fvt.feature.name.button_position.tooltip", 
+		Arrays.asList(new TranslatableText[] {new TranslatableText("fvt.feature.name.button_position.right"), new TranslatableText("fvt.feature.name.button_position.left"), new TranslatableText("fvt.feature.name.button_position.center")})
 	);
-
-	//endregion
-
-	//region ENUMS
-
-	public enum ButtonPosition
-	{
-		RIGHT(0, "fvt.feature.name.button_position.right"), LEFT(1, "fvt.feature.name.button_position.left"), CENTER(2, "fvt.feature.name.button_position.center");
-
-		private static final ButtonPosition[] BUTTON_POSITIONS = (ButtonPosition[]) Arrays.stream(values()).sorted(Comparator.comparingInt(ButtonPosition::getId)).toArray((i) -> {
-			return new ButtonPosition[i];
-		});
-
-		private TranslatableText position;
-		private int id;
-
-		private ButtonPosition(int id, String positionTranslationKey)
-		{
-			this.position = new TranslatableText(positionTranslationKey);
-			this.id = id;
-		}
-
-		@Override
-		public String toString()
-		{
-			return position.getString();
-		}
-
-		public int getId()
-		{
-			return id;
-		}
-
-		public static ButtonPosition getOption(int id)
-		{
-			return BUTTON_POSITIONS[MathHelper.floorMod(id, BUTTON_POSITIONS.length)];
-		}
-	}
 
 	//endregion
 
 	public void write()
 	{
 		try(PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(optionsFile), StandardCharsets.UTF_8));) {
-			printWriter.println("buttonPosition:" + this.buttonPosition.getId());
+			printWriter.println("buttonPosition:" + BUTTON_POSITION.getCurrentAsString());
 			printWriter.println("featureToggleMessages:" + this.featureToggleMessages);
 			printWriter.println("crosshairStaticColor:" + this.crosshairStaticColor);
 			printWriter.println("crosshairScale:" + BigDecimal.valueOf(this.crosshairScale).setScale(2, RoundingMode.HALF_UP));
@@ -466,13 +431,9 @@ public class FVTOptions
 
 				switch(key) {
 					case "buttonPosition":
-						try {
-							this.buttonPosition = ButtonPosition.getOption(Integer.parseInt(value));
-						}
-						catch(NumberFormatException e) {
+						if(!BUTTON_POSITION.setCurrentFromString(value)) {
 							LogManager.getLogger().warn("Skipping bad option (" + value + ")" + " for " + key);
 						}
-
 						break;
 
 					case "featureToggleMessages":
@@ -609,7 +570,6 @@ public class FVTOptions
 
 	private void loadDefaults()
 	{
-		this.buttonPosition = buttonPositionDefault;
 		this.featureToggleMessages = featureToggleMessagesDefault;
 		this.crosshairStaticColor = crosshairStaticColorDefault;
 		this.crosshairScale = crosshairScaleDefault;

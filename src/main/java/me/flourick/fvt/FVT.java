@@ -211,6 +211,7 @@ public class FVT implements ModInitializer
 			}
 		});
 
+		// the entirety of TRIGGER BOT
 		ClientTickEvents.START_WORLD_TICK.register(clientWorld -> {
 			if(FVT.OPTIONS.triggerBot && FVT.MC.currentScreen == null) {
 				if(FVT.MC.crosshairTarget != null && FVT.MC.crosshairTarget.getType() == Type.ENTITY && FVT.MC.player.getAttackCooldownProgress(0.0f) >= 1.0f) {
