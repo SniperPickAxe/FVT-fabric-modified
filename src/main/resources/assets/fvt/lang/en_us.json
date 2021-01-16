@@ -38,7 +38,7 @@
 	"fvt.feature.name.disable_w_to_sprint.tooltip": "Double tapping 'W' will no longer make you sprint.",
 
 	"fvt.feature.name.send_death_coordinates": "Death Coordinates",
-	"fvt.feature.name.send_death_coordinates.message": "You died at X: %d Z: %d Y: %d in %s.",
+	"fvt.feature.name.send_death_coordinates.message": "You died at X: %d Z: %d Y: %d in %s",
 	"fvt.feature.name.send_death_coordinates.tooltip": "Sends your last death coordinates in chat after you respawn (only visible to you).",
 
 	"fvt.feature.name.hud_coordinates": "Coords Position",
@@ -96,7 +96,7 @@
 	"fvt.feature.name.autoreconnect.timeout.tooltip": "States how long it should wait before every reconnect attempt.",
 
 	"fvt.feature.name.autoeat": "Offhand Autoeat",
-	"fvt.feature.name.autoeat.tooltip": "Will automatically eat the food in your offhand as soon as you loose enough hunger for it to be fully utilized, will also eat if your health is low. Won't work if you for example aim at a chest or have a block in your main hand that can be placed.",
+	"fvt.feature.name.autoeat.tooltip": "Will automatically eat the food in your offhand as soon as you lose enough hunger for it to be fully utilized, will also eat if your health is low. Won't work if you for example aim at a chest or have a block in your main hand that can be placed.",
 
 	"fvt.feature.name.trigger_autoattack": "Trigger Autoattack",
 	"fvt.feature.name.trigger_autoattack.tooltip": "Automatically attacks entities if you place your crosshair over them and in reach.",

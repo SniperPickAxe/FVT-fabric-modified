@@ -24,8 +24,8 @@ public class DisconnectedScreenMixin
 	@Inject(method = "init", at = @At("HEAD"))
     private void onInit(CallbackInfo info)
     {
-        if(FVT.OPTIONS.autoReconnect) {
-			FVT.VARS.autoReconnectTicks = FVT.OPTIONS.autoReconnectTimeout * 20;
+        if(FVT.OPTIONS.autoReconnect.getValueRaw()) {
+			FVT.VARS.autoReconnectTicks = FVT.OPTIONS.autoReconnectTimeout.getValueAsInteger() * 20;
 			FVT.VARS.autoReconnectTries += 1;
 		}
 	}
@@ -33,8 +33,8 @@ public class DisconnectedScreenMixin
 	@Inject(method = "render", at = @At("RETURN"))
     private void onRender(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo info)
     {
-        if(FVT.OPTIONS.autoReconnect && FVT.MC.currentScreen != null && (FVT.VARS.autoReconnectTries <= FVT.OPTIONS.autoReconnectMaxTries && FVT.VARS.autoReconnectTries > 0)) {
-			DrawableHelper.drawCenteredString(matrices, FVT.MC.textRenderer, new TranslatableText("fvt.feature.name.autoreconnect.message", MathHelper.ceil(FVT.VARS.autoReconnectTicks / 20.0f), (FVT.OPTIONS.autoReconnectMaxTries + 1 - FVT.VARS.autoReconnectTries)).getString(), FVT.MC.currentScreen.width / 2, FVT.MC.currentScreen.height - this.reasonHeight / 2 - 2*FVT.MC.textRenderer.fontHeight, Color.WHITE.getPacked());
+        if(FVT.OPTIONS.autoReconnect.getValueRaw() && FVT.MC.currentScreen != null && (FVT.VARS.autoReconnectTries <= FVT.OPTIONS.autoReconnectMaxTries.getValueAsInteger() && FVT.VARS.autoReconnectTries > 0)) {
+			DrawableHelper.drawCenteredString(matrices, FVT.MC.textRenderer, new TranslatableText("fvt.feature.name.autoreconnect.message", MathHelper.ceil(FVT.VARS.autoReconnectTicks / 20.0f), (FVT.OPTIONS.autoReconnectMaxTries.getValueAsInteger() + 1 - FVT.VARS.autoReconnectTries)).getString(), FVT.MC.currentScreen.width / 2, FVT.MC.currentScreen.height - this.reasonHeight / 2 - 2*FVT.MC.textRenderer.fontHeight, Color.WHITE.getPacked());
 		}
 
 		//sString msg = "Reconnecting in: " + MathHelper.ceil(FVT.VARS.autoReconnectTicks / 20.0f) + "s (" + (FVT.OPTIONS.autoReconnectMaxTries + 1 - FVT.VARS.autoReconnectTries) + " tries left)";

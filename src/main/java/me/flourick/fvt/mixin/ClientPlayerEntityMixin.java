@@ -40,7 +40,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "<init>", at = @At("RETURN"))
 	private void onConstructor(MinecraftClient client, ClientWorld world, ClientPlayNetworkHandler networkHandler, StatHandler stats, ClientRecipeBook recipeBook, boolean lastSneaking, boolean lastSprinting, CallbackInfo info)
 	{
-		if(FVT.OPTIONS.autoReconnect) {
+		if(FVT.OPTIONS.autoReconnect.getValueRaw()) {
 			FVT.VARS.autoReconnectTries = 0;
 		}
 	}
@@ -48,7 +48,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "setShowsDeathScreen", at = @At("HEAD"))
 	private void onSetShowsDeathScreen(CallbackInfo info)
 	{
-		if(FVT.VARS.isAfterDeath && FVT.OPTIONS.sendDeathCoordinates) {
+		if(FVT.VARS.isAfterDeath && FVT.OPTIONS.sendDeathCoordinates.getValueRaw()) {
 			FVT.VARS.isAfterDeath = false;
 			FVT.MC.inGameHud.addChatMessage(
 				MessageType.CHAT, 
@@ -61,7 +61,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "move", at = @At("HEAD"), cancellable = true)
 	private void onMove(CallbackInfo info)
 	{
-		if(FVT.OPTIONS.freecam) {
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.cancel();
 		}
 	}
@@ -69,7 +69,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasVehicle()Z", ordinal = 0), method = "tick()V")
 	private boolean hijackHasVehicle(ClientPlayerEntity player)
 	{
-		if(FVT.OPTIONS.freecam) {
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			return false;
 		}
 
@@ -79,11 +79,11 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "tickMovement", at = @At("HEAD"), cancellable = true)
 	private void onTickMovement(CallbackInfo info)
 	{
-		if(FVT.OPTIONS.disableWToSprint) {
+		if(FVT.OPTIONS.disableWToSprint.getValueRaw()) {
 			this.ticksLeftToDoubleTapSprint = -1;
 		}
 
-		if(FVT.OPTIONS.freecam) {
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			float forward = FVT.MC.player.input.movementForward;
 			float up = (FVT.MC.player.input.jumping ? 1.0f : 0.0f) - (FVT.MC.player.input.sneaking ? 1.0f : 0.0f);
             float side = FVT.MC.player.input.movementSideways;
@@ -115,7 +115,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "isCamera", at = @At("HEAD"), cancellable = true)
 	private void onIsCamera(CallbackInfoReturnable<Boolean> info)
 	{
-		if(FVT.OPTIONS.freecam) {
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.setReturnValue(false);
 		}
 	}
@@ -124,7 +124,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "isSneaking", at = @At("HEAD"), cancellable = true)
     private void onIsSneaking(CallbackInfoReturnable<Boolean> info)
     {
-        if(FVT.OPTIONS.freecam) {
+        if(FVT.OPTIONS.freecam.getValueRaw()) {
             info.setReturnValue(false);
         }
     }
@@ -132,7 +132,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Override
 	public void changeLookDirection(double cursorDeltaX, double cursorDeltaY)
 	{
-		if(FVT.OPTIONS.freecam) {
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			FVT.VARS.freecamYaw += cursorDeltaX * 0.15D;
 			FVT.VARS.freecamPitch = MathHelper.clamp(FVT.VARS.freecamPitch + cursorDeltaY * 0.15D, -90, 90);
 		}

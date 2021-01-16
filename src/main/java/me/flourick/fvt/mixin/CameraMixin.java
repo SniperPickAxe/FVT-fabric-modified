@@ -22,6 +22,8 @@ public class CameraMixin
 	@Shadow
 	private BlockView area;
 
+	private boolean preFreecam = false;
+
 	@Shadow
 	protected void setRotation(float yaw, float pitch) {};
 
@@ -31,7 +33,12 @@ public class CameraMixin
 	@Inject(method = "update", at = @At("HEAD"), cancellable = true)
 	private void onUpdate(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo info)
 	{
-		if(FVT.OPTIONS.freecam) {
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
+			if(!preFreecam) {
+				preFreecam = true;
+				freecamToggleCheck();
+			}
+
 			this.ready = true;
 			this.area = area;
 
@@ -40,13 +47,46 @@ public class CameraMixin
 
 			info.cancel();
 		}
+		else {
+			if(preFreecam) {
+				preFreecam = false;
+				freecamToggleCheck();
+			}
+		}
 	}
 
 	@Inject(method = "isThirdPerson", at = @At("HEAD"), cancellable = true)
 	public void onIsThirdPerson(CallbackInfoReturnable<Boolean> info)
 	{
-		if(FVT.OPTIONS.freecam) {
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.setReturnValue(true);
+		}
+	}
+
+	private void freecamToggleCheck()
+	{
+		if(FVT.OPTIONS.freecam.getValueRaw() && FVT.MC.player != null) {
+			FVT.MC.chunkCullingEnabled = false;
+
+			FVT.VARS.freecamPitch = FVT.MC.player.pitch;
+			FVT.VARS.freecamYaw = FVT.MC.player.yaw;
+
+			FVT.VARS.playerPitch = FVT.MC.player.pitch;
+			FVT.VARS.playerYaw = FVT.MC.player.yaw;
+
+			FVT.VARS.freecamX = FVT.VARS.prevFreecamX = FVT.MC.gameRenderer.getCamera().getPos().getX();
+			FVT.VARS.freecamY = FVT.VARS.prevFreecamY = FVT.MC.gameRenderer.getCamera().getPos().getY();
+			FVT.VARS.freecamZ = FVT.VARS.prevFreecamZ = FVT.MC.gameRenderer.getCamera().getPos().getZ();
+		}
+		else {
+			FVT.MC.chunkCullingEnabled = true;
+
+			FVT.MC.player.pitch = (float) FVT.VARS.playerPitch;
+			FVT.MC.player.yaw = (float) FVT.VARS.playerYaw;
+
+			FVT.VARS.freecamForwardSpeed = 0.0f;
+			FVT.VARS.freecamUpSpeed = 0.0f;
+			FVT.VARS.freecamSideSpeed = 0.0f;
 		}
 	}
 }

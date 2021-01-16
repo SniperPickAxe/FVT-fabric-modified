@@ -63,17 +63,17 @@ public class FVT implements ModInitializer
 		toolBreakingOverrideKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.tool_breaking_override", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_ALT, "FVT"));
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if(FVT.MC.player == null && FVT.OPTIONS.freecam) {
+			if(FVT.MC.player == null && FVT.OPTIONS.freecam.getValueRaw()) {
 				// disables freecam if leaving a world
 				FVT.MC.chunkCullingEnabled = true;
-				FVT.OPTIONS.freecam = false;
+				FVT.OPTIONS.freecam.setValueRaw(false);
 			}
 
 			while(fullbrightKeybind.wasPressed()) {
-				FVT.OPTIONS.fullbright = !FVT.OPTIONS.fullbright;
+				FVT.OPTIONS.fullbright.toggle();
 
-				if(FVT.OPTIONS.featureToggleMessages) {
-					if(FVT.OPTIONS.fullbright) {
+				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {
+					if(FVT.OPTIONS.fullbright.getValueRaw()) {
 						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.fullbright")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
@@ -83,10 +83,10 @@ public class FVT implements ModInitializer
 			}
 
 			while(entityOutlineKeybind.wasPressed()) {
-				FVT.OPTIONS.entityOutline = !FVT.OPTIONS.entityOutline;
+				FVT.OPTIONS.entityOutline.toggle();
 
-				if(FVT.OPTIONS.featureToggleMessages) {
-					if(FVT.OPTIONS.entityOutline) {
+				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {
+					if(FVT.OPTIONS.entityOutline.getValueRaw()) {
 						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.entity_outline")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
@@ -96,10 +96,10 @@ public class FVT implements ModInitializer
 			}
 
 			while(autoAttackKeybind.wasPressed()) {
-				FVT.OPTIONS.triggerBot = !FVT.OPTIONS.triggerBot;
+				FVT.OPTIONS.triggerBot.toggle();
 
-				if(FVT.OPTIONS.featureToggleMessages) {
-					if(FVT.OPTIONS.triggerBot) {
+				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {
+					if(FVT.OPTIONS.triggerBot.getValueRaw()) {
 						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.trigger_autoattack")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
@@ -109,25 +109,23 @@ public class FVT implements ModInitializer
 			}
 
 			while(freecamKeybind.wasPressed()) {
-				FVT.OPTIONS.freecam = !FVT.OPTIONS.freecam;
+				FVT.OPTIONS.freecam.toggle();
 
-				if(FVT.OPTIONS.featureToggleMessages) {
-					if(FVT.OPTIONS.freecam) {
+				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {
+					if(FVT.OPTIONS.freecam.getValueRaw()) {
 						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.freecam")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
 						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.freecam")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 				}
-
-				freecamToggleCheck();
 			}
 
 			while(randomPlacementKeybind.wasPressed()) {
-				FVT.OPTIONS.randomPlacement = !FVT.OPTIONS.randomPlacement;
+				FVT.OPTIONS.randomPlacement.toggle();
 
-				if(FVT.OPTIONS.featureToggleMessages) {
-					if(FVT.OPTIONS.randomPlacement) {
+				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {
+					if(FVT.OPTIONS.randomPlacement.getValueRaw()) {
 						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.random_placement")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
@@ -136,12 +134,12 @@ public class FVT implements ModInitializer
 				}
 			}
 
-			if(FVT.VARS.autoReconnectTicks > 0 && FVT.OPTIONS.autoReconnect) {
+			if(FVT.VARS.autoReconnectTicks > 0 && FVT.OPTIONS.autoReconnect.getValueRaw()) {
 				if(FVT.MC.currentScreen instanceof DisconnectedScreen) {
 					FVT.VARS.autoReconnectTicks -= 1;
 
 					if(FVT.VARS.autoReconnectTicks == 0 && FVT.VARS.lastJoinedServer != null) {
-						if(FVT.VARS.autoReconnectTries < FVT.OPTIONS.autoReconnectMaxTries + 1) {
+						if(FVT.VARS.autoReconnectTries < FVT.OPTIONS.autoReconnectMaxTries.getValueAsInteger() + 1) {
 							FVT.MC.disconnect();
 							FVT.MC.openScreen(new ConnectScreen(new TitleScreen(), FVT.MC, FVT.VARS.lastJoinedServer));
 						}
@@ -160,7 +158,7 @@ public class FVT implements ModInitializer
 		});
 
 		ClientTickEvents.END_WORLD_TICK.register(clientWorld -> {
-			if(FVT.OPTIONS.toolWarning) {
+			if(FVT.OPTIONS.toolWarning.getValueRaw()) {
 				ItemStack mainHandItem = FVT.MC.player.getStackInHand(Hand.MAIN_HAND);
 				ItemStack offHandItem = FVT.MC.player.getStackInHand(Hand.OFF_HAND);
 	
@@ -189,7 +187,7 @@ public class FVT implements ModInitializer
 				FVT.VARS.offHandToolItemStack = offHandItem;
 			}
 
-			if(FVT.OPTIONS.autoEat) {
+			if(FVT.OPTIONS.autoEat.getValueRaw()) {
 				int foodLevel = FVT.MC.player.getHungerManager().getFoodLevel();
 
 				// checks if we hungry and have food in your offhand
@@ -213,7 +211,7 @@ public class FVT implements ModInitializer
 
 		// the entirety of TRIGGER BOT
 		ClientTickEvents.START_WORLD_TICK.register(clientWorld -> {
-			if(FVT.OPTIONS.triggerBot && FVT.MC.currentScreen == null) {
+			if(FVT.OPTIONS.triggerBot.getValueRaw() && FVT.MC.currentScreen == null) {
 				if(FVT.MC.crosshairTarget != null && FVT.MC.crosshairTarget.getType() == Type.ENTITY && FVT.MC.player.getAttackCooldownProgress(0.0f) >= 1.0f) {
 					if(((EntityHitResult)FVT.MC.crosshairTarget).getEntity() instanceof LivingEntity) {
 						LivingEntity livingEntity = (LivingEntity)((EntityHitResult)FVT.MC.crosshairTarget).getEntity();
@@ -226,32 +224,5 @@ public class FVT implements ModInitializer
 				}
 			}
 		});
-	}
-
-	public void freecamToggleCheck()
-	{
-		if(FVT.OPTIONS.freecam && FVT.MC.player != null) {
-			FVT.MC.chunkCullingEnabled = false;
-
-			FVT.VARS.freecamPitch = FVT.MC.player.pitch;
-			FVT.VARS.freecamYaw = FVT.MC.player.yaw;
-
-			FVT.VARS.playerPitch = FVT.MC.player.pitch;
-			FVT.VARS.playerYaw = FVT.MC.player.yaw;
-
-			FVT.VARS.freecamX = FVT.VARS.prevFreecamX = FVT.MC.gameRenderer.getCamera().getPos().getX();
-			FVT.VARS.freecamY = FVT.VARS.prevFreecamY = FVT.MC.gameRenderer.getCamera().getPos().getY();
-			FVT.VARS.freecamZ = FVT.VARS.prevFreecamZ = FVT.MC.gameRenderer.getCamera().getPos().getZ();
-		}
-		else {
-			FVT.MC.chunkCullingEnabled = true;
-
-			FVT.MC.player.pitch = (float) FVT.VARS.playerPitch;
-			FVT.MC.player.yaw = (float) FVT.VARS.playerYaw;
-
-			FVT.VARS.freecamForwardSpeed = 0.0f;
-			FVT.VARS.freecamUpSpeed = 0.0f;
-			FVT.VARS.freecamSideSpeed = 0.0f;
-		}
 	}
 }

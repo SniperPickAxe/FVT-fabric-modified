@@ -1,6 +1,5 @@
 package me.flourick.fvt.settings;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,7 +24,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Matrix4f;
 
 public class FVTSettingsScreen extends GameOptionsScreen
@@ -40,27 +38,27 @@ public class FVTSettingsScreen extends GameOptionsScreen
 	protected void init()
 	{
 		this.list = new ButtonListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
-		this.list.addAll(new Option[] {FVTOptions.BUTTON_POSITION, FVTOptions.FEATURE_TOGGLE_MESSAGES});
+		this.list.addAll(new Option[] {FVT.OPTIONS.buttonPosition, FVT.OPTIONS.featureToggleMessages});
 		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.crosshair"));
-		this.list.addAll(new Option[] {FVTOptions.CROSSHAIR_STATIC_COLOR, FVTOptions.CROSSHAIR_SCALE});
-		this.list.addSingleOptionEntry(FVTOptions.CROSSHAIR_RED_COMPONENT);
-		this.list.addSingleOptionEntry(FVTOptions.CROSSHAIR_GREEN_COMPONENT);
-		this.list.addSingleOptionEntry(FVTOptions.CROSSHAIR_BLUE_COMPONENT);
+		this.list.addAll(new Option[] {FVT.OPTIONS.crosshairStaticColor, FVT.OPTIONS.crosshairScale});
+		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairRedComponent);
+		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairGreenComponent);
+		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairBlueComponent);
 		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.hud")); 
-		this.list.addAll(new Option[] {FVTOptions.SHOW_HUD_INFO, FVTOptions.HUD_COORDINATES_POSITION});
+		this.list.addAll(new Option[] {FVT.OPTIONS.showHUDInfo, FVT.OPTIONS.coordinatesPosition});
 		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.tools"));
-		this.list.addAll(new Option[] {FVTOptions.NO_TOOL_BREAKING, FVTOptions.TOOL_WARNING});
-		this.list.addAll(new Option[] {FVTOptions.TOOL_WARNING_POSITION, FVTOptions.TOOL_WARNING_SCALE});
+		this.list.addAll(new Option[] {FVT.OPTIONS.noToolBreaking, FVT.OPTIONS.toolWarning});
+		this.list.addAll(new Option[] {FVT.OPTIONS.toolWarningPosition, FVT.OPTIONS.toolWarningScale});
 		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.render"));
-		this.list.addAll(new Option[] {FVTOptions.NO_NETHER_FOG, FVTOptions.NO_BLOCK_BREAK_PARTICLES});
-		this.list.addSingleOptionEntry(FVTOptions.CLOUD_HEIGHT);
-		this.list.addAll(new Option[] {FVTOptions.FULLBRIGHT, FVTOptions.ENTITY_OUTLINE});
+		this.list.addAll(new Option[] {FVT.OPTIONS.noNetherFog, FVT.OPTIONS.noBlockBreakParticles});
+		this.list.addSingleOptionEntry(FVT.OPTIONS.cloudHeight);
+		this.list.addAll(new Option[] {FVT.OPTIONS.fullbright, FVT.OPTIONS.entityOutline});
 		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.auto"));
-		this.list.addAll(new Option[] {FVTOptions.AUTORECONNECT, FVTOptions.AUTORECONNECT_MAX_TRIES});
-		this.list.addSingleOptionEntry(FVTOptions.AUTORECONNECT_TIMEOUT);
-		this.list.addAll(new Option[] {FVTOptions.AUTOEAT, FVTOptions.TRIGGER_BOT});
+		this.list.addAll(new Option[] {FVT.OPTIONS.autoReconnect, FVT.OPTIONS.autoReconnectMaxTries});
+		this.list.addSingleOptionEntry(FVT.OPTIONS.autoReconnectTimeout);
+		this.list.addAll(new Option[] {FVT.OPTIONS.autoEat, FVT.OPTIONS.triggerBot});
 		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.other"));
-		this.list.addAll(new Option[] {FVTOptions.DISABLE_W_TO_SPRINT, FVTOptions.SEND_DEATH_COORDINATES, FVTOptions.RANDOM_PLACEMENT, FVTOptions.REFILL_HAND, FVTOptions.FREECAM});
+		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates, FVT.OPTIONS.randomPlacement, FVT.OPTIONS.refillHand, FVT.OPTIONS.freecam});
 		this.children.add(this.list);
 		this.addButton(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, (buttonWidget) -> {
 			FVT.OPTIONS.write();
@@ -80,8 +78,6 @@ public class FVTSettingsScreen extends GameOptionsScreen
 		}, (buttonWidget, matrixStack, i, j) -> {
 			this.renderTooltip(matrixStack, (FVT.VARS.tooltipsActive ? new TranslatableText("fvt.options.tooltips.hide") : new TranslatableText("fvt.options.tooltips.show")), i, j + 8);
 		}));
-
-		this.createFeatureTooltips();
 	}
 
 	@Override
@@ -182,44 +178,5 @@ public class FVTSettingsScreen extends GameOptionsScreen
 	public void removed()
 	{
 		FVT.OPTIONS.write();
-	}
-
-	private void createFeatureTooltips()
-	{
-		createFeatureTooltip("fvt.feature.name.feature_toggle_messages.tooltip", FVT.OPTIONS.featureToggleMessagesDefault, FVTOptions.FEATURE_TOGGLE_MESSAGES);
-		createFeatureTooltip("fvt.feature.name.crosshair_static_color.tooltip", FVT.OPTIONS.crosshairStaticColorDefault, FVTOptions.CROSSHAIR_STATIC_COLOR);
-		createFeatureTooltip("fvt.feature.name.crosshair_scale.tooltip", FVT.OPTIONS.crosshairScaleDefault, FVTOptions.CROSSHAIR_SCALE);
-		createFeatureTooltip("fvt.feature.name.crosshair_static_color.blue_component.tooltip", FVT.OPTIONS.crosshairColorDefault.getBlue(), FVTOptions.CROSSHAIR_BLUE_COMPONENT);
-		createFeatureTooltip("fvt.feature.name.crosshair_static_color.green_component.tooltip", FVT.OPTIONS.crosshairColorDefault.getGreen(), FVTOptions.CROSSHAIR_GREEN_COMPONENT);
-		createFeatureTooltip("fvt.feature.name.crosshair_static_color.red_component.tooltip", FVT.OPTIONS.crosshairColorDefault.getRed(), FVTOptions.CROSSHAIR_RED_COMPONENT);
-		createFeatureTooltip("fvt.feature.name.disable_w_to_sprint.tooltip", FVT.OPTIONS.disableWToSprintDefault, FVTOptions.DISABLE_W_TO_SPRINT);
-		createFeatureTooltip("fvt.feature.name.send_death_coordinates.tooltip", FVT.OPTIONS.sendDeathCoordinatesDefault, FVTOptions.SEND_DEATH_COORDINATES);
-		createFeatureTooltip("fvt.feature.name.hud_coordinates.tooltip", FVT.OPTIONS.coordinatesPositionDefault, FVTOptions.HUD_COORDINATES_POSITION);
-		createFeatureTooltip("fvt.feature.name.show_hud_info.tooltip", FVT.OPTIONS.showHUDInfoDefault, FVTOptions.SHOW_HUD_INFO);
-		createFeatureTooltip("fvt.feature.name.no_tool_breaking.tooltip", FVT.OPTIONS.noToolBreakingDefault, FVTOptions.NO_TOOL_BREAKING);
-		createFeatureTooltip("fvt.feature.name.tool_warning.tooltip", FVT.OPTIONS.toolWarningDefault, FVTOptions.TOOL_WARNING);
-		createFeatureTooltip("fvt.feature.name.tool_warning.scale.tooltip", FVT.OPTIONS.toolWarningScaleDefault, FVTOptions.TOOL_WARNING_SCALE);
-		createFeatureTooltip("fvt.feature.name.tool_warning.position.tooltip", FVT.OPTIONS.toolWarningPositionDefault, FVTOptions.TOOL_WARNING_POSITION);
-		createFeatureTooltip("fvt.feature.name.cloud_height.tooltip", FVT.OPTIONS.cloudHeightDefault, FVTOptions.CLOUD_HEIGHT);
-		createFeatureTooltip("fvt.feature.name.entity_outline.tooltip", FVT.OPTIONS.entityOutlineDefault, FVTOptions.ENTITY_OUTLINE);
-		createFeatureTooltip("fvt.feature.name.fullbright.tooltip", FVT.OPTIONS.fullbrightDefault, FVTOptions.FULLBRIGHT);
-		createFeatureTooltip("fvt.feature.name.random_placement.tooltip", FVT.OPTIONS.randomPlacementDefault, FVTOptions.RANDOM_PLACEMENT);
-		createFeatureTooltip("fvt.feature.name.no_nether_fog.tooltip", FVT.OPTIONS.noNetherFogDefault, FVTOptions.NO_NETHER_FOG);
-		createFeatureTooltip("fvt.feature.name.no_block_break_particles.tooltip", FVT.OPTIONS.noBlockBreakParticlesDefault, FVTOptions.NO_BLOCK_BREAK_PARTICLES);
-		createFeatureTooltip("fvt.feature.name.refill_hand.tooltip", FVT.OPTIONS.refillHandDefault, FVTOptions.REFILL_HAND);
-		createFeatureTooltip("fvt.feature.name.autoreconnect.tooltip", FVT.OPTIONS.autoReconnectDefault, FVTOptions.AUTORECONNECT);
-		createFeatureTooltip("fvt.feature.name.autoreconnect.tries.tooltip", FVT.OPTIONS.autoReconnectMaxTriesDefault, FVTOptions.AUTORECONNECT_MAX_TRIES);
-		createFeatureTooltip("fvt.feature.name.autoreconnect.timeout.tooltip", FVT.OPTIONS.autoReconnectTimeoutDefault, FVTOptions.AUTORECONNECT_TIMEOUT);
-		createFeatureTooltip("fvt.feature.name.autoeat.tooltip", FVT.OPTIONS.autoEatDefault, FVTOptions.AUTOEAT);
-		createFeatureTooltip("fvt.feature.name.trigger_autoattack.tooltip", FVT.OPTIONS.triggerBotDefault, FVTOptions.TRIGGER_BOT);
-		createFeatureTooltip("fvt.feature.name.freecam.tooltip", FVT.OPTIONS.freecamDefault, FVTOptions.FREECAM);
-	}
-
-	private <T> void createFeatureTooltip(String tooltipKey, T defaultValue, Option option)
-	{
-		List<OrderedText> tooltip = new ArrayList<OrderedText>();
-		tooltip.addAll(FVT.MC.textRenderer.wrapLines(new TranslatableText(tooltipKey), 220));
-		tooltip.add(new TranslatableText("fvt.feature.default", defaultValue).formatted(Formatting.GRAY).asOrderedText());
-		option.setTooltip(tooltip);
 	}
 }

@@ -29,7 +29,7 @@ public class MinecraftClientMixin
 	@Inject(method = "handleBlockBreaking", at = @At("HEAD"), cancellable = true)
 	private void onHandleBlockBreaking(boolean bl, CallbackInfo info)
 	{
-		if(FVT.OPTIONS.noToolBreaking && !FVT.INSTANCE.isToolBreakingOverriden()) {
+		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
 			ItemStack mainHandItem = FVT.MC.player.getStackInHand(Hand.MAIN_HAND);
 
 			if(mainHandItem.isDamaged()) {
@@ -51,7 +51,7 @@ public class MinecraftClientMixin
 			}
 		}
 
-		if(FVT.OPTIONS.freecam) {
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.cancel();
 		}
 	}
@@ -59,7 +59,7 @@ public class MinecraftClientMixin
 	@Inject(method = "doAttack", at = @At("HEAD"), cancellable = true)
 	private void onDoAttack(CallbackInfo info)
 	{
-		if(FVT.OPTIONS.noToolBreaking && !FVT.INSTANCE.isToolBreakingOverriden()) {
+		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
 			ItemStack mainHandItem = FVT.MC.player.getStackInHand(Hand.MAIN_HAND);
 
 			if(mainHandItem.isDamaged()) {
@@ -81,7 +81,7 @@ public class MinecraftClientMixin
 			}
 		}
 
-		if(FVT.OPTIONS.freecam) {
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.cancel();
 		}
 	}
@@ -89,7 +89,7 @@ public class MinecraftClientMixin
 	@Inject(method = "doItemUse", at = @At("HEAD"), cancellable = true)
 	private void onDoItemUse(CallbackInfo info)
 	{
-		if(FVT.OPTIONS.noToolBreaking && !FVT.INSTANCE.isToolBreakingOverriden()) {
+		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
 			ItemStack mainHandItem = FVT.MC.player.getStackInHand(Hand.MAIN_HAND).isEmpty() ? null : FVT.MC.player.getStackInHand(Hand.MAIN_HAND);
 			ItemStack offHandItem = FVT.MC.player.getStackInHand(Hand.OFF_HAND).isEmpty() ? null : FVT.MC.player.getStackInHand(Hand.OFF_HAND);
 
@@ -140,7 +140,7 @@ public class MinecraftClientMixin
 			}
 		}
 
-		if(FVT.OPTIONS.freecam) {
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.cancel();
 		}
 	}
@@ -148,7 +148,7 @@ public class MinecraftClientMixin
 	@Inject(method = "hasOutline", at = @At("HEAD"), cancellable = true)
 	public void onHasOutline(Entity entity, CallbackInfoReturnable<Boolean> info)
 	{
-		if(FVT.OPTIONS.entityOutline && entity.getType() != EntityType.PLAYER || (FVT.OPTIONS.freecam && entity.equals(FVT.MC.player))) {
+		if(FVT.OPTIONS.entityOutline.getValueRaw() && entity.getType() != EntityType.PLAYER || (FVT.OPTIONS.freecam.getValueRaw() && entity.equals(FVT.MC.player))) {
 			info.setReturnValue(true);
 		}
 	}

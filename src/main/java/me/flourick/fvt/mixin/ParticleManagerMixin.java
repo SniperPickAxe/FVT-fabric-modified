@@ -15,7 +15,7 @@ public class ParticleManagerMixin
 	@Inject(method = "addBlockBreakParticles", at = @At("HEAD"), cancellable = true)
     private void disableBlockBreakParticles(CallbackInfo info)
     {
-        if(FVT.OPTIONS.noBlockBreakParticles) {
+        if(FVT.OPTIONS.noBlockBreakParticles.getValueRaw()) {
 			info.cancel();
 		}
     }

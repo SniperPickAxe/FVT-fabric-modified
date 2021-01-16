@@ -61,7 +61,7 @@ public class InGameHudMixin extends DrawableHelper
 	private void onRender(MatrixStack matrixStack, float f, CallbackInfo info)
 	{
 		// renders on screen text only if not in debug or hud is hidden or if options don't say so
-		if(this.client.options.debugEnabled || this.client.options.hudHidden || !FVT.OPTIONS.showHUDInfo) {
+		if(this.client.options.debugEnabled || this.client.options.hudHidden || !FVT.OPTIONS.showHUDInfo.getValueRaw()) {
 			return;
 		}
 
@@ -80,7 +80,7 @@ public class InGameHudMixin extends DrawableHelper
 		if(FVT.VARS.getToolWarningTextTicksLeft() > 0) {
 			matrixStack.push();
 			matrixStack.translate((double)(this.client.getWindow().getScaledWidth() / 2.0d), (double)(this.client.getWindow().getScaledHeight() / 2.0d), (double)this.getZOffset());
-			matrixStack.scale((float)FVT.OPTIONS.toolWarningScale, (float)FVT.OPTIONS.toolWarningScale, 1.0f);
+			matrixStack.scale(FVT.OPTIONS.toolWarningScale.getValueRaw().floatValue(), FVT.OPTIONS.toolWarningScale.getValueRaw().floatValue(), 1.0f);
 			OnScreenText.drawToolWarningText(matrixStack);
 			matrixStack.pop();
 		}
@@ -196,15 +196,15 @@ public class InGameHudMixin extends DrawableHelper
 				RenderSystem.translatef((float)(scaledWidth / 2), (float)(scaledHeight / 2), (float)this.getZOffset());
 
 				RenderSystem.enableBlend();
-				if(FVT.OPTIONS.crosshairStaticColor) {
-					RenderSystem.blendColor(FVT.OPTIONS.crosshairColor.getNormRed(), FVT.OPTIONS.crosshairColor.getNormGreen(), FVT.OPTIONS.crosshairColor.getNormBlue(), FVT.OPTIONS.crosshairColor.getNormAlpha());
+				if(FVT.OPTIONS.crosshairStaticColor.getValueRaw()) {
+					RenderSystem.blendColor(FVT.OPTIONS.crosshairRedComponent.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairGreenComponent.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairBlueComponent.getValueRawNormalized().floatValue(), 1.0f);
 					RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.CONSTANT_COLOR, GlStateManager.DstFactor.ZERO, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 				}
 				else {
 					RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.ONE_MINUS_DST_COLOR, GlStateManager.DstFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 				}
 				
-				RenderSystem.scaled(FVT.OPTIONS.crosshairScale, FVT.OPTIONS.crosshairScale, 1.0d);
+				RenderSystem.scaled(FVT.OPTIONS.crosshairScale.getValueRaw(), FVT.OPTIONS.crosshairScale.getValueRaw(), 1.0d);
 				this.drawTexture(matrixStack, -15/2, -15/2, 0, 0, 15, 15);
 				RenderSystem.disableBlend();
 				RenderSystem.popMatrix();

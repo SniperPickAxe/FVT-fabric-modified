@@ -15,7 +15,7 @@ public class SkyPropertiesNetherMixin
 	@Inject(method = "useThickFog", at = @At("HEAD"), cancellable = true)
     private void disableNetherFog(CallbackInfoReturnable<Boolean> info)
     {
-        if(FVT.OPTIONS.noNetherFog) {
+        if(FVT.OPTIONS.noNetherFog.getValueRaw()) {
 			info.setReturnValue(false);
 		}
     }

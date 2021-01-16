@@ -21,7 +21,7 @@ public class SkyPropertiesMixin
 			return cloudsHeight;
 		}
 		else {
-			return (float)FVT.OPTIONS.cloudHeight;
+			return FVT.OPTIONS.cloudHeight.getValueRaw().floatValue();
 		}
 	}	
 }

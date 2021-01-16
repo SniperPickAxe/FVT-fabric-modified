@@ -11,10 +11,10 @@ public class OnScreenText
 {
 	public static void drawCoordinatesTextLower(MatrixStack matrixStack)
 	{
-		if(FVT.OPTIONS.coordinatesPosition) {
-			final String X = String.format("X: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamX : FVT.MC.player.getX());	
-			final String Y = String.format("Y: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamY : FVT.MC.player.getY());
-			final String Z = String.format("Z: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamZ : FVT.MC.player.getZ());
+		if(FVT.OPTIONS.coordinatesPosition.getValueRaw()) {
+			final String X = String.format("X: %.01f", FVT.OPTIONS.freecam.getValueRaw() ? FVT.VARS.freecamX : FVT.MC.player.getX());	
+			final String Y = String.format("Y: %.01f", FVT.OPTIONS.freecam.getValueRaw() ? FVT.VARS.freecamY : FVT.MC.player.getY());
+			final String Z = String.format("Z: %.01f", FVT.OPTIONS.freecam.getValueRaw() ? FVT.VARS.freecamZ : FVT.MC.player.getZ());
 
 			FVT.MC.textRenderer.drawWithShadow(matrixStack, X, 2, FVT.MC.getWindow().getScaledHeight() - 3*FVT.MC.textRenderer.fontHeight - 2, Color.WHITE.getPacked());
 			FVT.MC.textRenderer.drawWithShadow(matrixStack, Y, 2, FVT.MC.getWindow().getScaledHeight() - 2*FVT.MC.textRenderer.fontHeight - 1, Color.WHITE.getPacked());
@@ -28,10 +28,10 @@ public class OnScreenText
 
 	public static void drawCoordinatesTextUpper(MatrixStack matrixStack)
 	{
-		if(FVT.OPTIONS.coordinatesPosition) {
-			final String X = String.format("X: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamX : FVT.MC.player.getX());		
-			final String Y = String.format("Y: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamY : FVT.MC.player.getY());
-			final String Z = String.format("Z: %.01f", FVT.OPTIONS.freecam ? FVT.VARS.freecamZ : FVT.MC.player.getZ());
+		if(FVT.OPTIONS.coordinatesPosition.getValueRaw()) {
+			final String X = String.format("X: %.01f", FVT.OPTIONS.freecam.getValueRaw() ? FVT.VARS.freecamX : FVT.MC.player.getX());		
+			final String Y = String.format("Y: %.01f", FVT.OPTIONS.freecam.getValueRaw() ? FVT.VARS.freecamY : FVT.MC.player.getY());
+			final String Z = String.format("Z: %.01f", FVT.OPTIONS.freecam.getValueRaw() ? FVT.VARS.freecamZ : FVT.MC.player.getZ());
 
 			FVT.MC.textRenderer.drawWithShadow(matrixStack, X, 2, 2, Color.WHITE.getPacked());
 			FVT.MC.textRenderer.drawWithShadow(matrixStack, Y, 2, 3 + FVT.MC.textRenderer.fontHeight, Color.WHITE.getPacked());
@@ -83,11 +83,11 @@ public class OnScreenText
 		int alpha = MathHelper.clamp(MathHelper.ceil(25.5f * FVT.VARS.getToolWarningTextTicksLeft()), 0, 255);
 
 		int y;
-		if(FVT.OPTIONS.toolWarningPosition) {
-			y = (int)((-(FVT.MC.getWindow().getScaledHeight() / 2 * 1/FVT.OPTIONS.toolWarningScale)) + (2/FVT.OPTIONS.toolWarningScale));
+		if(FVT.OPTIONS.toolWarningPosition.getValueRaw()) {
+			y = (int)((-(FVT.MC.getWindow().getScaledHeight() / 2 * 1/FVT.OPTIONS.toolWarningScale.getValueRaw())) + (2/FVT.OPTIONS.toolWarningScale.getValueRaw()));
 		}
 		else {
-			y = (int)(((FVT.MC.getWindow().getScaledHeight() / 2 * 1/FVT.OPTIONS.toolWarningScale)) - (FVT.MC.textRenderer.fontHeight + 60/FVT.OPTIONS.toolWarningScale));
+			y = (int)(((FVT.MC.getWindow().getScaledHeight() / 2 * 1/FVT.OPTIONS.toolWarningScale.getValueRaw())) - (FVT.MC.textRenderer.fontHeight + 60/FVT.OPTIONS.toolWarningScale.getValueRaw()));
 		}
 
 		final String ToolWarningText = FVT.VARS.toolHand.equals(Hand.MAIN_HAND) ? new TranslatableText("fvt.feature.name.tool_warning.text.main_hand", FVT.VARS.toolDurability).getString() : new TranslatableText("fvt.feature.name.tool_warning.text.offhand", FVT.VARS.toolDurability).getString();

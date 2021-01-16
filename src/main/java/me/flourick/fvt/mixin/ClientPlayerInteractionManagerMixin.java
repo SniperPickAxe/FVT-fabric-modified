@@ -25,7 +25,7 @@ public class ClientPlayerInteractionManagerMixin
 	@Inject(method = "interactBlock", at = @At("HEAD"))
 	private void onInteractBlock(CallbackInfoReturnable<ActionResult> info)
 	{
-		if(FVT.OPTIONS.randomPlacement) {
+		if(FVT.OPTIONS.randomPlacement.getValueRaw()) {
 			PlayerInventory inventory  = FVT.MC.player.inventory;
 
 			// need to hold a block first for it to pick a block
@@ -44,7 +44,7 @@ public class ClientPlayerInteractionManagerMixin
 			}
 		}
 
-		if(FVT.OPTIONS.refillHand) {
+		if(FVT.OPTIONS.refillHand.getValueRaw()) {
 			PlayerInventory inventory  = FVT.MC.player.inventory;
 
 			if(inventory.getStack(inventory.selectedSlot).getItem() instanceof BlockItem) {
@@ -55,7 +55,7 @@ public class ClientPlayerInteractionManagerMixin
 					int sz = inventory.main.size();
 
 					// if random placement enabled don't take items from hotbar
-					int begIdx = FVT.OPTIONS.randomPlacement ? 9 : 0;
+					int begIdx = FVT.OPTIONS.randomPlacement.getValueRaw() ? 9 : 0;
 
 					// reverse search to pick items from back of the inventory first rather than hotbar
 					for(int i = sz-1; i >= begIdx; i--) {
