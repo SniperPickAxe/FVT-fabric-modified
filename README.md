@@ -106,7 +106,7 @@ Allows you to leave your body and explore your surroundings. Works similar to sp
 
 Automatically attacks entities if you place your crosshair over them and in reach. Primarily meant for AFK farms.
 
-## Preview (v1.4.3)
+## Preview (v1.5.0)
 
 <details><summary>Static crosshair color, HUD info, death message & tool breaking warning. (CLICK ME)</summary>
 <p>
@@ -119,7 +119,7 @@ Automatically attacks entities if you place your crosshair over them and in reac
 <details><summary>Ingame menu with default settings. (CLICK ME)</summary>
 <p>
 
-![menu](https://user-images.githubusercontent.com/33128006/102080035-0a683d80-3e0e-11eb-8336-5ea6576fc49b.png)
+![menu](https://user-images.githubusercontent.com/33128006/104820593-16448680-5836-11eb-9472-d99f7922bcc3.png)
 
 </p>
 </details>
