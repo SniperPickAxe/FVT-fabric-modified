@@ -297,7 +297,7 @@ public class FVTOptions
 				String key = v[0];
 				String value = v[1];
 
-				if(!saveableFeatures.get(key).setValueFromString(value)) {
+				if(saveableFeatures.get(key) == null || !saveableFeatures.get(key).setValueFromString(value)) {
 					LogManager.getLogger().warn("Skipping bad option (" + value + ")" + " for " + key);
 				}
 			});
