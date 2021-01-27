@@ -103,6 +103,9 @@
 
 	"fvt.feature.name.freecam": "Freecam",
 	"fvt.feature.name.freecam.tooltip": "Allows you to leave your body and explore your surroundings. Works similar to spectator.",
+
+	"fvt.feature.name.autototem": "Autototem",
+	"fvt.feature.name.autototem.tooltip": "Upon totem activation will automatically find another totem in your inventory and replace the one that was just consumed.",
 	
 
 	"fvt.feature.enabled": "%s is now enabled!",

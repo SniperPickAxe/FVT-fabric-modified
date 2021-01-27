@@ -56,7 +56,7 @@ public class FVTSettingsScreen extends GameOptionsScreen
 		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.auto"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.autoReconnect, FVT.OPTIONS.autoReconnectMaxTries});
 		this.list.addSingleOptionEntry(FVT.OPTIONS.autoReconnectTimeout);
-		this.list.addAll(new Option[] {FVT.OPTIONS.autoEat, FVT.OPTIONS.triggerBot});
+		this.list.addAll(new Option[] {FVT.OPTIONS.autoEat, FVT.OPTIONS.triggerBot, FVT.OPTIONS.autoTotem});
 		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.other"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates, FVT.OPTIONS.randomPlacement, FVT.OPTIONS.refillHand, FVT.OPTIONS.freecam});
 		this.children.add(this.list);

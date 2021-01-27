@@ -234,6 +234,13 @@ public class FVTOptions
 		);
 		//saveableFeatures.put("freecam", freecam);
 
+		autoTotem = new FVTBooleanOption(
+			"fvt.feature.name.autototem", 
+			"fvt.feature.name.autototem.tooltip", 
+			false
+		);
+		saveableFeatures.put("autoTotem", autoTotem);
+
 		init();
 	}
 
@@ -276,6 +283,7 @@ public class FVTOptions
 	public final FVTBooleanOption autoEat;
 	public final FVTBooleanOption triggerBot;
 	public final FVTBooleanOption freecam;
+	public final FVTBooleanOption autoTotem;
 
 	public void write()
 	{

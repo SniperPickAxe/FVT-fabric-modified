@@ -62,6 +62,7 @@ public class ClientPlayerInteractionManagerMixin
 						if(inventory.main.get(i).getItem() == using.getItem() && i != inventory.selectedSlot) {
 							ItemStack found = inventory.main.get(i);
 
+							// 0 for left-click to take all the items or 1 for right-click to split the stack
 							int mouse = found.getCount() + using.getCount() <= using.getMaxCount() ? 0 : 1;
 
 							// hotbar
