@@ -36,7 +36,7 @@ public class ClientPlayNetworkHandlerMixin
 	@Inject(method = "onEntityStatus", at = @At("RETURN"))
 	private void onOnEntityStatus(EntityStatusS2CPacket packet, CallbackInfo info)
 	{
-		if(FVT.OPTIONS.autoTotem.getValueRaw() && packet.getStatus() == 35) {
+		if(FVT.OPTIONS.autoTotem.getValueRaw() && packet.getStatus() == 35 && packet.getEntity(FVT.MC.player.world).equals(FVT.MC.player)) {
 			ClientPlayerEntity player  = FVT.MC.player;
 
 			int activeIdx = -1;
