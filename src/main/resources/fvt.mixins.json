@@ -18,7 +18,9 @@
 		"CameraMixin",
 		"GameRendererMixin",
 		"ParticleManagerMixin",
-		"DisconnectedScreenMixin"
+		"DisconnectedScreenMixin",
+		"GenericContainerScreenMixin",
+		"ShulkerBoxScreenMixin"
 	],
 		"injectors": {
 		"defaultRequire": 1

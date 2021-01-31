@@ -107,6 +107,9 @@
 	"fvt.feature.name.autototem": "Autototem",
 	"fvt.feature.name.autototem.tooltip": "Upon totem activation will automatically find another totem in your inventory and replace the one that was just consumed.",
 	
+	"fvt.feature.name.containers.drop.tooltip": "Drop all!",
+	"fvt.feature.name.containers.get.tooltip": "Get all!",
+	"fvt.feature.name.containers.store.tooltip": "Store all!",
 
 	"fvt.feature.enabled": "%s is now enabled!",
 	"fvt.feature.disabled": "%s is now disabled!"

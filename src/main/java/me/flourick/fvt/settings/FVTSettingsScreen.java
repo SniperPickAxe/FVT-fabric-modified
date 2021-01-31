@@ -39,25 +39,25 @@ public class FVTSettingsScreen extends GameOptionsScreen
 	{
 		this.list = new ButtonListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
 		this.list.addAll(new Option[] {FVT.OPTIONS.buttonPosition, FVT.OPTIONS.featureToggleMessages});
-		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.crosshair"));
+		this.list.addSingleOptionEntry(new FTVSpacerOption("fvt.feature_category.crosshair"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.crosshairStaticColor, FVT.OPTIONS.crosshairScale});
 		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairRedComponent);
 		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairGreenComponent);
 		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairBlueComponent);
-		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.hud")); 
+		this.list.addSingleOptionEntry(new FTVSpacerOption("fvt.feature_category.hud")); 
 		this.list.addAll(new Option[] {FVT.OPTIONS.showHUDInfo, FVT.OPTIONS.coordinatesPosition});
-		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.tools"));
+		this.list.addSingleOptionEntry(new FTVSpacerOption("fvt.feature_category.tools"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.noToolBreaking, FVT.OPTIONS.toolWarning});
 		this.list.addAll(new Option[] {FVT.OPTIONS.toolWarningPosition, FVT.OPTIONS.toolWarningScale});
-		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.render"));
+		this.list.addSingleOptionEntry(new FTVSpacerOption("fvt.feature_category.render"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.noNetherFog, FVT.OPTIONS.noBlockBreakParticles});
 		this.list.addSingleOptionEntry(FVT.OPTIONS.cloudHeight);
 		this.list.addAll(new Option[] {FVT.OPTIONS.fullbright, FVT.OPTIONS.entityOutline});
-		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.auto"));
+		this.list.addSingleOptionEntry(new FTVSpacerOption("fvt.feature_category.auto"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.autoReconnect, FVT.OPTIONS.autoReconnectMaxTries});
 		this.list.addSingleOptionEntry(FVT.OPTIONS.autoReconnectTimeout);
 		this.list.addAll(new Option[] {FVT.OPTIONS.autoEat, FVT.OPTIONS.triggerBot, FVT.OPTIONS.autoTotem});
-		this.list.addSingleOptionEntry(new SpacerOption("fvt.feature_category.other"));
+		this.list.addSingleOptionEntry(new FTVSpacerOption("fvt.feature_category.other"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates, FVT.OPTIONS.randomPlacement, FVT.OPTIONS.refillHand, FVT.OPTIONS.freecam});
 		this.children.add(this.list);
 		this.addButton(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, (buttonWidget) -> {
