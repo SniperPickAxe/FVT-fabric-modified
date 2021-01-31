@@ -18,6 +18,10 @@ Features that are always enabled and don't have a switch.
 
 When riding a mount that has health your hunger bar will be still visible instead of the vanilla behavior which hides it completely.
 
+### Container Buttons
+
+Chests, barrels and shulkerboxes have three buttons that let you deposit all into the container, yoink all from the container or yeet it all out on the ground.
+
 ## Toggleable Features
 
 List of all toggleable features. Configuration is in in-game options menu called 'FVT...'. Keybindings are configured in the usual Controls menu (FVT category) and are by default unset.
