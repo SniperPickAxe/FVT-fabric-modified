@@ -63,6 +63,7 @@ public class CameraMixin
 		}
 	}
 
+	// called on enable/disable of freecam to prepare/cleanup variables
 	private void freecamToggleCheck()
 	{
 		if(FVT.OPTIONS.freecam.getValueRaw() && FVT.MC.player != null) {
