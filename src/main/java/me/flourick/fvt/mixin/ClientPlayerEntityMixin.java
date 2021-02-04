@@ -29,13 +29,13 @@ import me.flourick.fvt.FVT;
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 {
-	public ClientPlayerEntityMixin(ClientWorld world, GameProfile profile)
-	{
-		super(world, profile);
-	}
+	@Shadow
+	public boolean hasJumpingMount() { return false; }
 
 	@Shadow
 	int ticksLeftToDoubleTapSprint;
+
+	public ClientPlayerEntityMixin(ClientWorld world, GameProfile profile) { super(world, profile); }
 
 	@Inject(method = "<init>", at = @At("RETURN"))
 	private void onConstructor(MinecraftClient client, ClientWorld world, ClientPlayNetworkHandler networkHandler, StatHandler stats, ClientRecipeBook recipeBook, boolean lastSneaking, boolean lastSprinting, CallbackInfo info)
@@ -56,24 +56,6 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 				UUID.fromString("00000000-0000-0000-0000-000000000000")
 			);
 		}
-	}
-
-	@Inject(method = "move", at = @At("HEAD"), cancellable = true)
-	private void onMove(CallbackInfo info)
-	{
-		if(FVT.OPTIONS.freecam.getValueRaw()) {
-			info.cancel();
-		}
-	}
-
-	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasVehicle()Z", ordinal = 0), method = "tick()V")
-	private boolean hijackHasVehicle(ClientPlayerEntity player)
-	{
-		if(FVT.OPTIONS.freecam.getValueRaw()) {
-			return false;
-		}
-
-		return this.hasVehicle();
 	}
 
 	@Inject(method = "tickMovement", at = @At("HEAD"), cancellable = true)
@@ -109,9 +91,50 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	private float updateMotion(float motion, float direction)
     {
         return (direction + motion == 0) ? 0.0f : MathHelper.clamp(motion + ((direction < 0) ? -0.35f : 0.35f), -1f, 1f);
-    }
+	}
+
+	// PREVENTS SENDING VEHICLE MOVEMENT PACKETS TO SERVER (freecam)
+	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasVehicle()Z", ordinal = 0), method = "tick()V")
+	private boolean hijackHasVehicle(ClientPlayerEntity player)
+	{
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
+			return false;
+		}
+
+		return this.hasVehicle();
+	}
+
+	// PREVENTS HORSES FROM JUMPING (freecam)
+	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasJumpingMount()Z", ordinal = 0), method = "tickMovement()V")
+	private boolean hijackHasJumpingMount(ClientPlayerEntity player)
+	{
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
+			return false;
+		}
+
+		return hasJumpingMount();
+	}
+	
+	// PREVENTS BOAT MOVEMENT (freecam)
+	@Inject(method = "tickRiding", at = @At("HEAD"), cancellable = true)
+	public void onTickRiding(CallbackInfo info)
+	{
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
+			super.tickRiding();
+			info.cancel();
+		}
+	}
 
 	// PREVENTS MOVEMENT (freecam)
+	@Inject(method = "move", at = @At("HEAD"), cancellable = true)
+	private void onMove(CallbackInfo info)
+	{
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
+			info.cancel();
+		}
+	}
+
+	// PREVENTS MORE MOVEMENT (freecam)
 	@Inject(method = "isCamera", at = @At("HEAD"), cancellable = true)
 	private void onIsCamera(CallbackInfoReturnable<Boolean> info)
 	{
@@ -129,6 +152,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         }
     }
 
+	// UPDATES FREECAM YAW AND PITCH ACCORDING TO HEAD (freecam)
 	@Override
 	public void changeLookDirection(double cursorDeltaX, double cursorDeltaY)
 	{
