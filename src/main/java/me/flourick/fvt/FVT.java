@@ -65,7 +65,6 @@ public class FVT implements ModInitializer
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if(FVT.MC.player == null && FVT.OPTIONS.freecam.getValueRaw()) {
 				// disables freecam if leaving a world
-				FVT.MC.chunkCullingEnabled = true;
 				FVT.OPTIONS.freecam.setValueRaw(false);
 			}
 

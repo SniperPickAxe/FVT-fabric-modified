@@ -20,7 +20,8 @@
 		"ParticleManagerMixin",
 		"DisconnectedScreenMixin",
 		"GenericContainerScreenMixin",
-		"ShulkerBoxScreenMixin"
+		"ShulkerBoxScreenMixin",
+		"RecipeBookWidgetMixin"
 	],
 		"injectors": {
 		"defaultRequire": 1

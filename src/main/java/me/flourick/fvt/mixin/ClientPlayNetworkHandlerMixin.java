@@ -3,9 +3,16 @@ package me.flourick.fvt.mixin;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.s2c.play.CombatEventS2CPacket;
+import net.minecraft.network.packet.s2c.play.CraftFailedResponseS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
+import net.minecraft.network.packet.s2c.play.InventoryS2CPacket;
+import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
+import net.minecraft.screen.AbstractRecipeScreenHandler;
+import net.minecraft.screen.CraftingScreenHandler;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.slot.SlotActionType;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -69,5 +76,48 @@ public class ClientPlayNetworkHandlerMixin
 				}
 			}
 		}
+	}
+
+	@Inject(method = "onInventory", at = @At("RETURN"))
+	public void onOnInventory(InventoryS2CPacket packet, CallbackInfo info)
+	{
+		System.out.println("ONINTENVOTYS");
+	}
+
+	@Inject(method = "onScreenHandlerSlotUpdate", at = @At("RETURN"))
+	private void onScreenHandlerSlotUpdate(ScreenHandlerSlotUpdateS2CPacket packet, CallbackInfo info)
+	{
+		System.out.println("SCREENHANDLER");
+
+		// crafting window open or inventory
+		if(FVT.MC.player.currentScreenHandler instanceof CraftingScreenHandler || FVT.MC.player.currentScreenHandler instanceof PlayerScreenHandler) {
+			AbstractRecipeScreenHandler<?> handler = (AbstractRecipeScreenHandler<?>) FVT.MC.player.currentScreenHandler;
+			int resultSlotIdx = handler.getCraftingResultSlotIndex();
+
+			// we should autocraft and this packet updates the crafting output slot
+			if(FVT.VARS.shouldAutocraft && packet.getSlot() == resultSlotIdx && packet.getSyncId() == handler.syncId) {
+				if(itemStackEqual(FVT.VARS.AutocraftRecipe.getOutput(), handler.getSlot(resultSlotIdx).getStack())) {
+					FVT.MC.interactionManager.clickSlot(packet.getSyncId(), handler.getCraftingResultSlotIndex(), 0, SlotActionType.QUICK_MOVE, FVT.MC.player);
+
+					// TODO: update inventory, somehow... +SHIFT works but not without, wtf....
+
+					FVT.VARS.shouldAutocraft = false;
+					FVT.VARS.AutocraftRecipe = null;
+				}
+			}
+		}
+	}
+
+	private boolean itemStackEqual(ItemStack one, ItemStack two)
+	{
+		return one.getItem() == two.getItem() && one.getCount() == two.getCount();
+	}
+
+	@Inject(method = "onCraftFailedResponse", at = @At("RETURN"))
+	private void onCraftFailedResponse(CraftFailedResponseS2CPacket packet, CallbackInfo info)
+	{
+		// incase the recipe is no longer available to craft
+		FVT.VARS.shouldAutocraft = false;
+		FVT.VARS.AutocraftRecipe = null;
 	}
 }
