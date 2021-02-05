@@ -146,7 +146,7 @@ public class MinecraftClientMixin
 	}
 
 	@Inject(method = "hasOutline", at = @At("HEAD"), cancellable = true)
-	private void onHasOutline(Entity entity, CallbackInfoReturnable<Boolean> info)
+	public void onHasOutline(Entity entity, CallbackInfoReturnable<Boolean> info)
 	{
 		if(FVT.OPTIONS.entityOutline.getValueRaw() && entity.getType() != EntityType.PLAYER || (FVT.OPTIONS.freecam.getValueRaw() && entity.equals(FVT.MC.player))) {
 			info.setReturnValue(true);
@@ -154,7 +154,7 @@ public class MinecraftClientMixin
 	}
 
 	@Inject(method = "disconnect", at = @At("HEAD"), cancellable = true)
-	private void onDisconnect(CallbackInfo info)
+	public void onDisconnect(CallbackInfo info)
 	{
 		if(this.currentServerEntry != null) {
 			FVT.VARS.lastJoinedServer = this.currentServerEntry;

@@ -1,26 +1,16 @@
 package me.flourick.fvt.mixin;
 
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.CombatEventS2CPacket;
-import net.minecraft.network.packet.s2c.play.ConfirmScreenActionS2CPacket;
-import net.minecraft.network.packet.s2c.play.CraftFailedResponseS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
-import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
-import net.minecraft.screen.AbstractRecipeScreenHandler;
-import net.minecraft.screen.CraftingScreenHandler;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.slot.SlotActionType;
 
 import org.apache.commons.lang3.text.WordUtils;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -30,9 +20,6 @@ import me.flourick.fvt.FVT;
 @Mixin(ClientPlayNetworkHandler.class)
 public class ClientPlayNetworkHandlerMixin
 {
-	@Shadow
-	public void sendPacket(Packet<?> packet) {}
-
 	@Inject(method = "onCombatEvent", at = @At("HEAD"))
 	private void onOnCombatEvent(CombatEventS2CPacket packet, CallbackInfo info)
 	{
@@ -82,67 +69,5 @@ public class ClientPlayNetworkHandlerMixin
 				}
 			}
 		}
-	}
-
-	@Inject(method = "onScreenHandlerSlotUpdate", at = @At("RETURN"))
-	private void onOnScreenHandlerSlotUpdate(ScreenHandlerSlotUpdateS2CPacket packet, CallbackInfo info)
-	{
-		// crafting window open or inventory
-		if(FVT.MC.player.currentScreenHandler instanceof CraftingScreenHandler || FVT.MC.player.currentScreenHandler instanceof PlayerScreenHandler) {
-			AbstractRecipeScreenHandler<?> handler = (AbstractRecipeScreenHandler<?>) FVT.MC.player.currentScreenHandler;
-			int resultSlotIdx = handler.getCraftingResultSlotIndex();
-
-			// we should autocraft and this packet updates the crafting output slot
-			if(FVT.VARS.shouldAutocraft && packet.getSlot() == resultSlotIdx && packet.getSyncId() == handler.syncId) {
-				if(itemStackEqual(FVT.VARS.autocraftRecipe.getOutput(), handler.getSlot(resultSlotIdx).getStack())) {
-					new java.util.Timer().schedule(new java.util.TimerTask()
-					{
-						@Override
-						public void run() {
-							// ALT down or no space in inventory so yeet items on the ground
-							if(Screen.hasAltDown() || (FVT.MC.player.inventory.getEmptySlot() == -1 && FVT.MC.player.inventory.getOccupiedSlotWithRoomForStack(handler.getSlot(resultSlotIdx).getStack()) == -1)) {
-								FVT.MC.interactionManager.clickSlot(packet.getSyncId(), resultSlotIdx, 1, SlotActionType.THROW, FVT.MC.player);
-							}
-							else {
-								FVT.MC.interactionManager.clickSlot(packet.getSyncId(), resultSlotIdx, 0, SlotActionType.QUICK_MOVE, FVT.MC.player);
-							}
-
-							FVT.VARS.autocraftTick = resultSlotIdx;
-						}
-					}, 50);
-
-					FVT.VARS.shouldAutocraft = false;
-					FVT.VARS.autocraftRecipe = null;
-				}
-			}
-		}
-	}
-
-	@Inject(method = "onConfirmScreenAction", at = @At("RETURN"))
-	private void onOnConfirmScreenAction(ConfirmScreenActionS2CPacket packet, CallbackInfo info)
-	{
-		if(FVT.VARS.autocraftTick != -1) {
-			ItemStack outStack = FVT.MC.player.currentScreenHandler.getSlot(FVT.VARS.autocraftTick).getStack();
-
-			if(!outStack.isEmpty()) {
-				FVT.MC.interactionManager.clickSlot(FVT.MC.player.currentScreenHandler.syncId, FVT.VARS.autocraftTick, 1, SlotActionType.THROW, FVT.MC.player);
-			}
-			else {
-				FVT.VARS.autocraftTick = -1;
-			}
-		}
-	}
-
-	private boolean itemStackEqual(ItemStack one, ItemStack two)
-	{
-		return one.getItem() == two.getItem() && one.getCount() == two.getCount();
-	}
-
-	@Inject(method = "onCraftFailedResponse", at = @At("RETURN"))
-	private void onOnCraftFailedResponse(CraftFailedResponseS2CPacket packet, CallbackInfo info)
-	{
-		// incase the recipe is no longer available to craft
-		FVT.VARS.shouldAutocraft = false;
-		FVT.VARS.autocraftRecipe = null;
 	}
 }

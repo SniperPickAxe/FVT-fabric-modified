@@ -2,15 +2,10 @@ package me.flourick.fvt.utils;
 
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Hand;
 
 public class FVTVars
 {
-	public int autocraftTick;
-	public boolean shouldAutocraft;
-	public Recipe<?> autocraftRecipe;
-
 	public boolean autoEating;
 
 	public double freecamYaw;
@@ -52,10 +47,6 @@ public class FVTVars
 	public FVTVars()
 	{
 		this.tooltipsActive = false;
-
-		this.shouldAutocraft = false;
-		this.autocraftRecipe = null;
-		this.autocraftTick = -1;
 
 		this.deathX = 0;
 		this.deathY = 0;

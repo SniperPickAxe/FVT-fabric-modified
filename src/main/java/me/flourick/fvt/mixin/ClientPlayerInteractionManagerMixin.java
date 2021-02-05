@@ -5,7 +5,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.ActionResult;
 
@@ -16,7 +15,6 @@ import java.util.Random;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import me.flourick.fvt.FVT;
@@ -82,14 +80,6 @@ public class ClientPlayerInteractionManagerMixin
 					}
 				}
 			}
-		}
-	}
-
-	@Inject(method = "clickRecipe", at = @At("HEAD"))
-	private void onClickRecipe(int syncId, Recipe<?> recipe, boolean craftAll, CallbackInfo info)
-	{
-		if(recipe.equals(FVT.VARS.autocraftRecipe)) {
-			System.out.println("SAME");
 		}
 	}
 }
