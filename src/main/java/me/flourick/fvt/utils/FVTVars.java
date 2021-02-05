@@ -7,6 +7,7 @@ import net.minecraft.util.Hand;
 
 public class FVTVars
 {
+	public short autocraftActionID;
 	public boolean shouldAutocraft;
 	public Recipe<?> AutocraftRecipe;
 
@@ -54,6 +55,7 @@ public class FVTVars
 
 		this.shouldAutocraft = false;
 		this.AutocraftRecipe = null;
+		this.autocraftActionID = -1;
 
 		this.deathX = 0;
 		this.deathY = 0;
