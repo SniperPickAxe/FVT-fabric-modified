@@ -62,7 +62,8 @@ public class FVT implements ModInitializer
 		KeyBinding autoAttackKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.trigger_autoattack", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 		toolBreakingOverrideKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.tool_breaking_override", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_ALT, "FVT"));
 
-		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+		ClientTickEvents.END_CLIENT_TICK.register(client ->
+		{
 			if(FVT.MC.player == null && FVT.OPTIONS.freecam.getValueRaw()) {
 				// disables freecam if leaving a world
 				FVT.OPTIONS.freecam.setValueRaw(false);
@@ -156,7 +157,8 @@ public class FVT implements ModInitializer
 			}
 		});
 
-		ClientTickEvents.END_WORLD_TICK.register(clientWorld -> {
+		ClientTickEvents.END_WORLD_TICK.register(clientWorld ->
+		{
 			if(FVT.OPTIONS.toolWarning.getValueRaw()) {
 				ItemStack mainHandItem = FVT.MC.player.getStackInHand(Hand.MAIN_HAND);
 				ItemStack offHandItem = FVT.MC.player.getStackInHand(Hand.OFF_HAND);
@@ -209,7 +211,8 @@ public class FVT implements ModInitializer
 		});
 
 		// the entirety of TRIGGER BOT
-		ClientTickEvents.START_WORLD_TICK.register(clientWorld -> {
+		ClientTickEvents.START_WORLD_TICK.register(clientWorld ->
+		{
 			if(FVT.OPTIONS.triggerBot.getValueRaw() && FVT.MC.currentScreen == null) {
 				if(FVT.MC.crosshairTarget != null && FVT.MC.crosshairTarget.getType() == Type.ENTITY && FVT.MC.player.getAttackCooldownProgress(0.0f) >= 1.0f) {
 					if(((EntityHitResult)FVT.MC.crosshairTarget).getEntity() instanceof LivingEntity) {

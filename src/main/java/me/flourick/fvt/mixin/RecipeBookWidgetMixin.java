@@ -24,7 +24,11 @@ public class RecipeBookWidgetMixin
 		// schedule autocrafting on ctrl down and valid possible recipe
 		if(Screen.hasControlDown() && recipesArea.getLastClickedResults().isCraftable(recipesArea.getLastClickedRecipe())) {
 			FVT.VARS.shouldAutocraft = true;
-			FVT.VARS.AutocraftRecipe = recipesArea.getLastClickedRecipe();
+			FVT.VARS.autocraftRecipe = recipesArea.getLastClickedRecipe();
+		}
+		else if(!Screen.hasControlDown()) {
+			FVT.VARS.shouldAutocraft = false;
+			FVT.VARS.autocraftRecipe = null;
 		}
 	}
 }

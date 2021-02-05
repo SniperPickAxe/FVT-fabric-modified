@@ -7,9 +7,9 @@ import net.minecraft.util.Hand;
 
 public class FVTVars
 {
-	public short autocraftActionID;
+	public int autocraftTick;
 	public boolean shouldAutocraft;
-	public Recipe<?> AutocraftRecipe;
+	public Recipe<?> autocraftRecipe;
 
 	public boolean autoEating;
 
@@ -54,8 +54,8 @@ public class FVTVars
 		this.tooltipsActive = false;
 
 		this.shouldAutocraft = false;
-		this.AutocraftRecipe = null;
-		this.autocraftActionID = -1;
+		this.autocraftRecipe = null;
+		this.autocraftTick = -1;
 
 		this.deathX = 0;
 		this.deathY = 0;

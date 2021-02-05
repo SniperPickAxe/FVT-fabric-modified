@@ -1,14 +1,12 @@
 package me.flourick.fvt.mixin;
 
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.Packet;
-import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.network.packet.s2c.play.CombatEventS2CPacket;
 import net.minecraft.network.packet.s2c.play.ConfirmScreenActionS2CPacket;
 import net.minecraft.network.packet.s2c.play.CraftFailedResponseS2CPacket;
@@ -89,8 +87,6 @@ public class ClientPlayNetworkHandlerMixin
 	@Inject(method = "onScreenHandlerSlotUpdate", at = @At("RETURN"))
 	private void onOnScreenHandlerSlotUpdate(ScreenHandlerSlotUpdateS2CPacket packet, CallbackInfo info)
 	{
-		//System.out.println("SCREENHANDLER " + packet.getSlot());
-
 		// crafting window open or inventory
 		if(FVT.MC.player.currentScreenHandler instanceof CraftingScreenHandler || FVT.MC.player.currentScreenHandler instanceof PlayerScreenHandler) {
 			AbstractRecipeScreenHandler<?> handler = (AbstractRecipeScreenHandler<?>) FVT.MC.player.currentScreenHandler;
@@ -98,42 +94,43 @@ public class ClientPlayNetworkHandlerMixin
 
 			// we should autocraft and this packet updates the crafting output slot
 			if(FVT.VARS.shouldAutocraft && packet.getSlot() == resultSlotIdx && packet.getSyncId() == handler.syncId) {
-				if(itemStackEqual(FVT.VARS.AutocraftRecipe.getOutput(), handler.getSlot(resultSlotIdx).getStack())) {
-					//this.clickSlot(packet.getSyncId(), -1, 0, SlotActionType.PICKUP, FVT.MC.player); // fake packet just to get response
-					new java.util.Timer().schedule( 
-						new java.util.TimerTask() {
-							@Override
-							public void run() {
+				if(itemStackEqual(FVT.VARS.autocraftRecipe.getOutput(), handler.getSlot(resultSlotIdx).getStack())) {
+					new java.util.Timer().schedule(new java.util.TimerTask()
+					{
+						@Override
+						public void run() {
+							// ALT down or no space in inventory so yeet items on the ground
+							if(Screen.hasAltDown() || (FVT.MC.player.inventory.getEmptySlot() == -1 && FVT.MC.player.inventory.getOccupiedSlotWithRoomForStack(handler.getSlot(resultSlotIdx).getStack()) == -1)) {
+								FVT.MC.interactionManager.clickSlot(packet.getSyncId(), resultSlotIdx, 1, SlotActionType.THROW, FVT.MC.player);
+							}
+							else {
 								FVT.MC.interactionManager.clickSlot(packet.getSyncId(), resultSlotIdx, 0, SlotActionType.QUICK_MOVE, FVT.MC.player);
 							}
-						},
-						12
-					);
+
+							FVT.VARS.autocraftTick = resultSlotIdx;
+						}
+					}, 50);
 
 					FVT.VARS.shouldAutocraft = false;
-					FVT.VARS.AutocraftRecipe = null;
+					FVT.VARS.autocraftRecipe = null;
 				}
 			}
 		}
 	}
 
-	private void clickSlot(int syncId, int slotId, int clickData, SlotActionType actionType, PlayerEntity player)
-	{
-		FVT.VARS.autocraftActionID = player.currentScreenHandler.getNextActionId(player.inventory);
-		ItemStack itemStack = player.currentScreenHandler.onSlotClick(slotId, clickData, actionType, player);
-		this.sendPacket(new ClickSlotC2SPacket(syncId, slotId, clickData, actionType, itemStack, FVT.VARS.autocraftActionID));
-	}
-
 	@Inject(method = "onConfirmScreenAction", at = @At("RETURN"))
 	private void onOnConfirmScreenAction(ConfirmScreenActionS2CPacket packet, CallbackInfo info)
 	{
-		// if(packet.wasAccepted() && FVT.VARS.autocraftActionID == packet.getActionId()) {
-		// 	if(packet.wasAccepted()) {
-		// 		System.out.println("ACCEPTED");
-		// 		FVT.MC.interactionManager.clickSlot(FVT.MC.player.currentScreenHandler.syncId, 0, 0, SlotActionType.QUICK_MOVE, FVT.MC.player);
-		// 		FVT.VARS.autocraftActionID = -1;
-		// 	}
-		// }
+		if(FVT.VARS.autocraftTick != -1) {
+			ItemStack outStack = FVT.MC.player.currentScreenHandler.getSlot(FVT.VARS.autocraftTick).getStack();
+
+			if(!outStack.isEmpty()) {
+				FVT.MC.interactionManager.clickSlot(FVT.MC.player.currentScreenHandler.syncId, FVT.VARS.autocraftTick, 1, SlotActionType.THROW, FVT.MC.player);
+			}
+			else {
+				FVT.VARS.autocraftTick = -1;
+			}
+		}
 	}
 
 	private boolean itemStackEqual(ItemStack one, ItemStack two)
@@ -146,6 +143,6 @@ public class ClientPlayNetworkHandlerMixin
 	{
 		// incase the recipe is no longer available to craft
 		FVT.VARS.shouldAutocraft = false;
-		FVT.VARS.AutocraftRecipe = null;
+		FVT.VARS.autocraftRecipe = null;
 	}
 }
