@@ -57,7 +57,7 @@ public class CameraMixin
 
 	// makes you able to see yourself while in freecam
 	@Inject(method = "isThirdPerson", at = @At("HEAD"), cancellable = true)
-	public void onIsThirdPerson(CallbackInfoReturnable<Boolean> info)
+	private void onIsThirdPerson(CallbackInfoReturnable<Boolean> info)
 	{
 		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.setReturnValue(true);

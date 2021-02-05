@@ -117,7 +117,7 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	
 	// PREVENTS BOAT MOVEMENT (freecam)
 	@Inject(method = "tickRiding", at = @At("HEAD"), cancellable = true)
-	public void onTickRiding(CallbackInfo info)
+	private void onTickRiding(CallbackInfo info)
 	{
 		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			super.tickRiding();
