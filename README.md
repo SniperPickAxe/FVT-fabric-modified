@@ -82,15 +82,15 @@ Disables the particles that spawn when you break a block.
 
 Once the stack in your main hand is below 50% automatically finds the same item in your inventory and restocks it.
 
-### Auto Reconnect
+### AutoReconnect
 
 Will try to automatically reconnect you to the server you got disconnected from. Number of tries and the time after which it tries to reconnect you are configurable.
 
-### Offhand Autoeat
+### Offhand AutoEat
 
 Will automatically eat the food in your offhand as soon as you loose enough hunger for it to be fully utilized, will also eat if your health is low. Won't work if you for example aim at a chest or have a block in your main hand that can be placed.
 
-### Autototem
+### AutoTotem
 
 Upon totem activation will automatically find another totem in your inventory and replace the one that was just consumed. Does not matter if you hold the totem in your main hand or offhand, works in both.
 
@@ -110,7 +110,7 @@ Makes all entities (except players) glow white and be seen through walls. Useful
 
 Allows you to leave your body and explore your surroundings. Works similar to spectator.
 
-### Trigger Autoattack (keybindable)
+### Trigger AutoAttack (keybindable)
 
 Automatically attacks entities if you place your crosshair over them and in reach. Primarily meant for AFK farms.
 
