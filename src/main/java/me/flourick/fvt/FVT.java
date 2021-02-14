@@ -7,7 +7,7 @@ import org.lwjgl.glfw.GLFW;
 import me.flourick.fvt.settings.FVTOptions;
 import me.flourick.fvt.utils.FVTVars;
 
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 
@@ -27,10 +27,8 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult.Type;
 import net.minecraft.util.math.MathHelper;
 
-public class FVT implements ModInitializer
+public class FVT implements ClientModInitializer
 {
-	public static final boolean DEBUG = false;
-
 	public static FVT INSTANCE;
 	public static MinecraftClient MC;
 	public static FVTOptions OPTIONS;
@@ -39,7 +37,7 @@ public class FVT implements ModInitializer
 	private KeyBinding toolBreakingOverrideKeybind;
 
 	@Override
-	public void onInitialize()
+	public void onInitializeClient()
 	{
 		INSTANCE = this;
 		MC = MinecraftClient.getInstance();

@@ -15,10 +15,10 @@
 
 	"license": "MIT",
 	"icon": "assets/fvt/icon.png",
-	"environment": "*",
 
+	"environment": "client",
 	"entrypoints": {
-		"main": [
+		"client": [
 			"me.flourick.fvt.FVT"
 		]
 	},
