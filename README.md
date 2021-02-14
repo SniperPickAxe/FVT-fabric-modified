@@ -18,6 +18,10 @@ Features that are always enabled and don't have a switch.
 
 When riding a mount that has health your hunger bar will be still visible instead of the vanilla behavior which hides it completely.
 
+### Horse Info
+
+Horses, donkeys and mules have a "Stats" button which shows it's health, speed and jump height on hover.
+
 ### Container Buttons
 
 Chests, barrels and shulkerboxes have three buttons that let you deposit all into the container, yoink all from the container or yeet it all out on the ground.
@@ -114,7 +118,7 @@ Allows you to leave your body and explore your surroundings. Works similar to sp
 
 Automatically attacks entities if you place your crosshair over them and in reach. Primarily meant for AFK farms.
 
-## Preview (v1.5.0)
+## Preview (v1.5.1)
 
 <details><summary>Static crosshair color, HUD info, death message & tool breaking warning. (CLICK ME)</summary>
 <p>
@@ -127,7 +131,7 @@ Automatically attacks entities if you place your crosshair over them and in reac
 <details><summary>Ingame menu with default settings. (CLICK ME)</summary>
 <p>
 
-![menu](https://user-images.githubusercontent.com/33128006/104820593-16448680-5836-11eb-9472-d99f7922bcc3.png)
+![menu](https://user-images.githubusercontent.com/33128006/107887304-64b47600-6f05-11eb-8b67-786e79b56433.png)
 
 </p>
 </details>
