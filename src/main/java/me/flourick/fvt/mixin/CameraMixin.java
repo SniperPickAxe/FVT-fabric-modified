@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import me.flourick.fvt.FVT;
 
 @Mixin(Camera.class)
-public class CameraMixin
+abstract class CameraMixin
 {
 	@Shadow
 	private boolean ready;
@@ -25,10 +25,10 @@ public class CameraMixin
 	private boolean preFreecam = false;
 
 	@Shadow
-	protected void setRotation(float yaw, float pitch) {};
+	abstract void setRotation(float yaw, float pitch);
 
 	@Shadow
-	protected void setPos(double x, double y, double z) {};
+	abstract void setPos(double x, double y, double z);
 
 	@Inject(method = "update", at = @At("HEAD"), cancellable = true)
 	private void onUpdate(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo info)

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import me.flourick.fvt.FVT;
 
 @Mixin(LightmapTextureManager.class)
-public class LightmapTextureManagerMixin
+abstract class LightmapTextureManagerMixin
 {
 	@Inject(method = "getBrightness", at = @At("HEAD"), cancellable = true)
 	private void onGetBrightness(CallbackInfoReturnable<Float> info)

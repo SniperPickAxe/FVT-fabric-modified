@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import me.flourick.fvt.FVT;
 
 @Mixin(SkyProperties.Nether.class)
-public class SkyPropertiesNetherMixin
+abstract class SkyPropertiesNetherMixin
 {
 	@Inject(method = "useThickFog", at = @At("HEAD"), cancellable = true)
     private void disableNetherFog(CallbackInfoReturnable<Boolean> info)

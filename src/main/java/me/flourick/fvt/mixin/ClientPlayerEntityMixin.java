@@ -27,13 +27,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import me.flourick.fvt.FVT;
 
 @Mixin(ClientPlayerEntity.class)
-public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
+abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 {
 	@Shadow
-	public boolean hasJumpingMount() { return false; }
+	abstract boolean hasJumpingMount();
 
 	@Shadow
-	int ticksLeftToDoubleTapSprint;
+	private int ticksLeftToDoubleTapSprint;
 
 	public ClientPlayerEntityMixin(ClientWorld world, GameProfile profile) { super(world, profile); }
 

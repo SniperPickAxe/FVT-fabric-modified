@@ -7,6 +7,7 @@ import net.minecraft.client.options.GameOptions;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,21 +18,18 @@ import me.flourick.fvt.FVT;
 import me.flourick.fvt.settings.FVTSettingsScreen;
 
 @Mixin(OptionsScreen.class)
-public class OptionsScreenMixin extends Screen
+abstract class OptionsScreenMixin extends Screen
 {
+	@Final
 	@Shadow
-	private final Screen parent;
+	private Screen parent;
 
+	@Final
 	@Shadow
-	private final GameOptions settings;
+	private GameOptions settings;
 
 	// IGNORED
-	public OptionsScreenMixin(Screen parent, GameOptions gameOptions)
-	{
-		super(new TranslatableText("options.title", new Object[0]));
-		this.parent = parent;
-		this.settings = gameOptions;
-	}
+	public OptionsScreenMixin(Screen parent, GameOptions gameOptions) { super(new TranslatableText("options.title", new Object[0])); }
 
 	@Inject(method = "init", at = @At("RETURN"))
 	private void onInit(CallbackInfo info)

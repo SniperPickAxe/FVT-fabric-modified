@@ -21,7 +21,7 @@ import net.minecraft.item.TridentItem;
 import net.minecraft.util.Hand;
 
 @Mixin(MinecraftClient.class)
-public class MinecraftClientMixin
+abstract class MinecraftClientMixin
 {
 	@Shadow
 	private ServerInfo currentServerEntry;

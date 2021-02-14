@@ -5,6 +5,7 @@ import java.util.Random;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,11 +29,13 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 
 @Mixin(InGameHud.class)
-public class InGameHudMixin extends DrawableHelper
+abstract class InGameHudMixin extends DrawableHelper
 {
+	@Final
 	@Shadow
-	MinecraftClient client;
+	private MinecraftClient client;
 
+	@Final
 	@Shadow
 	private Random random;
 
@@ -40,16 +43,16 @@ public class InGameHudMixin extends DrawableHelper
 	private int ticks;
 
 	@Shadow
-	private LivingEntity getRiddenEntity() {return null;}
+	abstract LivingEntity getRiddenEntity();
 
 	@Shadow
-	private int getHeartCount(LivingEntity entity) {return 0;}
+	abstract int getHeartCount(LivingEntity entity);
 
 	@Shadow
-	private int getHeartRows(int heartCount) {return 0;}
+	abstract int getHeartRows(int heartCount);
 
 	@Shadow
-	private PlayerEntity getCameraPlayer() {return null;}
+	abstract PlayerEntity getCameraPlayer();
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void onTick(CallbackInfo info)

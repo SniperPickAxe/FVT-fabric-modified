@@ -27,7 +27,7 @@ public class FVTButtonWidget extends ButtonWidget
 		this.buttonColor = buttonColor;
 	}
 
-	// yep, had to make it my own so not only custom width is supported but also height
+	// yep, had to make it my own so not only custom width is supported but also custom height
 	@Override
 	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta)
 	{

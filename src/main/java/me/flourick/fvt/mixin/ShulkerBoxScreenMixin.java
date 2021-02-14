@@ -1,7 +1,6 @@
 package me.flourick.fvt.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 
 import me.flourick.fvt.FVT;
 import me.flourick.fvt.utils.Color;
@@ -9,7 +8,6 @@ import me.flourick.fvt.utils.FVTButtonWidget;
 
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ShulkerBoxScreen;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ShulkerBoxScreenHandler;
 import net.minecraft.screen.slot.Slot;
@@ -19,7 +17,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
 @Mixin(ShulkerBoxScreen.class)
-public class ShulkerBoxScreenMixin extends HandledScreen<ShulkerBoxScreenHandler>
+abstract class ShulkerBoxScreenMixin extends HandledScreen<ShulkerBoxScreenHandler>
 {
 	private final int buttonWidth = 12;
 	private final int buttonHeight = 10;
@@ -88,11 +86,6 @@ public class ShulkerBoxScreenMixin extends HandledScreen<ShulkerBoxScreenHandler
 			FVT.MC.interactionManager.clickSlot(this.handler.syncId, i, 0, SlotActionType.QUICK_MOVE, FVT.MC.player);
 		}
 	}
-
-	// I don't know either
-	@Shadow
-	@Override
-	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {}
 
 	public ShulkerBoxScreenMixin(ShulkerBoxScreenHandler handler, PlayerInventory inventory, Text title) {super(handler, inventory, title);} // IGNORED
 }

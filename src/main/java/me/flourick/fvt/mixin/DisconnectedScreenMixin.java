@@ -16,7 +16,7 @@ import me.flourick.fvt.FVT;
 import me.flourick.fvt.utils.Color;
 
 @Mixin(DisconnectedScreen.class)
-public class DisconnectedScreenMixin
+abstract class DisconnectedScreenMixin
 {
 	@Shadow
     private int reasonHeight;

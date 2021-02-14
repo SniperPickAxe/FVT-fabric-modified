@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import me.flourick.fvt.FVT;
 
 @Mixin(GameRenderer.class)
-public class GameRendererMixin
+abstract class GameRendererMixin
 {
 	@Inject(method = "renderHand", at = @At("HEAD"), cancellable = true)
     private void removeHandRendering(CallbackInfo info)

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import me.flourick.fvt.FVT;
 
 @Mixin(ParticleManager.class)
-public class ParticleManagerMixin
+abstract class ParticleManagerMixin
 {
 	@Inject(method = "addBlockBreakParticles", at = @At("HEAD"), cancellable = true)
     private void disableBlockBreakParticles(CallbackInfo info)

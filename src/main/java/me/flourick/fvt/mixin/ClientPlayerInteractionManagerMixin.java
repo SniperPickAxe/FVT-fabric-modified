@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import me.flourick.fvt.FVT;
 
 @Mixin(ClientPlayerInteractionManager.class)
-public class ClientPlayerInteractionManagerMixin
+abstract class ClientPlayerInteractionManagerMixin
 {
 	@Inject(method = "interactBlock", at = @At("HEAD"))
 	private void onInteractBlock(CallbackInfoReturnable<ActionResult> info)

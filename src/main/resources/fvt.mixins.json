@@ -20,7 +20,8 @@
 		"ParticleManagerMixin",
 		"DisconnectedScreenMixin",
 		"GenericContainerScreenMixin",
-		"ShulkerBoxScreenMixin"
+		"ShulkerBoxScreenMixin",
+		"HorseScreenMixin"
 	],
 		"injectors": {
 		"defaultRequire": 1

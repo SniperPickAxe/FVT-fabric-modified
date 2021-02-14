@@ -2,6 +2,7 @@ package me.flourick.fvt.mixin;
 
 import net.minecraft.client.render.SkyProperties;
 
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -9,8 +10,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import me.flourick.fvt.FVT;
 
 @Mixin(SkyProperties.class)
-public class SkyPropertiesMixin
+abstract class SkyPropertiesMixin
 {
+	@Final
 	@Shadow
 	private float cloudsHeight;
 

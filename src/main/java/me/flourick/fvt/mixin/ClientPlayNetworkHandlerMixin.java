@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import me.flourick.fvt.FVT;
 
 @Mixin(ClientPlayNetworkHandler.class)
-public class ClientPlayNetworkHandlerMixin
+abstract class ClientPlayNetworkHandlerMixin
 {
 	@Inject(method = "onCombatEvent", at = @At("HEAD"))
 	private void onOnCombatEvent(CombatEventS2CPacket packet, CallbackInfo info)
