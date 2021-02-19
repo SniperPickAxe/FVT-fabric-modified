@@ -241,6 +241,13 @@ public class FVTOptions
 		);
 		saveableFeatures.put("autoTotem", autoTotem);
 
+		useDelay = new FVTDoubleOption(
+			"fvt.feature.name.use_delay", 
+			"fvt.feature.name.use_delay.tooltip", 
+			1.0d, 20.0d, 1.0d, 4.0d, FVTDoubleOption.Mode.WHOLE
+		);
+		saveableFeatures.put("useDelay", useDelay);
+
 		init();
 	}
 
@@ -284,6 +291,7 @@ public class FVTOptions
 	public final FVTBooleanOption triggerBot;
 	public final FVTBooleanOption freecam;
 	public final FVTBooleanOption autoTotem;
+	public final FVTDoubleOption  useDelay;
 
 	public void write()
 	{

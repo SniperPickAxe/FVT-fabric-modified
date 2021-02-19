@@ -117,7 +117,8 @@ public class FVTDoubleOption extends FVTOption<Double>
 		return MathHelper.clamp((adjust(value) - min) / (max - min), 0.0d, 1.0d);
 	}
   
-	private double adjust(double value) {
+	private double adjust(double value)
+	{
 		if(step > 0.0d) {
 			value = step * (double)Math.round(value / step);
 		}
@@ -127,27 +128,27 @@ public class FVTDoubleOption extends FVTOption<Double>
 
 	protected Text getButtonLabel()
 	{
-		if(mode == Mode.WHOLE) {
-			return getGenericLabel(new LiteralText(String.valueOf(getValueAsInteger())));
-		}
-		else if(mode == Mode.PERCENT) {
-			return getPercentLabel(getValueRaw());
-		}
-		else {
-			return getGenericLabel(new LiteralText(getValueAsString()));
+		switch(mode) {
+			case PERCENT:
+				return getPercentLabel(getValueRaw());
+			case WHOLE:
+				return getGenericLabel(new LiteralText(String.valueOf(getValueAsInteger())));
+			case NORMAL:
+			default:
+				return getGenericLabel(new LiteralText(getValueAsString()));
 		}
 	}
 
 	private String getDisplayDefaultValue()
 	{
-		if(mode == Mode.WHOLE) {
-			return String.valueOf(BigDecimal.valueOf(defaultValue).setScale(0, RoundingMode.DOWN).intValue());
-		}
-		else if(mode == Mode.PERCENT) {
-			return BigDecimal.valueOf(defaultValue * 100).setScale(0, RoundingMode.DOWN).intValue() + "%";
-		}
-		else {
-			return BigDecimal.valueOf(defaultValue).setScale(2, RoundingMode.HALF_UP).toString();
+		switch(mode) {
+			case PERCENT:
+				return BigDecimal.valueOf(defaultValue * 100).setScale(0, RoundingMode.DOWN).intValue() + "%";
+			case WHOLE:
+				return String.valueOf(BigDecimal.valueOf(defaultValue).setScale(0, RoundingMode.DOWN).intValue());
+			case NORMAL:
+			default:
+				return BigDecimal.valueOf(defaultValue).setScale(2, RoundingMode.HALF_UP).toString();
 		}
 	}
 }
