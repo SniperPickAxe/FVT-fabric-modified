@@ -14,109 +14,109 @@ Various tweaks fabric mod, compatible with Sodium/Canvas.
 
 Features that are always enabled and don't have a switch.
 
-### Mount Hunger
+* ### Mount Hunger
 
-When riding a mount that has health your hunger bar will be still visible instead of the vanilla behavior which hides it completely.
+    When riding a mount that has health your hunger bar will be still visible instead of the vanilla behavior which hides it completely.
 
-### Horse Info
+* ### Horse Info
 
-Horses, donkeys and mules have a "Stats" button which shows it's health, speed and jump height on hover.
+    Horses, donkeys and mules have a "Stats" button which shows it's health, speed and jump height on hover.
 
-### Container Buttons
+* ### Container Buttons
 
-Chests, barrels and shulkerboxes have three buttons that let you deposit all into the container, yoink all from the container or yeet it all out on the ground.
+    Chests, barrels and shulkerboxes have three buttons that let you deposit all into the container, yoink all from the container or yeet it all out on the ground.
 
 ## Toggleable Features
 
 List of all toggleable features. Configuration is in in-game options menu called 'FVT...'. Keybindings are configured in the usual Controls menu (FVT category) and are by default unset.
 
-### FVT Button Position
+* ### FVT Button Position
 
-The most useful part of this mod. Adds the option to change the 'FVT...' button position in settings menu.
+    The most useful part of this mod. Adds the option to change the 'FVT...' button position in settings menu.
 
-### Toggle Feature Chat Messages
+* ### Toggle Feature Chat Messages
 
-If enabled sends a chat message (only visible to you) whenever you enable/disable a feature using assigned key.
+    If enabled sends a chat message (only visible to you) whenever you enable/disable a feature using assigned key.
 
-### Crosshair
+* ### Crosshair
 
-This disables crosshair changing it's color based on background and instead let's you choose the static color yourself. You can also set the scale of the crosshair. You can still scale the crosshair even if you don't use the static color feature.
+    This disables crosshair changing it's color based on background and instead let's you choose the static color yourself. You can also set the scale of the crosshair. You can still scale the crosshair even if you don't use the static color feature.
 
-If you use a crosshair from a resource pack that is already colored or you wish to have a crosshair that has multiple colors, set the color to white (RGB: 255, 255, 255) which will make it so only colors from the resource pack are used.
+    If you use a crosshair from a resource pack that is already colored or you wish to have a crosshair that has multiple colors, set the color to white (RGB: 255, 255, 255) which will make it so only colors from the resource pack are used.
 
-NOTE: Crosshair in resource pack is the upper-left 15x15 pixels in *assets/minecraft/textures/gui/icons.png*
+    NOTE: Crosshair in resource pack is the upper-left 15x15 pixels in *assets/minecraft/textures/gui/icons.png*
 
-### HUD Info
+* ### HUD Info
 
-Shows your location, pitch, cardinal direction and block light while ingame.
+    Shows your location, pitch, cardinal direction and block light while ingame.
 
-### Disable 'W' To Sprint
+* ### Disable 'W' To Sprint
 
-The header says it all. Gets rid of one of the most annoying features.
+    The header says it all. Gets rid of one of the most annoying features.
 
-### Death Coordinates
+* ### Death Coordinates
 
-Sends your last death coordinates in chat after you respawn (only visible to you).
+    Sends your last death coordinates in chat after you respawn (only visible to you).
 
-### Tool Breaking
+* ### Tool Breaking
 
-Has two independent modes:
+    Has two independent modes:
 
-#### 1) Warning
+    **1) Warning**
 
-When your tools go below 10% durability and have 12 or less uses a red warning text appears on your screen for two seconds. Can be either on top of the screen or above the hotbar. Text size can be changed in settings.
+    When your tools go below 10% durability and have 12 or less uses a red warning text appears on your screen for two seconds. Can be either on top of the screen or above the hotbar. Text size can be changed in settings.
 
-#### 2) Prevent breaking
+    **2) Prevent breaking**
 
-Makes your tools stop working at certain durability (will stop at 2 durability for most tools). This includes swords, pickaxes, axes, shovels, hoes, trident, bow and crossbow. Can be overriden (by default holding right ALT).
+    Makes your tools stop working at certain durability (will stop at 2 durability for most tools). This includes swords, pickaxes, axes, shovels, hoes, trident, bow and crossbow. Can be overriden (by default holding right ALT).
 
-### Cloud Height
+* ### Cloud Height
 
-Allows you to set the height at which clouds render (0 - 256).
+    Allows you to set the height at which clouds render (0 - 256).
 
-### No Nether Fog
+* ### No Nether Fog
 
-Disables the thick nether fog (but leaves the default fog intact).
+    Disables the thick nether fog (but leaves the default fog intact).
 
-### No Block Break Particles
+* ### No Block Break Particles
 
-Disables the particles that spawn when you break a block.
+    Disables the particles that spawn when you break a block.
 
-### Refill Hand
+* ### Refill Hand
 
-Once the stack in your main hand is below 50% automatically finds the same item in your inventory and restocks it.
+    Once the stack in your main hand is below 50% automatically finds the same item in your inventory and restocks it.
 
-### AutoReconnect
+* ### AutoReconnect
 
-Will try to automatically reconnect you to the server you got disconnected from. Number of tries and the time after which it tries to reconnect you are configurable.
+    Will try to automatically reconnect you to the server you got disconnected from. Number of tries and the time after which it tries to reconnect you are configurable.
 
-### Offhand AutoEat
+* ### Offhand AutoEat
 
-Will automatically eat the food in your offhand as soon as you loose enough hunger for it to be fully utilized, will also eat if your health is low. Won't work if you for example aim at a chest or have a block in your main hand that can be placed.
+    Will automatically eat the food in your offhand as soon as you loose enough hunger for it to be fully utilized, will also eat if your health is low. Won't work if you for example aim at a chest or have a block in your main hand that can be placed.
 
-### AutoTotem
+* ### AutoTotem
 
-Upon totem activation will automatically find another totem in your inventory and replace the one that was just consumed. Does not matter if you hold the totem in your main hand or offhand, works in both.
+    Upon totem activation will automatically find another totem in your inventory and replace the one that was just consumed. Does not matter if you hold the totem in your main hand or offhand, works in both.
 
-### Random Block Placement (keybindable)
+* ### Random Block Placement (keybindable)
 
-Randomly selects a block from your hotbar to place every time you try to place a block or when you have an empty hand.
+    Randomly selects a block from your hotbar to place every time you try to place a block or when you have an empty hand.
 
-### Fullbright (keybindable)
+* ### Fullbright (keybindable)
 
-Self-explanatory. Useful for caving and in Nether.
+    Self-explanatory. Useful for caving and in Nether.
 
-### Entity Outline (keybindable)
+* ### Entity Outline (keybindable)
 
-Makes all entities (except players) glow white and be seen through walls. Useful for mob spawn proofing.
+    Makes all entities (except players) glow white and be seen through walls. Useful for mob spawn proofing.
 
-### Freecam (keybindable)
+* ### Freecam (keybindable)
 
-Allows you to leave your body and explore your surroundings. Works similar to spectator.
+    Allows you to leave your body and explore your surroundings. Works similar to spectator.
 
-### Trigger AutoAttack (keybindable)
+* ### Trigger AutoAttack (keybindable)
 
-Automatically attacks entities if you place your crosshair over them and in reach. Primarily meant for AFK farms.
+    Automatically attacks entities if you place your crosshair over them and in reach. Primarily meant for AFK farms.
 
 ## Preview (v1.5.1)
 
@@ -138,4 +138,4 @@ Automatically attacks entities if you place your crosshair over them and in reac
 
 ----
 
-If you have any suggestions you can post in Issues.
+If you have any suggestions/bug report you can post in Issues.

@@ -3,8 +3,6 @@
 	"minVersion": "0.8",
 	"package": "me.flourick.fvt.mixin",
 	"compatibilityLevel": "JAVA_8",
-	"mixins": [
-	],
 	"client": [
 		"MinecraftClientMixin",
 		"InGameHudMixin",
@@ -23,7 +21,7 @@
 		"ShulkerBoxScreenMixin",
 		"HorseScreenMixin"
 	],
-		"injectors": {
+	"injectors": {
 		"defaultRequire": 1
 	}
 }
