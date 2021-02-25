@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import me.flourick.fvt.FVT;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.entity.Entity;
@@ -25,6 +26,9 @@ abstract class MinecraftClientMixin
 {
 	@Shadow
 	private ServerInfo currentServerEntry;
+
+	@Shadow
+	private int itemUseCooldown;
 
 	@Inject(method = "handleBlockBreaking", at = @At("HEAD"), cancellable = true)
 	private void onHandleBlockBreaking(boolean bl, CallbackInfo info)
@@ -84,6 +88,12 @@ abstract class MinecraftClientMixin
 		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.cancel();
 		}
+	}
+
+	@Inject(method = "doItemUse", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;itemUseCooldown:I", ordinal = 0, shift = At.Shift.AFTER))
+	private void onDoItemUseCooldown(CallbackInfo info)
+	{
+		itemUseCooldown = FVT.OPTIONS.useDelay.getValueAsInteger();
 	}
 
 	@Inject(method = "doItemUse", at = @At("HEAD"), cancellable = true)
