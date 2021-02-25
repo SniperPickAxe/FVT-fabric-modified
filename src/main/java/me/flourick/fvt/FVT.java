@@ -72,10 +72,10 @@ public class FVT implements ClientModInitializer
 
 				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {
 					if(FVT.OPTIONS.fullbright.getValueRaw()) {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.fullbright")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.fullbright"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.fullbright")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.fullbright"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 				}
 			}
@@ -85,10 +85,10 @@ public class FVT implements ClientModInitializer
 
 				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {
 					if(FVT.OPTIONS.entityOutline.getValueRaw()) {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.entity_outline")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.entity_outline"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.entity_outline")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.entity_outline"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 				}
 			}
@@ -98,10 +98,10 @@ public class FVT implements ClientModInitializer
 
 				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {
 					if(FVT.OPTIONS.triggerBot.getValueRaw()) {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.trigger_autoattack")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.trigger_autoattack"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.trigger_autoattack")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.trigger_autoattack"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 				}
 			}
@@ -111,10 +111,10 @@ public class FVT implements ClientModInitializer
 
 				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {
 					if(FVT.OPTIONS.freecam.getValueRaw()) {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.freecam")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.freecam"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.freecam")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.freecam"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 				}
 			}
@@ -124,10 +124,10 @@ public class FVT implements ClientModInitializer
 
 				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {
 					if(FVT.OPTIONS.randomPlacement.getValueRaw()) {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.random_placement")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.random_placement"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 					else {
-						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.random_placement")), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.random_placement"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 				}
 			}

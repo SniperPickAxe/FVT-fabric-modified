@@ -12,11 +12,11 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
-public class FTVSpacerOption extends Option
+public class FTVCategoryOption extends Option
 {
 	private Text text;
 
-	public FTVSpacerOption(String key)
+	public FTVCategoryOption(String key)
 	{
 		super(key);
 		this.text = new TranslatableText(key).formatted(Formatting.BOLD);

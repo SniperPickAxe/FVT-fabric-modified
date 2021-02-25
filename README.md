@@ -98,6 +98,10 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Upon totem activation will automatically find another totem in your inventory and replace the one that was just consumed. Does not matter if you hold the totem in your main hand or offhand, works in both.
 
+* ### Use Delay
+
+    By default while you hold the use key (usually RMB) the game will perform the use action every 4 ticks (meaning you will place about 5 blocks every second when you hold RMB). This options let's you set it from 1 tick delay to 20 tick delay (ex. at 1 will place as fast as it can and at 20 will place once every second).
+
 * ### Random Block Placement (keybindable)
 
     Randomly selects a block from your hotbar to place every time you try to place a block or when you have an empty hand.
