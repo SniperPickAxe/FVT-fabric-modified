@@ -8,6 +8,11 @@ import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.util.OrderableTooltip;
 import net.minecraft.text.OrderedText;
 
+/**
+ * Slider part for FVTDoubleOption. This is what updates the actual internal double value and also the number that is shown on screen.
+ * 
+ * @author Flourick
+ */
 public class FVTDoubleOptionSliderWidget extends OptionSliderWidget implements OrderableTooltip
 {
 	FVTDoubleOption option;
@@ -34,5 +39,5 @@ public class FVTDoubleOptionSliderWidget extends OptionSliderWidget implements O
 	public Optional<List<OrderedText>> getOrderedTooltip()
 	{
 		return option.getTooltip();
-	 }
+	}
 }

@@ -2,6 +2,11 @@ package me.flourick.fvt.utils;
 
 import net.minecraft.util.math.MathHelper;
 
+/**
+ * Represents an ARGB color with various utilities.
+ * 
+ * @author Flourick
+ */
 public class Color
 {
 	public static final Color WHITE = new Color(255, 255, 255);

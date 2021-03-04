@@ -11,6 +11,11 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.LightType;
 
+/**
+ * Holder for static functions that draw text on the ingame HUD.
+ * 
+ * @author Flourick
+ */
 public class OnScreenText
 {
 	public static void drawCoordinatesTextLower(MatrixStack matrixStack)

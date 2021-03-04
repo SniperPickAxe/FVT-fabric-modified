@@ -54,7 +54,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     The header says it all. Gets rid of one of the most annoying features.
 
-* ### Death Coordinates
+* ### Chat Death Coordinates
 
     Sends your last death coordinates in chat after you respawn (only visible to you).
 
@@ -74,11 +74,11 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Allows you to set the height at which clouds render (0 - 256).
 
-* ### No Nether Fog
+* ### No Nether Thick Fog
 
     Disables the thick nether fog (but leaves the default fog intact).
 
-* ### No Block Break Particles
+* ### No Block Breaking Particles
 
     Disables the particles that spawn when you break a block.
 
@@ -122,7 +122,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Automatically attacks entities if you place your crosshair over them and in reach. Primarily meant for AFK farms.
 
-## Preview (v1.5.1)
+## Preview (v1.5.2)
 
 <details><summary>Static crosshair color, HUD info, death message & tool breaking warning. (CLICK ME)</summary>
 <p>
@@ -135,7 +135,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 <details><summary>Ingame menu with default settings. (CLICK ME)</summary>
 <p>
 
-![menu](https://user-images.githubusercontent.com/33128006/107887304-64b47600-6f05-11eb-8b67-786e79b56433.png)
+![menu](https://user-images.githubusercontent.com/33128006/110024792-d32f6b80-7d2e-11eb-8904-2c4ca6fffcd7.png)
 
 </p>
 </details>

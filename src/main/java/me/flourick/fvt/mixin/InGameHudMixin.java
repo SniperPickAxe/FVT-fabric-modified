@@ -28,6 +28,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 
+/**
+ * <p>
+ * FEATURES: Tool Breaking Warning, HUD Info, Mount Hunger, Crosshair
+ * </p>
+ * 
+ * @author Flourick
+ */
 @Mixin(InGameHud.class)
 abstract class InGameHudMixin extends DrawableHelper
 {

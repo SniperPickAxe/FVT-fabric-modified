@@ -9,6 +9,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import me.flourick.fvt.FVT;
 
+/**
+ * <p>
+ * FEATURES: Freecam
+ * </p>
+ * 
+ * @author Flourick
+ */
 @Mixin(GameRenderer.class)
 abstract class GameRendererMixin
 {

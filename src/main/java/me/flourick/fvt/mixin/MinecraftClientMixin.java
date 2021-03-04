@@ -21,6 +21,13 @@ import net.minecraft.item.SwordItem;
 import net.minecraft.item.TridentItem;
 import net.minecraft.util.Hand;
 
+/**
+ * <p>
+ * FEATURES: Prevent Tool Breaking, Freecam, Use Delay, Entity Outline, AutoReconnect
+ * </p>
+ * 
+ * @author Flourick
+ */
 @Mixin(MinecraftClient.class)
 abstract class MinecraftClientMixin
 {

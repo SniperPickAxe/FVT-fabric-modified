@@ -26,6 +26,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import me.flourick.fvt.FVT;
 
+/**
+ * <p>
+ * FEATURES: AutoReconnect, Chat Death Coordinates, Disable 'W' To Sprint, Freecam
+ * </p>
+ * 
+ * @author Flourick
+ */
 @Mixin(ClientPlayerEntity.class)
 abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 {

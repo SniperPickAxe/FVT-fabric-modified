@@ -16,6 +16,11 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
 
+/**
+ * Custom slider button for the FVT settings menu. Has three modes (whole numbers, percentage and doubles).
+ * 
+ * @author Flourick
+ */
 public class FVTDoubleOption extends FVTOption<Double>
 {
 	public enum Mode {

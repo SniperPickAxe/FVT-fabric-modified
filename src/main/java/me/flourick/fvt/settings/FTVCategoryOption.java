@@ -12,6 +12,11 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
+/**
+ * Basically an empty button that does not do anything but displays a single string. It's used to group corresponding features together in the FVT settings menu.
+ * 
+ * @author Flourick
+ */
 public class FTVCategoryOption extends Option
 {
 	private Text text;
@@ -30,6 +35,7 @@ public class FTVCategoryOption extends Option
 		});
 	}
 
+	// the actual empty button
 	private class SpacerButtonWidget extends ButtonWidget
 	{
 		public SpacerButtonWidget(int x, int y, int width, int height, Text message, ButtonWidget.PressAction onPress)

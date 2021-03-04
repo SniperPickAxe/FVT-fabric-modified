@@ -13,6 +13,11 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
+/**
+ * Custom cycling button for the FVT settings menu. Clicking the button cycles through the list of possible values.
+ * 
+ * @author Flourick
+ */
 public class FVTCyclingOption extends FVTOption<Text>
 {
 	private List<Text> values;

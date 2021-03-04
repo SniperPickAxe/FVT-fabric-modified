@@ -69,7 +69,7 @@ public class FVTSettingsScreen extends Screen
 		this.children.add(this.list);
 		this.addButton(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, (buttonWidget) -> {
 			FVT.OPTIONS.write();
-			this.client.openScreen(this.parent);
+			this.client.openScreen(parent);
 		}));
 
 		FVT.VARS.tooltipsActive = false;
@@ -86,6 +86,8 @@ public class FVTSettingsScreen extends Screen
 			this.renderTooltip(matrixStack, (FVT.VARS.tooltipsActive ? new TranslatableText("fvt.options.tooltips.hide") : new TranslatableText("fvt.options.tooltips.show")), i, j + 8);
 		}));
 	}
+
+	
 
 	@Override
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta)
@@ -198,5 +200,11 @@ public class FVTSettingsScreen extends Screen
 	public void removed()
 	{
 		FVT.OPTIONS.write();
+	}
+
+	@Override
+	public void onClose()
+	{
+		this.client.openScreen(parent);
 	}
 }

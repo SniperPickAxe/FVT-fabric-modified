@@ -4,6 +4,11 @@ import net.minecraft.client.network.ServerInfo;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 
+/**
+ * Holder for various utility variables for different features.
+ * 
+ * @author Flourick
+ */
 public class FVTVars
 {
 	public boolean autoEating;

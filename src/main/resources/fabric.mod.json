@@ -8,7 +8,11 @@
 	"authors": [
 		"Flourick"
 	],
+	"contributors": [
+		"jtenner"
+	],
 	"contact": {
+		"homepage": "https://modrinth.com/mod/fvt",
 		"sources": "https://github.com/Flourick/FVT-fabric",
     	"issues": "https://github.com/Flourick/FVT-fabric/issues"
 	},
@@ -30,7 +34,7 @@
 	],
 
 	"depends": {
-		"fabricloader": ">=0.10.0",
+		"fabricloader": ">=0.11.0",
 		"fabric": "*",
 		"minecraft": "1.16.x"
 	}

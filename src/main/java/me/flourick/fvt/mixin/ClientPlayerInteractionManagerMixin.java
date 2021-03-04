@@ -19,6 +19,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import me.flourick.fvt.FVT;
 
+/**
+ * <p>
+ * FEATURES: Random Block Placement, Refill Hand
+ * </p>
+ * 
+ * @author Flourick
+ */
 @Mixin(ClientPlayerInteractionManager.class)
 abstract class ClientPlayerInteractionManagerMixin
 {

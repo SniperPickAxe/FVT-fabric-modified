@@ -68,11 +68,6 @@ public class FVT implements ClientModInitializer
 
 		ClientTickEvents.END_CLIENT_TICK.register(client ->
 		{
-			if(FVT.MC.player == null && FVT.OPTIONS.freecam.getValueRaw()) {
-				// disables freecam if leaving a world
-				FVT.OPTIONS.freecam.setValueRaw(false);
-			}
-
 			while(fullbrightKeybind.wasPressed()) {
 				FVT.OPTIONS.fullbright.toggle();
 
@@ -144,6 +139,11 @@ public class FVT implements ClientModInitializer
 	{
 		ClientTickEvents.END_CLIENT_TICK.register(client ->
 		{
+			if(FVT.MC.player == null && FVT.OPTIONS.freecam.getValueRaw()) {
+				// disables freecam if leaving a world
+				FVT.OPTIONS.freecam.setValueRaw(false);
+			}
+
 			if(FVT.VARS.autoReconnectTicks > 0 && FVT.OPTIONS.autoReconnect.getValueRaw()) {
 				if(FVT.MC.currentScreen instanceof DisconnectedScreen) {
 					FVT.VARS.autoReconnectTicks -= 1;

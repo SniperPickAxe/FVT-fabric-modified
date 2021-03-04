@@ -14,6 +14,11 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
+/**
+ * Custom boolean button for the FVT settings menu. Click the button cycles between true and false.
+ * 
+ * @author Flourick
+ */
 public class FVTBooleanOption extends FVTOption<Boolean>
 {
 	private boolean currentValue;

@@ -8,6 +8,11 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
+/**
+ * Updated version of vanilla's ButtonWidget that fixes custom button sizes and adds coloring option.
+ * 
+ * @author Flourick
+ */
 public class FVTButtonWidget extends ButtonWidget
 {
 	private Color messageColor;
@@ -75,6 +80,4 @@ public class FVTButtonWidget extends ButtonWidget
 	{
 		this.buttonColor = buttonColor;
 	}
-
-	
 }

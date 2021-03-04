@@ -22,6 +22,11 @@ import me.flourick.fvt.FVT;
 
 import net.minecraft.text.TranslatableText;
 
+/**
+ * List of all features this mod offers also handles loading & saving to file.
+ * 
+ * @author Flourick
+ */
 public class FVTOptions
 {
 	private File optionsFile;

@@ -9,6 +9,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import me.flourick.fvt.FVT;
 
+/**
+ * <p>
+ * FEATURES: Fullbright
+ * </p>
+ * 
+ * @author Flourick
+ */
 @Mixin(LightmapTextureManager.class)
 abstract class LightmapTextureManagerMixin
 {

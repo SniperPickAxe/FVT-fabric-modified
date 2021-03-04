@@ -16,6 +16,13 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
+/**
+ * <p>
+ * FEATURES: Container Buttons
+ * </p>
+ * 
+ * @author Flourick
+ */
 @Mixin(ShulkerBoxScreen.class)
 abstract class ShulkerBoxScreenMixin extends HandledScreen<ShulkerBoxScreenHandler>
 {

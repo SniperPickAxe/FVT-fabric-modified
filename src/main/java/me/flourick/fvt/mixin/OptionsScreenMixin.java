@@ -17,6 +17,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import me.flourick.fvt.FVT;
 import me.flourick.fvt.settings.FVTSettingsScreen;
 
+/**
+ * This adds the 'FVT...' button in the 'Options...' menu.
+ * 
+ * @author Flourick
+ */
 @Mixin(OptionsScreen.class)
 abstract class OptionsScreenMixin extends Screen
 {
@@ -27,9 +32,6 @@ abstract class OptionsScreenMixin extends Screen
 	@Final
 	@Shadow
 	private GameOptions settings;
-
-	// IGNORED
-	public OptionsScreenMixin(Screen parent, GameOptions gameOptions) { super(new TranslatableText("options.title", new Object[0])); }
 
 	@Inject(method = "init", at = @At("RETURN"))
 	private void onInit(CallbackInfo info)
@@ -60,4 +62,6 @@ abstract class OptionsScreenMixin extends Screen
 			this.client.openScreen(new FVTSettingsScreen(this));
 		}));
 	}
+
+	public OptionsScreenMixin(Screen parent, GameOptions gameOptions) { super(new TranslatableText("options.title", new Object[0])); } // IGNORED
 }
