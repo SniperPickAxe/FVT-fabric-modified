@@ -57,7 +57,7 @@ abstract class OptionsScreenMixin extends Screen
 		}
 
 		this.addButton(new ButtonWidget(x, y, l, 20, new LiteralText("FVT..."), (buttonWidget) -> {
-			this.client.openScreen(new FVTSettingsScreen(this, this.settings));
+			this.client.openScreen(new FVTSettingsScreen(this));
 		}));
 	}
 }

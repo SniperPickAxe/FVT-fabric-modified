@@ -15,6 +15,9 @@
 	
 	"fvt.feature.default": "Default: %s",
 
+	"fvt.feature.enabled": "%s is now enabled!",
+	"fvt.feature.disabled": "%s is now disabled!",
+
 	
 	"fvt.feature.name.button_position": "FVT Button Position",
 	"fvt.feature.name.button_position.right": "Right",
@@ -119,8 +122,5 @@
 	"fvt.feature.name.horses.button.tooltip.jump_height": "§7Jump§8:§r %s §r(1.08-5.29)",
 
 	"fvt.feature.name.use_delay": "Use Delay",
-	"fvt.feature.name.use_delay.tooltip": "Changes the default delay when holding the use key (usually RMB). For example changes how often you place blocks when holding the use key. The delay is in ticks and lower values mean faster placement.",
-
-	"fvt.feature.enabled": "%s is now enabled!",
-	"fvt.feature.disabled": "%s is now disabled!"
+	"fvt.feature.name.use_delay.tooltip": "Changes the default delay when holding the use key (usually RMB). For example changes how often you place blocks when holding the use key. The delay is in ticks and lower values mean faster placement."
 }

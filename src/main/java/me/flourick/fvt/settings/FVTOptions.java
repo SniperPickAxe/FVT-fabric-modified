@@ -315,7 +315,7 @@ public class FVTOptions
 		try(BufferedReader bufferedReader = Files.newReader(optionsFile, StandardCharsets.UTF_8)) {
 			bufferedReader.lines().forEach((line) -> {
 				if(line.startsWith("#")) {
-					// skips header
+					// skips comments
 					return;
 				}
 

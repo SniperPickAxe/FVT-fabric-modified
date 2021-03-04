@@ -2,6 +2,7 @@ package me.flourick.fvt.settings;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -10,29 +11,35 @@ import me.flourick.fvt.utils.Color;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
-import net.minecraft.client.gui.screen.options.GameOptionsScreen;
+import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.ButtonListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.Option;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.util.OrderableTooltip;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.Matrix4f;
 
-public class FVTSettingsScreen extends GameOptionsScreen
+public class FVTSettingsScreen extends Screen
 {
+	private final Screen parent;
 	private ButtonListWidget list;
 
-	public FVTSettingsScreen(Screen parent, GameOptions gameOptions)
+	public static Screen getScreen(Screen parent) {
+        return new FVTSettingsScreen(parent);
+    }
+
+	public FVTSettingsScreen(Screen parent)
 	{
-		super(parent, gameOptions, new TranslatableText("fvt.options_title"));
+		super(new TranslatableText("fvt.options_title"));
+		this.parent = parent;
 	}
 
 	protected void init()
@@ -89,11 +96,24 @@ public class FVTSettingsScreen extends GameOptionsScreen
 
 		super.render(matrixStack, mouseX, mouseY, delta);
 
-		List<OrderedText> tooltip = getHoveredButtonTooltip(this.list, mouseX, mouseY);
+		List<OrderedText> tooltip = getHoveredButtonTooltip(mouseX, mouseY);
 		if(tooltip != null && FVT.VARS.tooltipsActive) {
 			this.renderOrderedTooltip(matrixStack, tooltip, mouseX, mouseY);
 		}
 	}
+
+	public List<OrderedText> getHoveredButtonTooltip(int mouseX, int mouseY)
+	{
+		Optional<AbstractButtonWidget> button = list.getHoveredButton((double)mouseX, (double)mouseY);
+		
+		if(button.isPresent() && button.get() instanceof OrderableTooltip) {
+		   Optional<List<OrderedText>> tooltip = ((OrderableTooltip)button.get()).getOrderedTooltip();
+		   return tooltip.orElse(null);
+		}
+		else {
+		   return null;
+		}
+	 }
 
 	@Override
 	public void renderOrderedTooltip(MatrixStack matrices, List<? extends OrderedText> lines, int x, int y)

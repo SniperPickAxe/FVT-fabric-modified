@@ -27,6 +27,11 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult.Type;
 import net.minecraft.util.math.MathHelper;
 
+/**
+ * Mod initializer, registers keybinds & their listeners and several tick callbacks.
+ * 
+ * @author Flourick, jtenner
+ */
 public class FVT implements ClientModInitializer
 {
 	public static FVT INSTANCE;
@@ -44,6 +49,7 @@ public class FVT implements ClientModInitializer
 		OPTIONS = new FVTOptions();
 
 		registerKeys();
+		registerCallbacks();
 	}
 
 	public boolean isToolBreakingOverriden()
@@ -131,7 +137,13 @@ public class FVT implements ClientModInitializer
 					}
 				}
 			}
+		});
+	}
 
+	private void registerCallbacks()
+	{
+		ClientTickEvents.END_CLIENT_TICK.register(client ->
+		{
 			if(FVT.VARS.autoReconnectTicks > 0 && FVT.OPTIONS.autoReconnect.getValueRaw()) {
 				if(FVT.MC.currentScreen instanceof DisconnectedScreen) {
 					FVT.VARS.autoReconnectTicks -= 1;

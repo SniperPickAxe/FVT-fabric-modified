@@ -3,7 +3,7 @@
 	"id": "fvt",
 	"version": "${version}",
 
-	"name": "FVT",
+	"name": "Flour's Various Tweaks",
 	"description": "Various tweaks client-side mod",
 	"authors": [
 		"Flourick"
@@ -20,6 +20,9 @@
 	"entrypoints": {
 		"client": [
 			"me.flourick.fvt.FVT"
+		],
+		"modmenu": [
+			"me.flourick.fvt.settings.ModMenuSettingsImpl"
 		]
 	},
 	"mixins": [
