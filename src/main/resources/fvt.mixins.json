@@ -19,7 +19,8 @@
 		"DisconnectedScreenMixin",
 		"GenericContainerScreenMixin",
 		"ShulkerBoxScreenMixin",
-		"HorseScreenMixin"
+		"HorseScreenMixin",
+		"ItemStackMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

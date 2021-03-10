@@ -26,6 +26,10 @@ Features that are always enabled and don't have a switch.
 
     Chests, barrels and shulkerboxes have three buttons that let you deposit all into the container, yoink all from the container or yeet it all out on the ground.
 
+* ### Bee Hive/Nest Info
+
+    Adds a bee count and honey level to Bee Hives & Nests tooltip (ADVANCED TOOLTIPS has to be enabled!).
+
 ## Toggleable Features
 
 List of all toggleable features. Configuration is in in-game options menu called 'FVT...'. Keybindings are configured in the usual Controls menu (FVT category) and are by default unset.
