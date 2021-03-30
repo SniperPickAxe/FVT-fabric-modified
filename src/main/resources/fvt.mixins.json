@@ -20,7 +20,8 @@
 		"GenericContainerScreenMixin",
 		"ShulkerBoxScreenMixin",
 		"HorseScreenMixin",
-		"ItemStackMixin"
+		"ItemStackMixin",
+		"WorldRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

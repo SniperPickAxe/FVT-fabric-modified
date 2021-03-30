@@ -18,9 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import me.flourick.fvt.FVT;
 
 /**
- * <p>
  * FEATURES: Chat Death Coordinates, AutoTotem
- * </p>
  * 
  * @author Flourick
  */

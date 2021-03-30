@@ -10,9 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import me.flourick.fvt.FVT;
 
 /**
- * <p>
  * FEATURES: No Block Breaking Particles
- * </p>
  * 
  * @author Flourick
  */

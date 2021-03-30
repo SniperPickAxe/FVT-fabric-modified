@@ -16,9 +16,7 @@ import me.flourick.fvt.FVT;
 import me.flourick.fvt.utils.Color;
 
 /**
- * <p>
  * FEATURES: AutoReconnect
- * </p>
  * 
  * @author Flourick
  */

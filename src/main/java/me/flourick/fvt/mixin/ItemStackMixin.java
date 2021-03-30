@@ -20,6 +20,11 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
+/**
+ * FEATURES: Bee Info
+ * 
+ * @author Flourick
+ */
 @Mixin(ItemStack.class)
 abstract class ItemStackMixin
 {

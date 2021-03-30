@@ -27,9 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import me.flourick.fvt.FVT;
 
 /**
- * <p>
  * FEATURES: AutoReconnect, Chat Death Coordinates, Disable 'W' To Sprint, Freecam
- * </p>
  * 
  * @author Flourick
  */
@@ -101,7 +99,7 @@ abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	}
 
 	// PREVENTS SENDING VEHICLE MOVEMENT PACKETS TO SERVER (freecam)
-	@Redirect(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasVehicle()Z", ordinal = 0))
+	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasVehicle()Z", ordinal = 0))
 	private boolean hijackHasVehicle(ClientPlayerEntity player)
 	{
 		if(FVT.OPTIONS.freecam.getValueRaw()) {
@@ -112,7 +110,7 @@ abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	}
 
 	// PREVENTS HORSES FROM JUMPING (freecam)
-	@Redirect(method = "tickMovement()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasJumpingMount()Z", ordinal = 0))
+	@Redirect(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasJumpingMount()Z", ordinal = 0))
 	private boolean hijackHasJumpingMount(ClientPlayerEntity player)
 	{
 		if(FVT.OPTIONS.freecam.getValueRaw()) {

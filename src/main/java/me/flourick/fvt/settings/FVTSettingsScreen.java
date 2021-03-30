@@ -32,7 +32,7 @@ public class FVTSettingsScreen extends Screen
 	private final Screen parent;
 	private ButtonListWidget list;
 
-	public static Screen getScreen(Screen parent) {
+	public static Screen getNewScreen(Screen parent) {
         return new FVTSettingsScreen(parent);
     }
 
@@ -64,8 +64,10 @@ public class FVTSettingsScreen extends Screen
 		this.list.addAll(new Option[] {FVT.OPTIONS.autoReconnect, FVT.OPTIONS.autoReconnectMaxTries});
 		this.list.addSingleOptionEntry(FVT.OPTIONS.autoReconnectTimeout);
 		this.list.addAll(new Option[] {FVT.OPTIONS.autoEat, FVT.OPTIONS.triggerBot, FVT.OPTIONS.autoTotem});
+		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.placement"));
+		this.list.addAll(new Option[] {FVT.OPTIONS.randomPlacement, FVT.OPTIONS.refillHand, FVT.OPTIONS.useDelay, FVT.OPTIONS.creativeBreakDelay});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.other"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates, FVT.OPTIONS.randomPlacement, FVT.OPTIONS.refillHand, FVT.OPTIONS.freecam, FVT.OPTIONS.useDelay});
+		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates, FVT.OPTIONS.freecam});
 		this.children.add(this.list);
 		this.addButton(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, (buttonWidget) -> {
 			FVT.OPTIONS.write();
@@ -86,8 +88,6 @@ public class FVTSettingsScreen extends Screen
 			this.renderTooltip(matrixStack, (FVT.VARS.tooltipsActive ? new TranslatableText("fvt.options.tooltips.hide") : new TranslatableText("fvt.options.tooltips.show")), i, j + 8);
 		}));
 	}
-
-	
 
 	@Override
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta)

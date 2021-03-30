@@ -17,9 +17,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
 /**
- * <p>
  * FEATURES: Container Buttons
- * </p>
  * 
  * @author Flourick
  */

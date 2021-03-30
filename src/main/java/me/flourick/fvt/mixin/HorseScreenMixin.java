@@ -32,9 +32,7 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.Matrix4f;
 
 /**
- * <p>
  * FEATURES: Horse Info
- * </p>
  * 
  * @author Flourick
  */

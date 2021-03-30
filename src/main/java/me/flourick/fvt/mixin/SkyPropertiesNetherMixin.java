@@ -10,9 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import me.flourick.fvt.FVT;
 
 /**
- * <p>
  * FEATURES: No Nether Thick Fog
- * </p>
  * 
  * @author Flourick
  */

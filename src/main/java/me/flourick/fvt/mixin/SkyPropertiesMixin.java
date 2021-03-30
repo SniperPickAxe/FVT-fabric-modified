@@ -10,9 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import me.flourick.fvt.FVT;
 
 /**
- * <p>
  * FEATURES: Cloud Height
- * </p>
  * 
  * @author Flourick
  */

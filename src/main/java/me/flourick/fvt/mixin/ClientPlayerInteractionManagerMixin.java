@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -21,7 +22,7 @@ import me.flourick.fvt.FVT;
 
 /**
  * <p>
- * FEATURES: Random Block Placement, Refill Hand
+ * FEATURES: Random Block Placement, Refill Hand, Creative Break Delay
  * </p>
  * 
  * @author Flourick
@@ -29,6 +30,21 @@ import me.flourick.fvt.FVT;
 @Mixin(ClientPlayerInteractionManager.class)
 abstract class ClientPlayerInteractionManagerMixin
 {
+	@Shadow
+	private int blockBreakingCooldown;
+
+	@Inject(method = "attackBlock", at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;blockBreakingCooldown:I", ordinal = 0, shift = At.Shift.AFTER))
+	public void onAttackBlockCooldown(CallbackInfoReturnable<Boolean> info)
+	{
+		blockBreakingCooldown = FVT.OPTIONS.creativeBreakDelay.getValueAsInteger() - 1;
+	}
+
+	@Inject(method = "updateBlockBreakingProgress", at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;blockBreakingCooldown:I", ordinal = 3, shift = At.Shift.AFTER))
+	public void onUpdateBlockBreakingProgressCooldown(CallbackInfoReturnable<Boolean> info)
+	{
+		blockBreakingCooldown = FVT.OPTIONS.creativeBreakDelay.getValueAsInteger() - 1;
+	}
+
 	@Inject(method = "interactBlock", at = @At("HEAD"))
 	private void onInteractBlock(CallbackInfoReturnable<ActionResult> info)
 	{

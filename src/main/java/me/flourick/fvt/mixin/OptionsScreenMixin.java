@@ -18,7 +18,7 @@ import me.flourick.fvt.FVT;
 import me.flourick.fvt.settings.FVTSettingsScreen;
 
 /**
- * This adds the 'FVT...' button in the 'Options...' menu.
+ * FEATURES: FVT Button Position
  * 
  * @author Flourick
  */

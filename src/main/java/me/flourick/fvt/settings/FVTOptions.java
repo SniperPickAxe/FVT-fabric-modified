@@ -254,6 +254,13 @@ public class FVTOptions
 		);
 		saveableFeatures.put("useDelay", useDelay);
 
+		creativeBreakDelay = new FVTDoubleOption(
+			"fvt.feature.name.creative_break_delay",
+			"fvt.feature.name.creative_break_delay.tooltip",
+			1.0d, 10.0d, 1.0d, 6.0d, FVTDoubleOption.Mode.WHOLE
+		);
+		saveableFeatures.put("creativeBreakDelay", creativeBreakDelay);
+
 		init();
 	}
 
@@ -298,6 +305,7 @@ public class FVTOptions
 	public final FVTBooleanOption freecam;
 	public final FVTBooleanOption autoTotem;
 	public final FVTDoubleOption  useDelay;
+	public final FVTDoubleOption  creativeBreakDelay;
 
 	public void write()
 	{

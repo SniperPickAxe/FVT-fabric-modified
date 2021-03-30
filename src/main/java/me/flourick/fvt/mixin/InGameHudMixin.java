@@ -30,9 +30,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 
 /**
- * <p>
  * FEATURES: Tool Breaking Warning, HUD Info, Mount Hunger, Crosshair
- * </p>
  * 
  * @author Flourick
  */

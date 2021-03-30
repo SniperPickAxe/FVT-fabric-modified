@@ -11,6 +11,7 @@
 	"fvt.feature_category.tools": "Tools",
 	"fvt.feature_category.render": "Render",
 	"fvt.feature_category.auto": "Auto",
+	"fvt.feature_category.placement": "Placement",
 	"fvt.feature_category.other": "Other",
 	
 	"fvt.feature.default": "Default: %s",
@@ -122,7 +123,10 @@
 	"fvt.feature.name.horses.button.tooltip.jump_height": "§7Jump§8:§r %s §r(1.08-5.29)",
 
 	"fvt.feature.name.use_delay": "Use Delay",
-	"fvt.feature.name.use_delay.tooltip": "Changes the default delay when holding the use key (usually RMB). For example changes how often you place blocks when holding the use key. The delay is in ticks and lower values mean faster placement.",
+	"fvt.feature.name.use_delay.tooltip": "Changes the delay when holding the use key (usually RMB). For example changes how often you place blocks when holding the use key. Setting this to 1 will make it place as fast as it can.",
+	
+	"fvt.feature.name.creative_break_delay": "Creative Break Delay",
+	"fvt.feature.name.creative_break_delay.tooltip": "Changes the delay when holding the attack key (usually LMB) when in creative mode breaking blocks. Setting this to 1 will make it break as fast as it can.",
 
 	"fvt.feature.name.bee_info.honey": "Honey: %s",
 	"fvt.feature.name.bee_info.bees": "Bees: %s"
