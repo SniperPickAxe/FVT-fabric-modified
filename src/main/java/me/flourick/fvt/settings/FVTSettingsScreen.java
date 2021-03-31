@@ -63,9 +63,9 @@ public class FVTSettingsScreen extends Screen
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.auto"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.autoReconnect, FVT.OPTIONS.autoReconnectMaxTries});
 		this.list.addSingleOptionEntry(FVT.OPTIONS.autoReconnectTimeout);
-		this.list.addAll(new Option[] {FVT.OPTIONS.autoEat, FVT.OPTIONS.triggerBot, FVT.OPTIONS.autoTotem});
+		this.list.addAll(new Option[] {FVT.OPTIONS.autoEat, FVT.OPTIONS.triggerBot, FVT.OPTIONS.autoTotem, FVT.OPTIONS.refillHand});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.placement"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.randomPlacement, FVT.OPTIONS.refillHand, FVT.OPTIONS.useDelay, FVT.OPTIONS.creativeBreakDelay});
+		this.list.addAll(new Option[] {FVT.OPTIONS.randomPlacement, FVT.OPTIONS.useDelay, FVT.OPTIONS.creativeBreakDelay, FVT.OPTIONS.placementLock});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.other"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates, FVT.OPTIONS.freecam});
 		this.children.add(this.list);

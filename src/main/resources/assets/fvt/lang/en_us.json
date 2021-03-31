@@ -127,6 +127,9 @@
 	
 	"fvt.feature.name.creative_break_delay": "Creative Break Delay",
 	"fvt.feature.name.creative_break_delay.tooltip": "Changes the delay when holding the attack key (usually LMB) when in creative mode breaking blocks. Setting this to 1 will make it break as fast as it can.",
+	
+	"fvt.feature.name.placement_lock": "Placement Lock",
+	"fvt.feature.name.placement_lock.tooltip": "Forces placement to a single plane or axis, determined from the first three placed blocks when placing blocks by holding the use key (usually RMB). Very useful for making platforms and pillars.",
 
 	"fvt.feature.name.bee_info.honey": "Honey: %s",
 	"fvt.feature.name.bee_info.bees": "Bees: %s"

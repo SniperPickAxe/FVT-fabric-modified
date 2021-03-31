@@ -261,6 +261,13 @@ public class FVTOptions
 		);
 		saveableFeatures.put("creativeBreakDelay", creativeBreakDelay);
 
+		placementLock = new FVTBooleanOption(
+			"fvt.feature.name.placement_lock",
+			"fvt.feature.name.placement_lock.tooltip",
+			false
+		);
+		saveableFeatures.put("placementLock", placementLock);
+
 		init();
 	}
 
@@ -306,6 +313,7 @@ public class FVTOptions
 	public final FVTBooleanOption autoTotem;
 	public final FVTDoubleOption  useDelay;
 	public final FVTDoubleOption  creativeBreakDelay;
+	public final FVTBooleanOption placementLock;
 
 	public void write()
 	{
