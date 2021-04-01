@@ -134,7 +134,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Automatically attacks entities if you place your crosshair over them and in reach. Primarily meant for AFK farms.
 
-## Preview (v1.5.3)
+## Preview (v1.5.2)
 
 <details><summary>Static crosshair color, HUD info, death message & tool breaking warning. (CLICK ME)</summary>
 <p>
