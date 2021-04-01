@@ -30,10 +30,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction.Axis;
 
 /**
- * FEATURES: Prevent Tool Breaking, Freecam, Use Delay, Entity Outline, AutoReconnect, Plane Placement Lock
+ * FEATURES: Prevent Tool Breaking, Freecam, Use Delay, Entity Outline, AutoReconnect, Placement Lock
  * 
  * @author Flourick
  */
@@ -44,6 +43,9 @@ abstract class MinecraftClientMixin
 	private boolean xAligned = false;
 	private boolean yAligned = false;
 	private boolean zAligned = false;
+	private int xAlign = 0;
+	private int yAlign = 0;
+	private int zAlign = 0;
 
 	@Shadow
 	private ServerInfo currentServerEntry;
@@ -55,7 +57,7 @@ abstract class MinecraftClientMixin
 	private void onHandleBlockBreaking(boolean bl, CallbackInfo info)
 	{
 		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
-			ItemStack mainHandItem = FVT.MC.player.getStackInHand(Hand.MAIN_HAND);
+			ItemStack mainHandItem = FVT.MC.player.getMainHandStack();
 
 			if(mainHandItem.isDamaged()) {
 				if(mainHandItem.getItem() instanceof SwordItem) {
@@ -85,7 +87,7 @@ abstract class MinecraftClientMixin
 	private void onDoAttack(CallbackInfo info)
 	{
 		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
-			ItemStack mainHandItem = FVT.MC.player.getStackInHand(Hand.MAIN_HAND);
+			ItemStack mainHandItem = FVT.MC.player.getMainHandStack();
 
 			if(mainHandItem.isDamaged()) {
 				if(mainHandItem.getItem() instanceof SwordItem) {
@@ -117,26 +119,27 @@ abstract class MinecraftClientMixin
 		itemUseCooldown = FVT.OPTIONS.useDelay.getValueAsInteger();
 	}
 
-	@Inject(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getCount()I", ordinal = 0, shift = At.Shift.AFTER), cancellable = true)
-	private void onDoItemUsePlaceBlock(CallbackInfo info)
-	{
-		// user placed three blocks so that's our cue to limit his placement!
-		if(FVT.OPTIONS.placementLock.getValueRaw() && placementHistory.size() == 3) {
-			// Axis axis = ((BlockHitResult) FVT.MC.crosshairTarget).getSide().getAxis();
-
-			// TODO: get axis and add/substract one from a coord determined from given crosshair axis to get future placement
-
-			// if((xAligned && axis == Axis.X) || (yAligned && axis == Axis.Y) || (zAligned && axis == Axis.Z)) {
-			// 	info.cancel();
-			// }
-		}
-	}
-
 	@Inject(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;doItemUse()V", ordinal = 0, shift = At.Shift.BEFORE))
 	private void onHandleInputEvents(CallbackInfo info)
 	{
 		// called when user presses the use key (aka will clear the placement history for every fresh keypress)
 		placementHistory.clear();
+		xAligned = false;
+		yAligned = false;
+		zAligned = false;
+	}
+
+	@Inject(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getCount()I", ordinal = 0, shift = At.Shift.AFTER), cancellable = true)
+	private void onDoItemUsePlaceBlock(CallbackInfo info)
+	{
+		// user placed three blocks so that's our cue to limit his placement!
+		if(FVT.OPTIONS.placementLock.getValueRaw() && placementHistory.size() == 3) {
+			BlockPos expected = ((BlockHitResult) FVT.MC.crosshairTarget).getBlockPos().offset(((BlockHitResult) FVT.MC.crosshairTarget).getSide());
+			
+			if((xAligned && xAlign != expected.getX()) || (yAligned && yAlign != expected.getY()) || (zAligned && zAlign != expected.getZ())) {
+				info.cancel();
+			}
+		}
 	}
 
 	@Redirect(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;interactBlock(Lnet/minecraft/client/network/ClientPlayerEntity;Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/util/Hand;Lnet/minecraft/util/hit/BlockHitResult;)Lnet/minecraft/util/ActionResult;", ordinal = 0))
@@ -145,26 +148,23 @@ abstract class MinecraftClientMixin
 		ActionResult result = manager.interactBlock(player, world, hand, hitResult);
 
 		if(result.isAccepted() && placementHistory.size() < 3) {
-			placementHistory.add(hitResult.getBlockPos());
+			placementHistory.add(hitResult.getBlockPos().offset(hitResult.getSide()));
 
 			if(placementHistory.size() == 3) {
-				xAligned = false;
-				yAligned = false;
-				zAligned = false;
-
 				if(placementHistory.get(0).getX() == placementHistory.get(1).getX() && placementHistory.get(1).getX() == placementHistory.get(2).getX()) {
 					xAligned = true;
+					xAlign = placementHistory.get(0).getX();
 				}
 
 				if(placementHistory.get(0).getY() == placementHistory.get(1).getY() && placementHistory.get(1).getY() == placementHistory.get(2).getY()) {
 					yAligned = true;
+					yAlign = placementHistory.get(0).getY();
 				}
 
 				if(placementHistory.get(0).getZ() == placementHistory.get(1).getZ() && placementHistory.get(1).getZ() == placementHistory.get(2).getZ()) {
 					zAligned = true;
+					zAlign = placementHistory.get(0).getZ();
 				}
-
-				//System.out.println(xAligned + " / " + yAligned + " / " + zAligned);
 			}
 		}
 

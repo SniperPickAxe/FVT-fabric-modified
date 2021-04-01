@@ -104,11 +104,19 @@ List of all toggleable features. Configuration is in in-game options menu called
 
 * ### Use Delay
 
-    By default while you hold the use key (usually RMB) the game will perform the use action every 4 ticks (meaning you will place about 5 blocks every second when you hold RMB). This options let's you set it from 1 tick delay to 20 tick delay (ex. at 1 will place as fast as it can and at 20 will place once every second).
+    By default while you hold the use key (usually RMB) the game will perform the use action every 4 ticks. This options let's you set it from 1 tick delay to 20 tick delay (ex. at 1 will place as fast as it can and at 20 will place roughly once every second).
+
+* ### Creative Break Delay
+
+    By default while you hold the attack key (usually LMB) in creative to break blocks the game will perform the attack every 6 ticks. This let's you change the delay from 1 tick to 10 ticks. Setting this to 1 will make it break as fast as it can.
 
 * ### Random Block Placement (keybindable)
 
     Randomly selects a block from your hotbar to place every time you try to place a block or when you have an empty hand.
+
+* ### Placement Lock (keybindable)
+
+    Forces placement to a single plane or axis when placing blocks by holding the use key (usually RMB). Very useful for making platforms and pillars. Basically the locking is determined from the first three placed blocks, meaning if you place three blocks in an 'L' shape it will lock the placement to the plane the 'L' sits in, if you place the three blocks in a straight line the placement will be locked to that line.
 
 * ### Fullbright (keybindable)
 
@@ -126,7 +134,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Automatically attacks entities if you place your crosshair over them and in reach. Primarily meant for AFK farms.
 
-## Preview (v1.5.2)
+## Preview (v1.5.3)
 
 <details><summary>Static crosshair color, HUD info, death message & tool breaking warning. (CLICK ME)</summary>
 <p>
