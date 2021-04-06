@@ -7,7 +7,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,9 +20,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.options.AttackIndicator;
-import net.minecraft.client.options.GameOptions;
-import net.minecraft.client.render.Camera;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
@@ -182,63 +178,27 @@ abstract class InGameHudMixin extends DrawableHelper
 		}
 	}
 
-	@Overwrite
-	private void renderCrosshair(MatrixStack matrixStack)
+	@Redirect(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V", ordinal = 0))
+	private void onRenderCrosshair(InGameHud igHud, MatrixStack matrixStack, int x, int y, int u, int v, int width, int height)
 	{
-		final GameOptions gameOptions = this.client.options;
-
 		int scaledWidth = this.client.getWindow().getScaledWidth();
 		int scaledHeight = this.client.getWindow().getScaledHeight();
 
-		if(gameOptions.getPerspective().isFirstPerson()) {
-			if(gameOptions.debugEnabled && !gameOptions.hudHidden && !this.client.player.getReducedDebugInfo() && !gameOptions.reducedDebugInfo) {
-				RenderSystem.pushMatrix();
-				RenderSystem.translatef((float) (scaledWidth / 2), (float) (scaledHeight / 2), (float) this.getZOffset());
-				Camera camera = this.client.gameRenderer.getCamera();
-				RenderSystem.rotatef(camera.getPitch(), -1.0F, 0.0F, 0.0F);
-				RenderSystem.rotatef(camera.getYaw(), 0.0F, 1.0F, 0.0F);
-				RenderSystem.renderCrosshair(10);
-				RenderSystem.popMatrix();
-			}
-			else {
-				RenderSystem.pushMatrix();
-				RenderSystem.translatef((float)(scaledWidth / 2), (float)(scaledHeight / 2), (float)this.getZOffset());
+		RenderSystem.pushMatrix();
+		RenderSystem.translatef((float)(scaledWidth / 2), (float)(scaledHeight / 2), (float)this.getZOffset());
 
-				RenderSystem.enableBlend();
-				if(FVT.OPTIONS.crosshairStaticColor.getValueRaw()) {
-					RenderSystem.blendColor(FVT.OPTIONS.crosshairRedComponent.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairGreenComponent.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairBlueComponent.getValueRawNormalized().floatValue(), 1.0f);
-					RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.CONSTANT_COLOR, GlStateManager.DstFactor.ZERO, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
-				}
-				else {
-					RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.ONE_MINUS_DST_COLOR, GlStateManager.DstFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
-				}
-				
-				RenderSystem.scaled(FVT.OPTIONS.crosshairScale.getValueRaw(), FVT.OPTIONS.crosshairScale.getValueRaw(), 1.0d);
-				this.drawTexture(matrixStack, -15/2, -15/2, 0, 0, 15, 15);
-				RenderSystem.disableBlend();
-				RenderSystem.popMatrix();
-
-				if(gameOptions.attackIndicator == AttackIndicator.CROSSHAIR) {
-					float f = this.client.player.getAttackCooldownProgress(0.0F);
-					boolean bl = false;
-
-					if(this.client.targetedEntity != null && this.client.targetedEntity instanceof LivingEntity && f >= 1.0F) {
-						bl = this.client.player.getAttackCooldownProgressPerTick() > 5.0F;
-						bl &= this.client.targetedEntity.isAlive();
-					}
-					int j = scaledHeight / 2 - 7 + 16;
-					int k = scaledWidth / 2 - 8;
-
-					if(bl) {
-						this.drawTexture(matrixStack, k, j, 68, 94, 16, 16);
-					}
-					else if(f < 1.0F) {
-						int l = (int) (f * 17.0F);
-						this.drawTexture(matrixStack, k, j, 36, 94, 16, 4);
-						this.drawTexture(matrixStack, k, j, 52, 94, l, 4);
-					}
-				}
-			}
+		RenderSystem.enableBlend();
+		if(FVT.OPTIONS.crosshairStaticColor.getValueRaw()) {
+			RenderSystem.blendColor(FVT.OPTIONS.crosshairRedComponent.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairGreenComponent.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairBlueComponent.getValueRawNormalized().floatValue(), 1.0f);
+			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.CONSTANT_COLOR, GlStateManager.DstFactor.ZERO, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		}
+		else {
+			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.ONE_MINUS_DST_COLOR, GlStateManager.DstFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
+		}
+		
+		RenderSystem.scaled(FVT.OPTIONS.crosshairScale.getValueRaw(), FVT.OPTIONS.crosshairScale.getValueRaw(), 1.0d);
+		this.drawTexture(matrixStack, -15/2, -15/2, 0, 0, 15, 15);
+		RenderSystem.disableBlend();
+		RenderSystem.popMatrix();
 	}
 }
