@@ -71,6 +71,8 @@ abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 		}
 
 		if(FVT.OPTIONS.freecam.getValueRaw()) {
+			this.setVelocity(FVT.VARS.playerVelocity);
+
 			float forward = FVT.MC.player.input.movementForward;
 			float up = (FVT.MC.player.input.jumping ? 1.0f : 0.0f) - (FVT.MC.player.input.sneaking ? 1.0f : 0.0f);
             float side = FVT.MC.player.input.movementSideways;

@@ -44,6 +44,8 @@ abstract class CameraMixin
 				freecamToggleCheck();
 			}
 
+			System.out.println(FVT.MC.player.getVelocity());
+
 			this.ready = true;
 			this.area = area;
 
@@ -80,6 +82,7 @@ abstract class CameraMixin
 
 			FVT.VARS.playerPitch = FVT.MC.player.pitch;
 			FVT.VARS.playerYaw = FVT.MC.player.yaw;
+			FVT.VARS.playerVelocity = FVT.MC.player.getVelocity();
 
 			FVT.VARS.freecamX = FVT.VARS.prevFreecamX = FVT.MC.gameRenderer.getCamera().getPos().getX();
 			FVT.VARS.freecamY = FVT.VARS.prevFreecamY = FVT.MC.gameRenderer.getCamera().getPos().getY();

@@ -3,6 +3,7 @@ package me.flourick.fvt.utils;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.Vec3d;
 
 /**
  * Holder for various utility variables for different features.
@@ -18,6 +19,7 @@ public class FVTVars
 
 	public double playerYaw;
 	public double playerPitch;
+	public Vec3d playerVelocity;
 
 	public double freecamX;
 	public double freecamY;
