@@ -44,8 +44,6 @@ abstract class CameraMixin
 				freecamToggleCheck();
 			}
 
-			System.out.println(FVT.MC.player.getVelocity());
-
 			this.ready = true;
 			this.area = area;
 

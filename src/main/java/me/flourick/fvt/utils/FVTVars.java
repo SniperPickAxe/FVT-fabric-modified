@@ -49,12 +49,8 @@ public class FVTVars
 	public ItemStack offHandToolItemStack;
 	public Hand toolHand;
 
-	public boolean tooltipsActive;
-
 	public FVTVars()
 	{
-		this.tooltipsActive = false;
-
 		this.deathX = 0;
 		this.deathY = 0;
 		this.deathZ = 0;

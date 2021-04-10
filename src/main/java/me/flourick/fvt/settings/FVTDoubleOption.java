@@ -117,6 +117,12 @@ public class FVTDoubleOption extends FVTOption<Double>
 		currentValue = newValue;
 	}
 
+	@Override
+	public void setValueDefault()
+	{
+		currentValue = getRatio(defaultValue);
+	}
+
 	protected double getRatio(double value)
 	{
 		return MathHelper.clamp((adjust(value) - min) / (max - min), 0.0d, 1.0d);

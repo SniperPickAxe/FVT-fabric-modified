@@ -15,4 +15,5 @@ public abstract class FVTOption<T> extends Option implements SaveableValue
 	}
 
 	public abstract T getValueRaw();
+	public abstract void setValueDefault();
 }

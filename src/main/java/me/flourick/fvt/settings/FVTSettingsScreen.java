@@ -25,12 +25,15 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Matrix4f;
 
 public class FVTSettingsScreen extends Screen
 {
 	private final Screen parent;
 	private ButtonListWidget list;
+
+	private boolean tooltipsActive = false;
 
 	public static Screen getNewScreen(Screen parent) {
         return new FVTSettingsScreen(parent);
@@ -69,23 +72,33 @@ public class FVTSettingsScreen extends Screen
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.other"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates, FVT.OPTIONS.freecam});
 		this.children.add(this.list);
-		this.addButton(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, (buttonWidget) -> {
-			FVT.OPTIONS.write();
-			this.client.openScreen(parent);
+
+		// DEFAULTS button at the top left corner
+		this.addButton(new ButtonWidget(6, 6, 55, 20, new TranslatableText("fvt.options.defaults"), (buttonWidget) -> {
+			FVT.OPTIONS.reset();
+			this.client.openScreen(getNewScreen(parent));
+		}, (buttonWidget, matrixStack, i, j) -> {
+			this.renderTooltip(matrixStack, new TranslatableText("fvt.options.defaults.tooltip").formatted(Formatting.YELLOW), i, j + 8);
 		}));
 
-		FVT.VARS.tooltipsActive = false;
+		// ?/- button at the top right corner
 		this.addButton(new ButtonWidget(this.width - 26, 6, 20, 20, new LiteralText("?"), (buttonWidget) -> {
-			FVT.VARS.tooltipsActive = !FVT.VARS.tooltipsActive;
+			tooltipsActive = !tooltipsActive;
 
-			if(FVT.VARS.tooltipsActive) {
+			if(tooltipsActive) {
 				buttonWidget.setMessage(new LiteralText("-"));
 			}
 			else {
 				buttonWidget.setMessage(new LiteralText("?"));
 			}
 		}, (buttonWidget, matrixStack, i, j) -> {
-			this.renderTooltip(matrixStack, (FVT.VARS.tooltipsActive ? new TranslatableText("fvt.options.tooltips.hide") : new TranslatableText("fvt.options.tooltips.show")), i, j + 8);
+			this.renderTooltip(matrixStack, (tooltipsActive ? new TranslatableText("fvt.options.tooltips.hide") : new TranslatableText("fvt.options.tooltips.show")), i, j + 8);
+		}));
+
+		// DONE button at the bottom
+		this.addButton(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, (buttonWidget) -> {
+			FVT.OPTIONS.write();
+			this.client.openScreen(parent);
 		}));
 	}
 
@@ -99,7 +112,7 @@ public class FVTSettingsScreen extends Screen
 		super.render(matrixStack, mouseX, mouseY, delta);
 
 		List<OrderedText> tooltip = getHoveredButtonTooltip(mouseX, mouseY);
-		if(tooltip != null && FVT.VARS.tooltipsActive) {
+		if(tooltip != null && tooltipsActive) {
 			this.renderOrderedTooltip(matrixStack, tooltip, mouseX, mouseY);
 		}
 	}

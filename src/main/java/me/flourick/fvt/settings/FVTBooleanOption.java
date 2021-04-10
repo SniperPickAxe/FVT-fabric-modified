@@ -98,6 +98,12 @@ public class FVTBooleanOption extends FVTOption<Boolean>
 		currentValue = newValue;
 	}
 
+	@Override
+	public void setValueDefault()
+	{
+		currentValue = defaultValue;
+	}
+
 	public void toggle()
 	{
 		currentValue = !currentValue;

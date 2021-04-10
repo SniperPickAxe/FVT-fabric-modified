@@ -55,7 +55,7 @@ public class FVTOptions
 		crosshairStaticColor = new FVTBooleanOption(
 			"fvt.feature.name.crosshair_static_color",
 			"fvt.feature.name.crosshair_static_color.tooltip",
-			true
+			false
 		);
 		saveableFeatures.put("crosshairStaticColor", crosshairStaticColor);
 
@@ -315,10 +315,46 @@ public class FVTOptions
 	public final FVTDoubleOption  creativeBreakDelay;
 	public final FVTBooleanOption placementLock;
 
+	public void reset()
+	{
+		// loops? hardly know her...
+		buttonPosition.setValueDefault();
+		featureToggleMessages.setValueDefault();
+		crosshairStaticColor.setValueDefault();
+		crosshairRedComponent.setValueDefault();
+		crosshairGreenComponent.setValueDefault();
+		crosshairBlueComponent.setValueDefault();
+		crosshairScale.setValueDefault();
+		disableWToSprint.setValueDefault();
+		sendDeathCoordinates.setValueDefault();
+		coordinatesPosition.setValueDefault();
+		showHUDInfo.setValueDefault();
+		noToolBreaking.setValueDefault();
+		toolWarning.setValueDefault();
+		toolWarningScale.setValueDefault();
+		toolWarningPosition.setValueDefault();
+		cloudHeight.setValueDefault();
+		entityOutline.setValueDefault();
+		fullbright.setValueDefault();
+		randomPlacement.setValueDefault();
+		noNetherFog.setValueDefault();
+		noBlockBreakParticles.setValueDefault();
+		refillHand.setValueDefault();
+		autoReconnect.setValueDefault();
+		autoReconnectMaxTries.setValueDefault();
+		autoReconnectTimeout.setValueDefault();
+		autoEat.setValueDefault();
+		triggerBot.setValueDefault();
+		freecam.setValueDefault();
+		autoTotem.setValueDefault();
+		useDelay.setValueDefault();
+		creativeBreakDelay.setValueDefault();
+		placementLock.setValueDefault();
+	}
+
 	public void write()
 	{
 		try(PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(optionsFile), StandardCharsets.UTF_8));) {
-			// printing header
 			printWriter.println("# FVT configuration. Do not edit here unless you know what you're doing!");
 			printWriter.println("# Last save: " + DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy").format(LocalDateTime.now()));
 

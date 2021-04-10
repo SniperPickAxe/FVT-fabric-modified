@@ -4,6 +4,9 @@
 	"fvt.options.tooltips.show": "Show feature tooltips.",
 	"fvt.options.tooltips.hide": "Hide feature tooltips.",
 
+	"fvt.options.defaults": "Defaults",
+	"fvt.options.defaults.tooltip": "WARNING! This will reset all options to their default values!",
+
 	"fvt.chat_messages_prefix": "§8[§7FVT§8]§r %s",
 
 	"fvt.feature_category.crosshair": "Crosshair",

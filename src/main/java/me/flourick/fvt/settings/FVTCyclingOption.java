@@ -71,6 +71,12 @@ public class FVTCyclingOption extends FVTOption<Text>
 	}
 
 	@Override
+	public void setValueDefault()
+	{
+		currentValue = values.isEmpty() ? null : values.get(0);
+	}
+
+	@Override
 	public Text getValueRaw()
 	{
 		return currentValue;
