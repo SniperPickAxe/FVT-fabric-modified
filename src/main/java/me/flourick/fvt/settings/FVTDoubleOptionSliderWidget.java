@@ -1,10 +1,9 @@
 package me.flourick.fvt.settings;
 
 import java.util.List;
-import java.util.Optional;
 
 import net.minecraft.client.gui.widget.OptionSliderWidget;
-import net.minecraft.client.options.GameOptions;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.util.OrderableTooltip;
 import net.minecraft.text.OrderedText;
 
@@ -36,7 +35,8 @@ public class FVTDoubleOptionSliderWidget extends OptionSliderWidget implements O
 		option.setValue(value);
 	}
 
-	public Optional<List<OrderedText>> getOrderedTooltip()
+	@Override
+	public List<OrderedText> getOrderedTooltip()
 	{
 		return option.getTooltip();
 	}

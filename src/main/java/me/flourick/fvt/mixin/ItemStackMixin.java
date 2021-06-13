@@ -15,7 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -33,9 +33,9 @@ abstract class ItemStackMixin
 	private Item item;
 	
 	@Shadow
-    private CompoundTag tag;
+    private NbtCompound tag;
 
-	@Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isSectionHidden(ILnet/minecraft/item/ItemStack$TooltipSection;)Z", ordinal = 3), locals = LocalCapture.CAPTURE_FAILHARD)
+	@Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isSectionVisible(ILnet/minecraft/item/ItemStack$TooltipSection;)Z", ordinal = 3), locals = LocalCapture.CAPTURE_FAILHARD)
 	private void onGetTooltip(PlayerEntity player, TooltipContext context, CallbackInfoReturnable<List<Text>> info, List<Text> list)
 	{
 		if((item != Items.BEEHIVE && item != Items.BEE_NEST) || !context.isAdvanced()){
@@ -46,14 +46,14 @@ abstract class ItemStackMixin
 		int honeyLevel = 0;
 
 		if(tag != null) {
-			CompoundTag entityTag = tag.getCompound("BlockEntityTag");
+			NbtCompound entityTag = tag.getCompound("BlockEntityTag");
 			if(entityTag != null) {
 				if(entityTag.getList("Bees", 10) != null) {
 					beeCount = entityTag.getList("Bees", 10).size();
 				}
 			}
 
-			CompoundTag stateTag = tag.getCompound("BlockStateTag");
+			NbtCompound stateTag = tag.getCompound("BlockStateTag");
 			if(stateTag != null) {
 				try {
 					honeyLevel = Integer.parseInt(stateTag.getString("honey_level"));

@@ -3,10 +3,10 @@ package me.flourick.fvt.settings;
 import me.flourick.fvt.FVT;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.options.GameOptions;
-import net.minecraft.client.options.Option;
+import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.option.GameOptions;
+import net.minecraft.client.option.Option;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -28,7 +28,7 @@ public class FTVCategoryOption extends Option
 	}
 
 	@Override
-	public AbstractButtonWidget createButton(GameOptions options, int x, int y, int width)
+	public ClickableWidget createButton(GameOptions options, int x, int y, int width)
 	{
 		return new SpacerButtonWidget(x, y, width, 20, this.getDisplayPrefix(), (buttonWidget) -> {
 			// nada
@@ -76,7 +76,7 @@ public class FTVCategoryOption extends Option
 		}
 
 		@Override
-		protected void renderBg(MatrixStack matrices, MinecraftClient client, int mouseX, int mouseY)
+		protected void renderBackground(MatrixStack matrices, MinecraftClient client, int mouseX, int mouseY)
 		{
 			// nada
 		}

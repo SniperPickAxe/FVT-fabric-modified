@@ -49,7 +49,7 @@ abstract class ClientPlayerInteractionManagerMixin
 	private void onInteractBlock(CallbackInfoReturnable<ActionResult> info)
 	{
 		if(FVT.OPTIONS.randomPlacement.getValueRaw()) {
-			PlayerInventory inventory  = FVT.MC.player.inventory;
+			PlayerInventory inventory  = FVT.MC.player.getInventory();
 
 			// need to hold a block first for it to pick a block
 			if(inventory.getStack(inventory.selectedSlot).getItem() instanceof BlockItem || inventory.getStack(inventory.selectedSlot).getItem() == Items.AIR) {
@@ -68,12 +68,12 @@ abstract class ClientPlayerInteractionManagerMixin
 		}
 
 		if(FVT.OPTIONS.refillHand.getValueRaw()) {
-			PlayerInventory inventory  = FVT.MC.player.inventory;
+			PlayerInventory inventory  = FVT.MC.player.getInventory();
 
 			if(inventory.getStack(inventory.selectedSlot).getItem() instanceof BlockItem) {
 				ItemStack using = inventory.getStack(inventory.selectedSlot);
 
-				if(2 * using.getCount() <= using.getMaxCount() && inventory.getCursorStack().isEmpty()) {
+				if(2 * using.getCount() <= using.getMaxCount() && FVT.MC.player.playerScreenHandler.getCursorStack().isEmpty()) {
 					// find the same item in inventory
 					int sz = inventory.main.size();
 

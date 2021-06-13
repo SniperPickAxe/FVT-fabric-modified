@@ -75,11 +75,11 @@ abstract class CameraMixin
 		if(FVT.OPTIONS.freecam.getValueRaw() && FVT.MC.player != null) {
 			FVT.MC.chunkCullingEnabled = false;
 
-			FVT.VARS.freecamPitch = FVT.MC.player.pitch;
-			FVT.VARS.freecamYaw = FVT.MC.player.yaw;
+			FVT.VARS.freecamPitch = FVT.MC.player.getPitch();
+			FVT.VARS.freecamYaw = FVT.MC.player.getYaw();
 
-			FVT.VARS.playerPitch = FVT.MC.player.pitch;
-			FVT.VARS.playerYaw = FVT.MC.player.yaw;
+			FVT.VARS.playerPitch = FVT.MC.player.getPitch();
+			FVT.VARS.playerYaw = FVT.MC.player.getYaw();
 			FVT.VARS.playerVelocity = FVT.MC.player.getVelocity();
 
 			FVT.VARS.freecamX = FVT.VARS.prevFreecamX = FVT.MC.gameRenderer.getCamera().getPos().getX();
@@ -89,8 +89,8 @@ abstract class CameraMixin
 		else {
 			FVT.MC.chunkCullingEnabled = true;
 
-			FVT.MC.player.pitch = (float) FVT.VARS.playerPitch;
-			FVT.MC.player.yaw = (float) FVT.VARS.playerYaw;
+			FVT.MC.player.setPitch((float) FVT.VARS.playerPitch);
+			FVT.MC.player.setYaw((float)FVT.VARS.playerYaw);
 
 			FVT.VARS.freecamForwardSpeed = 0.0f;
 			FVT.VARS.freecamUpSpeed = 0.0f;

@@ -18,10 +18,11 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.HorseScreen;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferRenderer;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -30,6 +31,7 @@ import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.Matrix4f;
+import net.minecraft.client.util.math.MatrixStack;
 
 /**
  * FEATURES: Horse Info
@@ -72,7 +74,7 @@ abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 		}, new Color(120, 255, 255, 255), new Color(220, 255, 255, 255));
 		button.active = false;
 
-		this.addButton(button);
+		this.addDrawableChild(button);
 	}
 
 	private String getHorseHealth()
@@ -141,9 +143,14 @@ abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 			}
 
 			matrices.push();
+
+			float f = this.itemRenderer.zOffset;
+			this.itemRenderer.zOffset = 400.0F;
+
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferBuilder = tessellator.getBuffer();
-			bufferBuilder.begin(7, VertexFormats.POSITION_COLOR);
+			RenderSystem.setShader(GameRenderer::getPositionColorShader);
+			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
 			Matrix4f matrix4f = matrices.peek().getModel();
 			fillGradient(matrix4f, bufferBuilder, k - 3, l - 4, k + i + 3, l - 3, 400, -267386864, -267386864);
 			fillGradient(matrix4f, bufferBuilder, k - 3, l + n + 3, k + i + 3, l + n + 4, 400, -267386864, -267386864);
@@ -158,10 +165,8 @@ abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 			RenderSystem.disableTexture();
 			RenderSystem.enableBlend();
 			RenderSystem.defaultBlendFunc();
-			RenderSystem.shadeModel(7425);
 			bufferBuilder.end();
 			BufferRenderer.draw(bufferBuilder);
-			RenderSystem.shadeModel(7424);
 			RenderSystem.disableBlend();
 			RenderSystem.enableTexture();
 			VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
@@ -178,6 +183,8 @@ abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 
 			immediate.draw();
 			matrices.pop();
+
+			this.itemRenderer.zOffset = f;
 		}
 		else {
 			super.renderOrderedTooltip(matrices, lines, x, y);

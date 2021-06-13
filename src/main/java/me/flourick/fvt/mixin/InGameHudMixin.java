@@ -5,6 +5,7 @@ import java.util.Random;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import org.lwjgl.opengl.GL14;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -184,21 +185,22 @@ abstract class InGameHudMixin extends DrawableHelper
 		int scaledWidth = this.client.getWindow().getScaledWidth();
 		int scaledHeight = this.client.getWindow().getScaledHeight();
 
-		RenderSystem.pushMatrix();
-		RenderSystem.translatef((float)(scaledWidth / 2), (float)(scaledHeight / 2), (float)this.getZOffset());
+		matrixStack.push();
+		matrixStack.translate((float)(scaledWidth / 2), (float)(scaledHeight / 2), (float)this.getZOffset());
 
 		RenderSystem.enableBlend();
 		if(FVT.OPTIONS.crosshairStaticColor.getValueRaw()) {
-			RenderSystem.blendColor(FVT.OPTIONS.crosshairRedComponent.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairGreenComponent.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairBlueComponent.getValueRawNormalized().floatValue(), 1.0f);
+			// no idea, but it got removed in 1.17 so
+			GL14.glBlendColor(FVT.OPTIONS.crosshairRedComponent.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairGreenComponent.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairBlueComponent.getValueRawNormalized().floatValue(), 1.0f);
 			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.CONSTANT_COLOR, GlStateManager.DstFactor.ZERO, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		}
 		else {
 			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.ONE_MINUS_DST_COLOR, GlStateManager.DstFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		}
 		
-		RenderSystem.scaled(FVT.OPTIONS.crosshairScale.getValueRaw(), FVT.OPTIONS.crosshairScale.getValueRaw(), 1.0d);
+		matrixStack.scale(FVT.OPTIONS.crosshairScale.getValueRaw().floatValue(), FVT.OPTIONS.crosshairScale.getValueRaw().floatValue(), 1.0f);
 		this.drawTexture(matrixStack, -15/2, -15/2, 0, 0, 15, 15);
 		RenderSystem.disableBlend();
-		RenderSystem.popMatrix();
+		matrixStack.pop();
 	}
 }

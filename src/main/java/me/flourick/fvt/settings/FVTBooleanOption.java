@@ -6,9 +6,8 @@ import java.util.List;
 import me.flourick.fvt.FVT;
 
 import net.minecraft.client.gui.screen.ScreenTexts;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
-import net.minecraft.client.gui.widget.OptionButtonWidget;
-import net.minecraft.client.options.GameOptions;
+import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -28,6 +27,7 @@ public class FVTBooleanOption extends FVTOption<Boolean>
 	private Text falseText;
 
 	private Text tooltipText;
+	private List<OrderedText> tooltip;
 
 	public FVTBooleanOption(String key, String tooltipKey, boolean defaultValue, Text trueText, Text falseText)
 	{
@@ -50,14 +50,19 @@ public class FVTBooleanOption extends FVTOption<Boolean>
 	}
 
 	@Override
-	public AbstractButtonWidget createButton(GameOptions options, int x, int y, int width)
+	public List<OrderedText> getTooltip()
 	{
-		List<OrderedText> tooltip = new ArrayList<OrderedText>();
+		return tooltip;
+	}
+
+	@Override
+	public ClickableWidget createButton(GameOptions options, int x, int y, int width)
+	{
+		tooltip = new ArrayList<>();
 		tooltip.addAll(FVT.MC.textRenderer.wrapLines(tooltipText, 220));
 		tooltip.add(new TranslatableText("fvt.feature.default", defaultValue ? trueText : falseText).formatted(Formatting.GRAY).asOrderedText());
-		setTooltip(tooltip);
 
-		return new OptionButtonWidget(x, y, width, 20, this, getButtonLabel(), (button) -> {
+		return new FVTOptionButtonWidget(x, y, width, 20, this, getButtonLabel(), (button) -> {
 			currentValue = !currentValue;
 			button.setMessage(getButtonLabel());
 		});

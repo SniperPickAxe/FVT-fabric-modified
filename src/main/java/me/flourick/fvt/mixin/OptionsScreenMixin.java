@@ -1,9 +1,9 @@
 package me.flourick.fvt.mixin;
 
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.options.OptionsScreen;
+import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.options.GameOptions;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 
@@ -58,7 +58,7 @@ abstract class OptionsScreenMixin extends Screen
 				break;
 		}
 
-		this.addButton(new ButtonWidget(x, y, l, 20, new LiteralText("FVT..."), (buttonWidget) -> {
+		this.addDrawableChild(new ButtonWidget(x, y, l, 20, new LiteralText("FVT..."), (buttonWidget) -> {
 			this.client.openScreen(new FVTSettingsScreen(this));
 		}));
 	}

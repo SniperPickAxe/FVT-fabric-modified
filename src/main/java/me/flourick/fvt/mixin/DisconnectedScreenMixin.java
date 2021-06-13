@@ -39,7 +39,7 @@ abstract class DisconnectedScreenMixin
     private void onRender(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo info)
     {
         if(FVT.OPTIONS.autoReconnect.getValueRaw() && FVT.MC.currentScreen != null && (FVT.VARS.autoReconnectTries <= FVT.OPTIONS.autoReconnectMaxTries.getValueAsInteger() && FVT.VARS.autoReconnectTries > 0)) {
-			DrawableHelper.drawCenteredString(matrices, FVT.MC.textRenderer, new TranslatableText("fvt.feature.name.autoreconnect.message", MathHelper.ceil(FVT.VARS.autoReconnectTicks / 20.0f), (FVT.OPTIONS.autoReconnectMaxTries.getValueAsInteger() + 1 - FVT.VARS.autoReconnectTries)).getString(), FVT.MC.currentScreen.width / 2, FVT.MC.currentScreen.height - this.reasonHeight / 2 - 2*FVT.MC.textRenderer.fontHeight, Color.WHITE.getPacked());
+			DrawableHelper.drawCenteredText(matrices, FVT.MC.textRenderer, new TranslatableText("fvt.feature.name.autoreconnect.message", MathHelper.ceil(FVT.VARS.autoReconnectTicks / 20.0f), (FVT.OPTIONS.autoReconnectMaxTries.getValueAsInteger() + 1 - FVT.VARS.autoReconnectTries)).getString(), FVT.MC.currentScreen.width / 2, FVT.MC.currentScreen.height - this.reasonHeight / 2 - 2*FVT.MC.textRenderer.fontHeight, Color.WHITE.getPacked());
 		}
     }
 }

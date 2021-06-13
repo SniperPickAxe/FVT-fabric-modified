@@ -4,7 +4,7 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Items;
-import net.minecraft.network.packet.s2c.play.CombatEventS2CPacket;
+import net.minecraft.network.packet.s2c.play.DeathMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
 import net.minecraft.screen.slot.SlotActionType;
 
@@ -25,16 +25,14 @@ import me.flourick.fvt.FVT;
 @Mixin(ClientPlayNetworkHandler.class)
 abstract class ClientPlayNetworkHandlerMixin
 {
-	@Inject(method = "onCombatEvent", at = @At("HEAD"))
-	private void onOnCombatEvent(CombatEventS2CPacket packet, CallbackInfo info)
+	@Inject(method = "onDeathMessage", at = @At("HEAD"))
+	private void onOnCombatEvent(DeathMessageS2CPacket packet, CallbackInfo info)
 	{
-		if(packet.type == CombatEventS2CPacket.Type.ENTITY_DIED) {
-			Entity entity = FVT.MC.world.getEntityById(packet.entityId);
-			
-			if(entity == FVT.MC.player) {
-				FVT.VARS.setLastDeathCoordinates(FVT.MC.player.getX(), FVT.MC.player.getY(), FVT.MC.player.getZ(), WordUtils.capitalize(FVT.MC.player.clientWorld.getRegistryKey().getValue().toString().split(":")[1].replace('_', ' ')));
-				FVT.VARS.isAfterDeath = true;
-			}
+		Entity entity = FVT.MC.world.getEntityById(packet.getEntityId());
+		
+		if(entity == FVT.MC.player) {
+			FVT.VARS.setLastDeathCoordinates(FVT.MC.player.getX(), FVT.MC.player.getY(), FVT.MC.player.getZ(), WordUtils.capitalize(FVT.MC.player.clientWorld.getRegistryKey().getValue().toString().split(":")[1].replace('_', ' ')));
+			FVT.VARS.isAfterDeath = true;
 		}
 	}
 
@@ -48,17 +46,17 @@ abstract class ClientPlayNetworkHandlerMixin
 
 			// TOTEM used in main hand (main hand first as it gets priority if totem in both hands)
 			if(player.getMainHandStack().getItem() == Items.TOTEM_OF_UNDYING) {
-				activeIdx = player.inventory.selectedSlot + 36;
+				activeIdx = player.getInventory().selectedSlot + 36;
 			} // TOTEM used in offhand
 			else if(player.getOffHandStack().getItem() == Items.TOTEM_OF_UNDYING) {
 				activeIdx = 45;
 			}
 
 			if(activeIdx != -1) {
-				int sz = player.inventory.main.size();
+				int sz = player.getInventory().main.size();
 
 				for(int i = 0; i < sz; i++) {
-					if(player.inventory.main.get(i).getItem() == Items.TOTEM_OF_UNDYING && i != player.inventory.selectedSlot) {
+					if(player.getInventory().main.get(i).getItem() == Items.TOTEM_OF_UNDYING && i != player.getInventory().selectedSlot) {
 						// works by clicking on the totem first and then on the last known used totem position (either a hotbar slot or offhand)
 						if(i < 9) { // hotbar
 							FVT.MC.interactionManager.clickSlot(player.playerScreenHandler.syncId, i + 36, 0, SlotActionType.PICKUP, player);

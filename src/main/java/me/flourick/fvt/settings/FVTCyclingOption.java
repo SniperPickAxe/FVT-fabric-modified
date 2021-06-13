@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.flourick.fvt.FVT;
-
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
-import net.minecraft.client.gui.widget.OptionButtonWidget;
-import net.minecraft.client.options.GameOptions;
+import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -25,6 +23,7 @@ public class FVTCyclingOption extends FVTOption<Text>
 	private Text defaultValue;
 
 	private Text tooltipText;
+	private List<OrderedText> tooltip;
 
 	public FVTCyclingOption(String key, String tooltipKey, List<Text> values)
 	{
@@ -36,14 +35,19 @@ public class FVTCyclingOption extends FVTOption<Text>
 	}
 
 	@Override
-	public AbstractButtonWidget createButton(GameOptions options, int x, int y, int width)
+	public List<OrderedText> getTooltip()
 	{
-		List<OrderedText> tooltip = new ArrayList<OrderedText>();
+		return tooltip;
+	}
+
+	@Override
+	public ClickableWidget createButton(GameOptions options, int x, int y, int width)
+	{
+		tooltip = new ArrayList<OrderedText>();
 		tooltip.addAll(FVT.MC.textRenderer.wrapLines(tooltipText, 220));
 		tooltip.add(new TranslatableText("fvt.feature.default", defaultValue).formatted(Formatting.GRAY).asOrderedText());
-		this.setTooltip(tooltip);
 
-		return new OptionButtonWidget(x, y, width, 20, this, getButtonLabel(), (button) -> {
+		return new FVTOptionButtonWidget(x, y, width, 20, this, getButtonLabel(), (button) -> {
 			cycle();
 			button.setMessage(getButtonLabel());
 		});

@@ -7,8 +7,8 @@ import java.util.List;
 
 import me.flourick.fvt.FVT;
 
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
-import net.minecraft.client.options.GameOptions;
+import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
@@ -37,8 +37,9 @@ public class FVTDoubleOption extends FVTOption<Double>
 	private double step;
 
 	private Mode mode;
-
+	
 	private Text tooltipText;
+	private List<OrderedText> tooltip;
 
 	public FVTDoubleOption(String key, String tooltipKey, double min, double max, double step, double defaultValue)
 	{
@@ -65,12 +66,17 @@ public class FVTDoubleOption extends FVTOption<Double>
 	}
 
 	@Override
-	public AbstractButtonWidget createButton(GameOptions options, int x, int y, int width)
+	public List<OrderedText> getTooltip()
 	{
-		List<OrderedText> tooltip = new ArrayList<OrderedText>();
+		return tooltip;
+	}
+
+	@Override
+	public ClickableWidget createButton(GameOptions options, int x, int y, int width)
+	{
+		this.tooltip = new ArrayList<OrderedText>();
 		tooltip.addAll(FVT.MC.textRenderer.wrapLines(tooltipText, 220));
 		tooltip.add(new TranslatableText("fvt.feature.default", getDisplayDefaultValue()).formatted(Formatting.GRAY).asOrderedText());
-		setTooltip(tooltip);
 
 		return new FVTDoubleOptionSliderWidget(options, x, y, width, 20, currentValue, this);
 	}

@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.flourick.fvt.FVT;
 
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
@@ -36,10 +37,11 @@ public class FVTButtonWidget extends ButtonWidget
 	@Override
 	public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta)
 	{
-		FVT.MC.getTextureManager().bindTexture(WIDGETS_LOCATION);
 		int textureOffset = this.getYImage(this.isHovered());
 
-		RenderSystem.color4f(buttonColor.getNormRed(), buttonColor.getNormGreen(), buttonColor.getNormBlue(), buttonColor.getNormAlpha());
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
+		RenderSystem.setShaderColor(buttonColor.getNormRed(), buttonColor.getNormGreen(), buttonColor.getNormBlue(), buttonColor.getNormAlpha());
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableDepthTest();
