@@ -81,7 +81,7 @@ public class FVTSettingsScreen extends Screen
 		// DEFAULTS button at the top left corner
 		this.addDrawableChild(new ButtonWidget(6, 6, 55, 20, new TranslatableText("fvt.options.defaults"), (buttonWidget) -> {
 			FVT.OPTIONS.reset();
-			this.client.openScreen(getNewScreen(parent));
+			this.client.setScreen(getNewScreen(parent));
 		}, (buttonWidget, matrixStack, i, j) -> {
 			this.renderTooltip(matrixStack, new TranslatableText("fvt.options.defaults.tooltip").formatted(Formatting.YELLOW), i, j + 8);
 		}));
@@ -103,7 +103,7 @@ public class FVTSettingsScreen extends Screen
 		// DONE button at the bottom
 		this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, (buttonWidget) -> {
 			FVT.OPTIONS.write();
-			this.client.openScreen(parent);
+			this.client.setScreen(parent);
 		}));
 	}
 
@@ -219,6 +219,6 @@ public class FVTSettingsScreen extends Screen
 	@Override
 	public void onClose()
 	{
-		this.client.openScreen(parent);
+		this.client.setScreen(parent);
 	}
 }

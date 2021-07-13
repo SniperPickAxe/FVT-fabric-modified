@@ -59,7 +59,7 @@ public class FVTButtonWidget extends ButtonWidget
 		drawCenteredText(matrices, FVT.MC.textRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, messageColor.getPacked());
 
 		if(this.isHovered()) {
-			this.renderToolTip(matrices, mouseX, mouseY);
+			this.renderTooltip(matrices, mouseX, mouseY);
 		}
 	}
 

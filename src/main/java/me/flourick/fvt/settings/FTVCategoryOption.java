@@ -50,7 +50,7 @@ public class FTVCategoryOption extends Option
 		}
 
 		@Override
-		public void renderToolTip(MatrixStack matrices, int mouseX, int mouseY)
+		public void renderTooltip(MatrixStack matrices, int mouseX, int mouseY)
 		{
 			// nada
 		}

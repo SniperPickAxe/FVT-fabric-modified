@@ -33,7 +33,7 @@ abstract class ItemStackMixin
 	private Item item;
 	
 	@Shadow
-    private NbtCompound tag;
+    private NbtCompound nbt;
 
 	@Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isSectionVisible(ILnet/minecraft/item/ItemStack$TooltipSection;)Z", ordinal = 3), locals = LocalCapture.CAPTURE_FAILHARD)
 	private void onGetTooltip(PlayerEntity player, TooltipContext context, CallbackInfoReturnable<List<Text>> info, List<Text> list)
@@ -45,15 +45,15 @@ abstract class ItemStackMixin
 		int beeCount = 0;
 		int honeyLevel = 0;
 
-		if(tag != null) {
-			NbtCompound entityTag = tag.getCompound("BlockEntityTag");
+		if(nbt != null) {
+			NbtCompound entityTag = nbt.getCompound("BlockEntityTag");
 			if(entityTag != null) {
 				if(entityTag.getList("Bees", 10) != null) {
 					beeCount = entityTag.getList("Bees", 10).size();
 				}
 			}
 
-			NbtCompound stateTag = tag.getCompound("BlockStateTag");
+			NbtCompound stateTag = nbt.getCompound("BlockStateTag");
 			if(stateTag != null) {
 				try {
 					honeyLevel = Integer.parseInt(stateTag.getString("honey_level"));
