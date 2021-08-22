@@ -23,7 +23,7 @@ import me.flourick.fvt.FVT;
 import net.minecraft.text.TranslatableText;
 
 /**
- * List of all features this mod offers also handles loading & saving to file.
+ * All features this mod offers also handles loading & saving to file.
  * 
  * @author Flourick
  */
@@ -268,6 +268,13 @@ public class FVTOptions
 		);
 		saveableFeatures.put("placementLock", placementLock);
 
+		containerButtons = new FVTBooleanOption(
+			"fvt.feature.name.containers",
+			"fvt.feature.name.containers.tooltip",
+			true
+		);
+		saveableFeatures.put("containerButtons", placementLock);
+
 		init();
 	}
 
@@ -314,6 +321,7 @@ public class FVTOptions
 	public final FVTDoubleOption  useDelay;
 	public final FVTDoubleOption  creativeBreakDelay;
 	public final FVTBooleanOption placementLock;
+	public final FVTBooleanOption containerButtons;
 
 	public void reset()
 	{
@@ -350,6 +358,7 @@ public class FVTOptions
 		useDelay.setValueDefault();
 		creativeBreakDelay.setValueDefault();
 		placementLock.setValueDefault();
+		containerButtons.setValueDefault();
 	}
 
 	public void write()

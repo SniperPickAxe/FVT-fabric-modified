@@ -34,6 +34,10 @@ abstract class ShulkerBoxScreenMixin extends HandledScreen<ShulkerBoxScreenHandl
 	{
 		super.init();
 
+		if(!FVT.OPTIONS.containerButtons.getValueRaw()) {
+			return;
+		}
+
 		int baseX = ((this.width - this.backgroundWidth) / 2) + this.backgroundWidth - buttonWidth - 7;
 		int baseY = ((this.height - this.backgroundHeight) / 2) + 5;
 

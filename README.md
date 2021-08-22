@@ -22,17 +22,13 @@ Features that are always enabled and don't have a switch.
 
     Horses, donkeys and mules have a "Stats" button which shows it's health, speed and jump height on hover.
 
-* ### Container Buttons
-
-    Chests, barrels and shulkerboxes have three buttons that let you deposit all into the container, yoink all from the container or yeet it all out on the ground.
-
 * ### Bee Hive/Nest Info
 
     Adds a bee count and honey level to Bee Hives & Nests tooltip (ADVANCED TOOLTIPS has to be enabled!).
 
 ## Toggleable Features
 
-List of all toggleable features. Configuration is in in-game options menu called 'FVT...'. Keybindings are configured in the usual Controls menu (FVT category) and are by default unset.
+List of all toggleable features. Configuration is in in-game options menu called 'FVT...'. Keybindings are configured in the usual Controls menu (FVT category) and are by default unset. There is a keybind for opening the menu aswell.
 
 * ### FVT Button Position
 
@@ -110,6 +106,10 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     By default while you hold the attack key (usually LMB) in creative to break blocks the game will perform the attack every 6 ticks. This let's you change the delay from 1 tick to 10 ticks. Setting this to 1 will make it break as fast as it can.
 
+* ### Container Buttons
+
+    Chests, barrels and shulker boxes have three buttons that let you deposit all into the container, yoink all from the container or yeet it all out on the ground.
+
 * ### Random Block Placement (keybindable)
 
     Randomly selects a block from your hotbar to place every time you try to place a block or when you have an empty hand.
@@ -134,7 +134,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Automatically attacks entities if you place your crosshair over them and in reach. Primarily meant for AFK farms.
 
-## Preview (v1.5.3)
+## Preview (v1.7.1)
 
 <details><summary>Static crosshair color, HUD info, death message & tool breaking warning. (CLICK ME)</summary>
 <p>
@@ -147,11 +147,11 @@ List of all toggleable features. Configuration is in in-game options menu called
 <details><summary>Ingame menu with default settings. (CLICK ME)</summary>
 <p>
 
-![menu](https://user-images.githubusercontent.com/33128006/114269736-d9d59080-9a08-11eb-8b5a-786e586ca9bf.png)
+![menu](https://user-images.githubusercontent.com/33128006/130351576-9770cddb-6dea-4b71-8ccf-a41e5736fd8a.png)
 
 </p>
 </details>
 
 ----
 
-If you have any suggestions/bug report you can post in Issues.
+If you have any issues/bug report you can post in Issues for everything else use Discussions.

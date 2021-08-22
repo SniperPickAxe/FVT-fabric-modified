@@ -75,7 +75,7 @@ public class FVTSettingsScreen extends Screen
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.placement"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.randomPlacement, FVT.OPTIONS.useDelay, FVT.OPTIONS.creativeBreakDelay, FVT.OPTIONS.placementLock});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.other"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates, FVT.OPTIONS.freecam});
+		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates, FVT.OPTIONS.freecam, FVT.OPTIONS.containerButtons});
 		this.addSelectableChild(this.list);
 
 		// DEFAULTS button at the top left corner

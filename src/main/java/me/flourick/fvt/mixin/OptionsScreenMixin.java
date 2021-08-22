@@ -39,7 +39,7 @@ abstract class OptionsScreenMixin extends Screen
 		int x, y, l;
 
 		switch(FVT.OPTIONS.buttonPosition.getValueAsString()) {
-			case "4": // Hidden
+			case "4": // HIDDEN
 				return;
 
 			case "3": // OUTSIDE
