@@ -41,7 +41,7 @@ public class FVTOptions
 		buttonPosition = new FVTCyclingOption(
 			"fvt.feature.name.button_position",
 			"fvt.feature.name.button_position.tooltip",
-			Arrays.asList(new TranslatableText[] {new TranslatableText("fvt.feature.name.button_position.right"), new TranslatableText("fvt.feature.name.button_position.left"), new TranslatableText("fvt.feature.name.button_position.center")})
+			Arrays.asList(new TranslatableText[] {new TranslatableText("fvt.feature.name.button_position.right"), new TranslatableText("fvt.feature.name.button_position.left"), new TranslatableText("fvt.feature.name.button_position.center"), new TranslatableText("fvt.feature.name.button_position.outside"), new TranslatableText("fvt.feature.name.button_position.hidden")})
 		);
 		saveableFeatures.put("buttonPosition", buttonPosition);
 

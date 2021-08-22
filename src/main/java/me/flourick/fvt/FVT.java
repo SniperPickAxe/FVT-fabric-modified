@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.lwjgl.glfw.GLFW;
 
 import me.flourick.fvt.settings.FVTOptions;
+import me.flourick.fvt.settings.FVTSettingsScreen;
 import me.flourick.fvt.utils.FVTVars;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -60,16 +61,21 @@ public class FVT implements ClientModInitializer
 
 	private void registerKeys()
 	{
+		KeyBinding openSettingsMenuKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.options.open", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
+		toolBreakingOverrideKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.tool_breaking_override", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_ALT, "FVT"));
 		KeyBinding fullbrightKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.fullbright", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 		KeyBinding freecamKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.freecam", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 		KeyBinding randomPlacementKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.random_placement", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 		KeyBinding entityOutlineKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.entity_outline", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 		KeyBinding autoAttackKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.trigger_autoattack", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 		KeyBinding placementLockKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.placement_lock", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
-		toolBreakingOverrideKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.tool_breaking_override", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_ALT, "FVT"));
 
 		ClientTickEvents.END_CLIENT_TICK.register(client ->
 		{
+			while(openSettingsMenuKeybind.wasPressed()) {
+				FVT.MC.setScreen(new FVTSettingsScreen(FVT.MC.currentScreen));
+			}
+
 			while(fullbrightKeybind.wasPressed()) {
 				FVT.OPTIONS.fullbright.toggle();
 

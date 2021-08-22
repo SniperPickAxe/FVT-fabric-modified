@@ -1,6 +1,8 @@
 {
 	"fvt.options_title": "FVT Options",
 
+	"fvt.options.open": "Open FVT Settings",
+
 	"fvt.options.tooltips.show": "Show feature tooltips.",
 	"fvt.options.tooltips.hide": "Hide feature tooltips.",
 
@@ -27,6 +29,8 @@
 	"fvt.feature.name.button_position.right": "Right",
 	"fvt.feature.name.button_position.left": "Left",
 	"fvt.feature.name.button_position.center": "Center",
+	"fvt.feature.name.button_position.outside": "Outside",
+	"fvt.feature.name.button_position.hidden": "Hidden",
 	"fvt.feature.name.button_position.tooltip": "Changes the 'FVT...' button position in settings menu.",
 
 	"fvt.feature.name.feature_toggle_messages": "Toggle Chat Messages",
