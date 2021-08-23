@@ -82,6 +82,10 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Disables the particles that spawn when you break a block.
 
+* ### No Potion Particles
+
+    Disables the particles that spawn when you have a potion effect on yourself, you know, those view obstructing ones.
+
 * ### Refill Hand
 
     Once the stack in your main hand is below 50% automatically finds the same item in your inventory and restocks it.

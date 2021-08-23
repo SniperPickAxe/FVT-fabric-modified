@@ -97,6 +97,9 @@
 	"fvt.feature.name.no_block_break_particles": "No Block Particles",
 	"fvt.feature.name.no_block_break_particles.tooltip": "Disables rendering the particles that spawn when you break a block.",
 
+	"fvt.feature.name.no_potion_particles": "No Potion Particles",
+	"fvt.feature.name.no_potion_particles.tooltip": "Disables particles that spawn around you when you use a potion on yourself.",
+
 	"fvt.feature.name.refill_hand": "Refill Hand",
 	"fvt.feature.name.refill_hand.tooltip": "Once the stack in your main hand is below 50% automatically finds the same item in your inventory and restocks it.",
 

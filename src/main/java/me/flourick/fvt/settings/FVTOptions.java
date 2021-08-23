@@ -23,7 +23,7 @@ import me.flourick.fvt.FVT;
 import net.minecraft.text.TranslatableText;
 
 /**
- * All features this mod offers also handles loading & saving to file.
+ * All features this mod offers, also handles loading & saving to file.
  * 
  * @author Flourick
  */
@@ -180,7 +180,7 @@ public class FVTOptions
 		noNetherFog = new FVTBooleanOption(
 			"fvt.feature.name.no_nether_fog",
 			"fvt.feature.name.no_nether_fog.tooltip",
-			true
+			false
 		);
 		saveableFeatures.put("noNetherFog", noNetherFog);
 
@@ -190,6 +190,13 @@ public class FVTOptions
 			false
 		);
 		saveableFeatures.put("noBlockBreakParticles", noBlockBreakParticles);
+
+		noPotionParticles = new FVTBooleanOption(
+			"fvt.feature.name.no_potion_particles",
+			"fvt.feature.name.no_potion_particles.tooltip",
+			false
+		);
+		saveableFeatures.put("noPotionParticles", noPotionParticles);
 
 		refillHand = new FVTBooleanOption(
 			"fvt.feature.name.refill_hand",
@@ -310,6 +317,7 @@ public class FVTOptions
 	public final FVTBooleanOption randomPlacement;
 	public final FVTBooleanOption noNetherFog;
 	public final FVTBooleanOption noBlockBreakParticles;
+	public final FVTBooleanOption noPotionParticles;
 	public final FVTBooleanOption refillHand;
 	public final FVTBooleanOption autoReconnect;
 	public final FVTDoubleOption  autoReconnectMaxTries;

@@ -21,7 +21,8 @@
 		"ShulkerBoxScreenMixin",
 		"HorseScreenMixin",
 		"ItemStackMixin",
-		"WorldRendererMixin"
+		"WorldRendererMixin",
+		"LivingEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
