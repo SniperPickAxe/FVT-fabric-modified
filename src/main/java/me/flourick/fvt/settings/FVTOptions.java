@@ -282,6 +282,13 @@ public class FVTOptions
 		);
 		saveableFeatures.put("containerButtons", placementLock);
 
+		invisibleOffhand = new FVTBooleanOption(
+			"fvt.feature.name.invisible_offhand",
+			"fvt.feature.name.invisible_offhand.tooltip",
+			false
+		);
+		saveableFeatures.put("invisibleOffhand", invisibleOffhand);
+
 		init();
 	}
 
@@ -330,6 +337,7 @@ public class FVTOptions
 	public final FVTDoubleOption  creativeBreakDelay;
 	public final FVTBooleanOption placementLock;
 	public final FVTBooleanOption containerButtons;
+	public final FVTBooleanOption invisibleOffhand;
 
 	public void reset()
 	{

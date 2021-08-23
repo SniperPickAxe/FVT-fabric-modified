@@ -86,6 +86,10 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Disables the particles that spawn when you have a potion effect on yourself, you know, those view obstructing ones.
 
+* ### Invisible Offhand
+
+    Makes your offhand completely invisible but will still remain fully functional.
+
 * ### Refill Hand
 
     Once the stack in your main hand is below 50% automatically finds the same item in your inventory and restocks it.

@@ -69,6 +69,7 @@ public class FVT implements ClientModInitializer
 		KeyBinding entityOutlineKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.entity_outline", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 		KeyBinding autoAttackKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.trigger_autoattack", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 		KeyBinding placementLockKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.placement_lock", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
+		KeyBinding invisibleOffhandKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.invisible_offhand", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 
 		ClientTickEvents.END_CLIENT_TICK.register(client ->
 		{
@@ -150,6 +151,19 @@ public class FVT implements ClientModInitializer
 					}
 					else {
 						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.placement_lock"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+				}
+			}
+
+			while(invisibleOffhandKeybind.wasPressed()) {
+				FVT.OPTIONS.invisibleOffhand.toggle();
+
+				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {
+					if(FVT.OPTIONS.invisibleOffhand.getValueRaw()) {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.invisible_offhand"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+					else {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.invisible_offhand"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
 					}
 				}
 			}

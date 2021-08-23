@@ -65,8 +65,9 @@ public class FVTSettingsScreen extends Screen
 		this.list.addAll(new Option[] {FVT.OPTIONS.noToolBreaking, FVT.OPTIONS.toolWarning});
 		this.list.addAll(new Option[] {FVT.OPTIONS.toolWarningPosition, FVT.OPTIONS.toolWarningScale});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.render"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.noNetherFog, FVT.OPTIONS.noBlockBreakParticles});
-		this.list.addAll(new Option[] {FVT.OPTIONS.noPotionParticles, FVT.OPTIONS.cloudHeight});
+		this.list.addAll(new Option[] {FVT.OPTIONS.noPotionParticles, FVT.OPTIONS.noBlockBreakParticles});
+		this.list.addAll(new Option[] {FVT.OPTIONS.noNetherFog, FVT.OPTIONS.invisibleOffhand});
+		this.list.addSingleOptionEntry(FVT.OPTIONS.cloudHeight);
 		this.list.addAll(new Option[] {FVT.OPTIONS.fullbright, FVT.OPTIONS.entityOutline});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.auto"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.autoReconnect, FVT.OPTIONS.autoReconnectMaxTries});
@@ -86,7 +87,7 @@ public class FVTSettingsScreen extends Screen
 			this.renderTooltip(matrixStack, new TranslatableText("fvt.options.defaults.tooltip").formatted(Formatting.YELLOW), i, j + 8);
 		}));
 
-		// ?/- button at the top right corner
+		// ?/- (tooltip) button at the top right corner
 		this.addDrawableChild(new ButtonWidget(this.width - 26, 6, 20, 20, new LiteralText("?"), (buttonWidget) -> {
 			tooltipsActive = !tooltipsActive;
 

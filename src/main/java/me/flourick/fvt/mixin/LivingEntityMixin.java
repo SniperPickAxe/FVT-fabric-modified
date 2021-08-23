@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import me.flourick.fvt.FVT;
+
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 
@@ -15,9 +16,9 @@ import net.minecraft.entity.LivingEntity;
  * @author Flourick
  */
 @Mixin(LivingEntity.class)
-public class LivingEntityMixin
+abstract class LivingEntityMixin
 {
-	@Inject(method = "tickStatusEffects", at = @At(value = "INVOKE", target = "isInvisible"), cancellable = true)
+	@Inject(method = "tickStatusEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"), cancellable = true)
 	protected void onTickStatusEffects(CallbackInfo info)
 	{
 		if((Object)this instanceof ClientPlayerEntity) {

@@ -120,6 +120,9 @@
 	"fvt.feature.name.freecam": "Freecam",
 	"fvt.feature.name.freecam.tooltip": "Allows you to leave your body and explore your surroundings. Works similar to spectator.",
 
+	"fvt.feature.name.invisible_offhand": "Invisible Offhand",
+	"fvt.feature.name.invisible_offhand.tooltip": "Makes your offhand completely invisible but will still remain fully functional.",
+
 	"fvt.feature.name.autototem": "AutoTotem",
 	"fvt.feature.name.autototem.tooltip": "Upon totem activation will automatically find another totem in your inventory and replace the one that was just consumed.",
 	
