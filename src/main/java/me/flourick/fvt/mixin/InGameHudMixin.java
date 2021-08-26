@@ -21,14 +21,20 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.option.AttackIndicator;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Arm;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 
 /**
- * FEATURES: Tool Breaking Warning, HUD Info, Mount Hunger, Crosshair, No Vignette, No Spyglass Overlay
+ * FEATURES: Tool Breaking Warning, HUD Info, Mount Hunger, Crosshair, No Vignette, No Spyglass Overlay, Toolbar Autohide
  * 
  * @author Flourick
  */
@@ -42,6 +48,10 @@ abstract class InGameHudMixin extends DrawableHelper
 	@Final
 	@Shadow
 	private Random random;
+
+	@Final
+	@Shadow
+	private static Identifier WIDGETS_TEXTURE;
 
 	@Shadow
 	private int ticks;
@@ -62,12 +72,16 @@ abstract class InGameHudMixin extends DrawableHelper
 	abstract int getHeartRows(int heartCount);
 
 	@Shadow
+	abstract void renderHotbarItem(int x, int y, float tickDelta, PlayerEntity player, ItemStack stack, int seed);
+
+	@Shadow
 	abstract PlayerEntity getCameraPlayer();
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void onTick(CallbackInfo info)
 	{
 		FVT.VARS.tickToolWarningTicks();
+		FVT.VARS.tickHotbarHideTicks();
 	}
 
 	@Inject(method = "render", at = @At("HEAD"))
@@ -196,6 +210,93 @@ abstract class InGameHudMixin extends DrawableHelper
 				}
 
 				currentRowY -= 10;
+			}
+
+			info.cancel();
+		}
+	}
+
+	@Inject(method = "renderHotbar", at = @At("HEAD"), cancellable = true)
+	private void onRenderHotbar(float tickDelta, MatrixStack matrices, CallbackInfo info)
+	{
+		// couldn't just simply push & pop into matrices becouse only HALF OF THE FUCKING FUNCTION USES THEM, the other half is still on the old system... ugh.
+		if(FVT.OPTIONS.autoHideHotbar.getValueRaw()) {
+			PlayerEntity playerEntity = this.getCameraPlayer();
+			
+			if(playerEntity != null) {
+				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+				RenderSystem.setShader(GameRenderer::getPositionTexShader);
+				RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
+
+				float scalar = MathHelper.clamp(0.1F * (FVT.VARS.getHotbarHideTicksLeft() > 46 ? 50 - FVT.VARS.getHotbarHideTicksLeft() : FVT.VARS.getHotbarHideTicksLeft()), 0.0F, 1.0F);
+
+				int scaledWidth = this.client.getWindow().getScaledWidth();
+				int scaledHeight = this.client.getWindow().getScaledHeight() + (int)(23 - (23 * scalar));
+				int scaledHalfWidth = scaledWidth / 2;
+
+				ItemStack itemStack = playerEntity.getOffHandStack();
+				Arm arm = playerEntity.getMainArm().getOpposite();
+				
+				int zOffset = this.getZOffset();
+				
+				this.setZOffset(-90);
+				this.drawTexture(matrices, scaledHalfWidth - 91, scaledHeight - 22, 0, 0, 182, 22);
+				this.drawTexture(matrices, scaledHalfWidth - 91 - 1 + playerEntity.getInventory().selectedSlot * 20, scaledHeight - 22 - 1, 0, 22, 24, 22);
+
+				if(!itemStack.isEmpty()) {
+					if(arm == Arm.LEFT) {
+						this.drawTexture(matrices, scaledHalfWidth - 91 - 29, scaledHeight - 23, 24, 22, 29, 24);
+					}
+					else {
+						this.drawTexture(matrices, scaledHalfWidth + 91, scaledHeight - 23, 53, 22, 29, 24);
+					}
+				}
+
+				this.setZOffset(zOffset);
+				RenderSystem.enableBlend();
+				RenderSystem.defaultBlendFunc();
+
+				int m = 1;
+				int q;
+				int r;
+				int s;
+
+				for(q = 0; q < 9; ++q) {
+					r = scaledHalfWidth - 90 + q * 20 + 2;
+					s = scaledHeight - 16 - 3;
+					this.renderHotbarItem(r, s, tickDelta, playerEntity, (ItemStack)playerEntity.getInventory().main.get(q), m++);
+				}
+
+				if(!itemStack.isEmpty()) {
+					q = scaledHeight - 16 - 3;
+					if (arm == Arm.LEFT) {
+						this.renderHotbarItem(scaledHalfWidth - 91 - 26, q, tickDelta, playerEntity, itemStack, m++);
+					} else {
+						this.renderHotbarItem(scaledHalfWidth + 91 + 10, q, tickDelta, playerEntity, itemStack, m++);
+					}
+				}
+
+				if(this.client.options.attackIndicator == AttackIndicator.HOTBAR) {
+					float f = this.client.player.getAttackCooldownProgress(0.0F);
+
+					if(f < 1.0F) {
+						r = scaledHeight - 20;
+						s = scaledHalfWidth + 91 + 6;
+
+						if(arm == Arm.RIGHT) {
+							s = scaledHalfWidth - 91 - 22;
+						}
+
+						RenderSystem.setShaderTexture(0, DrawableHelper.GUI_ICONS_TEXTURE);
+						int t = (int)(f * 19.0F);
+						RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+						
+						this.drawTexture(matrices, s, r, 0, 94, 18, 18);
+						this.drawTexture(matrices, s, r + 18 - t, 18, 112 - t, 18, t);
+					}
+				}
+
+				RenderSystem.disableBlend();
 			}
 
 			info.cancel();

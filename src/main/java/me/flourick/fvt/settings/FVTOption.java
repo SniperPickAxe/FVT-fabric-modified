@@ -10,7 +10,7 @@ import net.minecraft.text.OrderedText;
  * 
  * @author Flourick
  */
-public abstract class FVTOption<T> extends Option implements SaveableValue
+public abstract class FVTOption<T> extends Option
 {
 	public FVTOption(String key)
 	{
@@ -19,6 +19,9 @@ public abstract class FVTOption<T> extends Option implements SaveableValue
 
 	public abstract T getValueRaw();
 	public abstract void setValueDefault();
+
+	public abstract String getValueAsString();
+	public abstract boolean setValueFromString(String newValue);
 
 	public abstract List<OrderedText> getTooltip();
 }

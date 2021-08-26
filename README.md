@@ -86,6 +86,14 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Disables the particles that spawn when you have a potion effect on yourself, you know, those view obstructing ones.
 
+* ### No Vignette
+
+    Disables the black vignette around HUD. Especially noticeable in darker areas.
+
+* ### No Spyglass Overlay
+
+    Disables spyglass overlay while zooming in.
+
 * ### Invisible Offhand
 
     Makes your offhand completely invisible but will still remain fully functional.

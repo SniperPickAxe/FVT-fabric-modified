@@ -45,10 +45,10 @@ abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 	@Shadow
 	private HorseBaseEntity entity;
 
-	private int buttonWidth;
-	private int buttonHeight;
+	private int FVT_buttonWidth;
+	private int FVT_buttonHeight;
 
-	List<OrderedText> tooltip;
+	List<OrderedText> FVT_tooltip;
 
 	@Override
 	protected void init()
@@ -57,46 +57,46 @@ abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 
 		Text header = new TranslatableText("fvt.feature.name.horses.button");
 
-		this.buttonHeight = 12;
-		this.buttonWidth = FVT.MC.textRenderer.getWidth(header) + 4;
+		this.FVT_buttonHeight = 12;
+		this.FVT_buttonWidth = FVT.MC.textRenderer.getWidth(header) + 4;
 
-		tooltip = new ArrayList<>();
-		tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.health", getHorseHealth()).asOrderedText());
-		tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.speed", getHorseSpeed()).asOrderedText());
-		tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.jump_height", getHorseJumpheight()).asOrderedText());
+		FVT_tooltip = new ArrayList<>();
+		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.health", FVT_getHorseHealth()).asOrderedText());
+		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.speed", FVT_getHorseSpeed()).asOrderedText());
+		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.jump_height", FVT_getHorseJumpHeight()).asOrderedText());
 
-		int baseX = ((this.width - this.backgroundWidth) / 2) + this.backgroundWidth - buttonWidth - 7;
+		int baseX = ((this.width - this.backgroundWidth) / 2) + this.backgroundWidth - FVT_buttonWidth - 7;
 		int baseY = ((this.height - this.backgroundHeight) / 2) + 4;
 
-		FVTButtonWidget button = new FVTButtonWidget(baseX, baseY, buttonWidth, buttonHeight, header, null
+		FVTButtonWidget button = new FVTButtonWidget(baseX, baseY, FVT_buttonWidth, FVT_buttonHeight, header, null
 		, (buttonWidget, matrixStack, i, j) -> {
-			this.renderOrderedTooltip(matrixStack, tooltip, i, j + 8);
+			this.renderOrderedTooltip(matrixStack, FVT_tooltip, i, j + 8);
 		}, new Color(120, 255, 255, 255), new Color(220, 255, 255, 255));
 		button.active = false;
 
 		this.addDrawableChild(button);
 	}
 
-	private String getHorseHealth()
+	private String FVT_getHorseHealth()
 	{
 		double horseHealth = entity.getMaxHealth();
-		return String.format("%s%.0f", getColorCodeByBounds(15.0D, 30.0D, horseHealth), horseHealth);
+		return String.format("%s%.0f", FVT_getColorCodeByBounds(15.0D, 30.0D, horseHealth), horseHealth);
 	}
 
-	private String getHorseSpeed()
+	private String FVT_getHorseSpeed()
 	{
 		double horseSpeedBlocks = entity.getAttributes().getValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 42.157787584D;
-		return String.format("%s%.02f", getColorCodeByBounds(4.742751103D, 14.228253309D, horseSpeedBlocks), horseSpeedBlocks);
+		return String.format("%s%.02f", FVT_getColorCodeByBounds(4.742751103D, 14.228253309D, horseSpeedBlocks), horseSpeedBlocks);
 	}
 
-	private String getHorseJumpheight()
+	private String FVT_getHorseJumpHeight()
 	{
 		double jumpStrength = entity.getJumpStrength();
 		double jumpStrengthBlocks = -0.1817584952D * jumpStrength * jumpStrength * jumpStrength + 3.689713992D * jumpStrength * jumpStrength + 2.128599134D * jumpStrength - 0.343930367D;
-		return String.format("%s%.02f", getColorCodeByBounds(1.08623D, 5.29262D, jumpStrengthBlocks), jumpStrengthBlocks);
+		return String.format("%s%.02f", FVT_getColorCodeByBounds(1.08623D, 5.29262D, jumpStrengthBlocks), jumpStrengthBlocks);
 	}
 
-	private String getColorCodeByBounds(double min, double max, double value)
+	private String FVT_getColorCodeByBounds(double min, double max, double value)
 	{
 		double third = (max - min) / 3.0D;
 

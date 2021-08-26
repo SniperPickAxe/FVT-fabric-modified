@@ -27,7 +27,7 @@ abstract class CameraMixin
 	@Shadow
 	private BlockView area;
 
-	private boolean preFreecam = false;
+	private boolean FVT_preFreecam = false;
 
 	@Shadow
 	abstract void setRotation(float yaw, float pitch);
@@ -39,9 +39,9 @@ abstract class CameraMixin
 	private void onUpdate(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo info)
 	{
 		if(FVT.OPTIONS.freecam.getValueRaw()) {
-			if(!preFreecam) {
-				preFreecam = true;
-				freecamToggleCheck();
+			if(!FVT_preFreecam) {
+				FVT_preFreecam = true;
+				FVT_freecamToggleCheck();
 			}
 
 			this.ready = true;
@@ -53,9 +53,9 @@ abstract class CameraMixin
 			info.cancel();
 		}
 		else {
-			if(preFreecam) {
-				preFreecam = false;
-				freecamToggleCheck();
+			if(FVT_preFreecam) {
+				FVT_preFreecam = false;
+				FVT_freecamToggleCheck();
 			}
 		}
 	}
@@ -70,7 +70,7 @@ abstract class CameraMixin
 	}
 
 	// called on enable/disable of freecam to prepare/cleanup variables
-	private void freecamToggleCheck()
+	private void FVT_freecamToggleCheck()
 	{
 		if(FVT.OPTIONS.freecam.getValueRaw() && FVT.MC.player != null) {
 			FVT.MC.chunkCullingEnabled = false;

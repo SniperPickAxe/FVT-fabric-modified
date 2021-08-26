@@ -40,8 +40,6 @@ abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Shadow
 	private int ticksLeftToDoubleTapSprint;
 
-	public ClientPlayerEntityMixin(ClientWorld world, GameProfile profile) { super(world, profile); }
-
 	@Inject(method = "<init>", at = @At("RETURN"))
 	private void onConstructor(MinecraftClient client, ClientWorld world, ClientPlayNetworkHandler networkHandler, StatHandler stats, ClientRecipeBook recipeBook, boolean lastSneaking, boolean lastSprinting, CallbackInfo info)
 	{
@@ -77,9 +75,9 @@ abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 			float up = (FVT.MC.player.input.jumping ? 1.0f : 0.0f) - (FVT.MC.player.input.sneaking ? 1.0f : 0.0f);
             float side = FVT.MC.player.input.movementSideways;
 			
-            FVT.VARS.freecamForwardSpeed = forward != 0 ? updateMotion(FVT.VARS.freecamForwardSpeed, forward) : FVT.VARS.freecamForwardSpeed * 0.5f;
-            FVT.VARS.freecamUpSpeed = up != 0 ?  updateMotion(FVT.VARS.freecamUpSpeed, up) : FVT.VARS.freecamUpSpeed * 0.5f;
-            FVT.VARS.freecamSideSpeed = side != 0 ?  updateMotion(FVT.VARS.freecamSideSpeed , side) : FVT.VARS.freecamSideSpeed * 0.5f;
+            FVT.VARS.freecamForwardSpeed = forward != 0 ? FVT_updateMotion(FVT.VARS.freecamForwardSpeed, forward) : FVT.VARS.freecamForwardSpeed * 0.5f;
+            FVT.VARS.freecamUpSpeed = up != 0 ?  FVT_updateMotion(FVT.VARS.freecamUpSpeed, up) : FVT.VARS.freecamUpSpeed * 0.5f;
+            FVT.VARS.freecamSideSpeed = side != 0 ?  FVT_updateMotion(FVT.VARS.freecamSideSpeed , side) : FVT.VARS.freecamSideSpeed * 0.5f;
 
             double rotateX = Math.sin(FVT.VARS.freecamYaw * Math.PI / 180.0D);
 			double rotateZ = Math.cos(FVT.VARS.freecamYaw * Math.PI / 180.0D);
@@ -95,7 +93,7 @@ abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 		}
 	}
 
-	private float updateMotion(float motion, float direction)
+	private float FVT_updateMotion(float motion, float direction)
     {
         return (direction + motion == 0) ? 0.0f : MathHelper.clamp(motion + ((direction < 0) ? -0.35f : 0.35f), -1f, 1f);
 	}
@@ -171,4 +169,6 @@ abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 			super.changeLookDirection(cursorDeltaX, cursorDeltaY);
 		}
 	}
+
+	public ClientPlayerEntityMixin(ClientWorld world, GameProfile profile) { super(world, profile); } // IGNORED
 }

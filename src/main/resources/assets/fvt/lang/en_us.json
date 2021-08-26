@@ -64,6 +64,9 @@
 	"fvt.feature.name.show_hud_info.hidden": "Hidden",
 	"fvt.feature.name.show_hud_info.tooltip": "Shows your location, pitch, cardinal direction and block light while ingame. Sort of like a mini F3 screen.",
 
+	"fvt.feature.name.auto_hide_hotbar": "Auto Hide Hotbar",
+	"fvt.feature.name.auto_hide_hotbar.tooltip": "Automatically hides hotbar when not in use.",
+
 	"fvt.feature.name.no_tool_breaking": "Prevent Breaking",
 	"fvt.feature.name.no_tool_breaking.tooltip": "Makes your tools stop working at certain durability (will stop at 2 durability for most tools). This includes swords, pickaxes, axes, shovels, hoes, tridents, bows and crossbows.",
 	"fvt.feature.name.tool_breaking_override": "Tool Breaking Override",

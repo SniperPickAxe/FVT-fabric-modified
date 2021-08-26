@@ -24,8 +24,8 @@ import net.minecraft.text.TranslatableText;
 @Mixin(GenericContainerScreen.class)
 abstract class GenericContainerScreenMixin extends HandledScreen<GenericContainerScreenHandler>
 {
-	private final int buttonWidth = 12;
-	private final int buttonHeight = 10;
+	private final int FVT_buttonWidth = 12;
+	private final int FVT_buttonHeight = 10;
 
 	@Override
 	protected void init()
@@ -36,26 +36,26 @@ abstract class GenericContainerScreenMixin extends HandledScreen<GenericContaine
 			return;
 		}
 
-		int baseX = ((this.width - this.backgroundWidth) / 2) + this.backgroundWidth - buttonWidth - 7;
+		int baseX = ((this.width - this.backgroundWidth) / 2) + this.backgroundWidth - FVT_buttonWidth - 7;
 		int baseY = ((this.height - this.backgroundHeight) / 2) + 5;
 
-		this.addDrawableChild(new FVTButtonWidget(baseX, baseY, buttonWidth, buttonHeight, new LiteralText("⊽"), (buttonWidget) -> onDropButtonClick()
+		this.addDrawableChild(new FVTButtonWidget(baseX, baseY, FVT_buttonWidth, FVT_buttonHeight, new LiteralText("⊽"), (buttonWidget) -> FVT_onDropButtonClick()
 		, (buttonWidget, matrixStack, i, j) -> {
 			this.renderTooltip(matrixStack, new TranslatableText("fvt.feature.name.containers.drop.tooltip"), i, j + 8);
 		}, new Color(150, 255, 255, 255), new Color(220, 255, 255, 255)));
 
-		this.addDrawableChild(new FVTButtonWidget(baseX - buttonWidth - 2, baseY, buttonWidth, buttonHeight, new LiteralText("⊻"), (buttonWidget) -> onGetButtonClick()
+		this.addDrawableChild(new FVTButtonWidget(baseX - FVT_buttonWidth - 2, baseY, FVT_buttonWidth, FVT_buttonHeight, new LiteralText("⊻"), (buttonWidget) -> FVT_onGetButtonClick()
 		, (buttonWidget, matrixStack, i, j) -> {
 			this.renderTooltip(matrixStack, new TranslatableText("fvt.feature.name.containers.get.tooltip"), i, j + 8);
 		}, new Color(150, 255, 255, 255), new Color(220, 255, 255, 255)));
 
-		this.addDrawableChild(new FVTButtonWidget(baseX - 2*buttonWidth - 4, baseY, buttonWidth, buttonHeight, new LiteralText("⊼"), (buttonWidget) -> onStoreButtonClick()
+		this.addDrawableChild(new FVTButtonWidget(baseX - 2*FVT_buttonWidth - 4, baseY, FVT_buttonWidth, FVT_buttonHeight, new LiteralText("⊼"), (buttonWidget) -> FVT_onStoreButtonClick()
 		, (buttonWidget, matrixStack, i, j) -> {
 			this.renderTooltip(matrixStack, new TranslatableText("fvt.feature.name.containers.store.tooltip"), i, j + 8);
 		}, new Color(150, 255, 255, 255), new Color(220, 255, 255, 255)));
 	}
 
-	private void onDropButtonClick()
+	private void FVT_onDropButtonClick()
 	{
 		int sz = handler.getInventory().size();
 
@@ -70,7 +70,7 @@ abstract class GenericContainerScreenMixin extends HandledScreen<GenericContaine
 		}
 	}
 
-	private void onGetButtonClick()
+	private void FVT_onGetButtonClick()
 	{
 		int sz = handler.getInventory().size();
 
@@ -85,7 +85,7 @@ abstract class GenericContainerScreenMixin extends HandledScreen<GenericContaine
 		}
 	}
 
-	private void onStoreButtonClick()
+	private void FVT_onStoreButtonClick()
 	{
 		int sz = handler.getInventory().size();
 

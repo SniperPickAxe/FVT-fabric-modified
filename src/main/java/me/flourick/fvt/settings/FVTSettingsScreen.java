@@ -61,6 +61,7 @@ public class FVTSettingsScreen extends Screen
 		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairBlueComponent);
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.hud")); 
 		this.list.addAll(new Option[] {FVT.OPTIONS.showHUDInfo, FVT.OPTIONS.coordinatesPosition});
+		this.list.addSingleOptionEntry(FVT.OPTIONS.autoHideHotbar);
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.tools"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.noToolBreaking, FVT.OPTIONS.toolWarning});
 		this.list.addAll(new Option[] {FVT.OPTIONS.toolWarningPosition, FVT.OPTIONS.toolWarningScale});

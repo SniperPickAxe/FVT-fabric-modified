@@ -43,6 +43,8 @@ public class FVTVars
 	private String deathWorld;
 	public boolean isAfterDeath;
 
+	private int hotbarHideTicksLeft;
+
 	private int toolWarningTextTicksLeft;
 	public int toolDurability;
 	public ItemStack mainHandToolItemStack;
@@ -59,6 +61,8 @@ public class FVTVars
 
 		this.autoReconnectTicks = 0;
 		this.autoReconnectTries = 0;
+
+		hotbarHideTicksLeft = 0;
 		
 		this.toolWarningTextTicksLeft = 0;
 		this.toolDurability = 0;
@@ -93,6 +97,23 @@ public class FVTVars
 	public String getLastDeathWorld()
 	{
 		return this.deathWorld;
+	}
+
+	public int getHotbarHideTicksLeft()
+	{
+		return hotbarHideTicksLeft;
+	}
+
+	public void resetHotbarHideTicksLeft()
+	{
+		hotbarHideTicksLeft = 50;
+	}
+
+	public void tickHotbarHideTicks()
+	{
+		if(hotbarHideTicksLeft > 0) {
+			hotbarHideTicksLeft -= 1;
+		}
 	}
 
 	public int getToolWarningTextTicksLeft()

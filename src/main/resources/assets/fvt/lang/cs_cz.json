@@ -64,6 +64,9 @@
 	"fvt.feature.name.show_hud_info.hidden": "Skryté",
 	"fvt.feature.name.show_hud_info.tooltip": "Když jsi ve hře tak na HUD zobrazí polohu, sklon a světový směr. Něco jako taková malá F3 obrazovka.",
 
+	"fvt.feature.name.auto_hide_hotbar": "Automatické skrývání panelu nástrojů",
+	"fvt.feature.name.auto_hide_hotbar.tooltip": "Automaticky skrývá panel nástrojů, když ho zrovna nepoužíváš.",
+
 	"fvt.feature.name.no_tool_breaking": "Zabránit zničení",
 	"fvt.feature.name.no_tool_breaking.tooltip": "Jakmile tvůj aktivní nástroj je dostatečně poškozen (u většiny nástrojů to jsou dvě jednotky životů), tak ti ho nedovolí dále používat. Jedná se o nástroje jako meč, krumpáč, sekera, lopata, motyka, trojzubec, luk a kuše.",
 	"fvt.feature.name.tool_breaking_override": "Vypnutí funkce 'Zabránit zničení' nástroje",

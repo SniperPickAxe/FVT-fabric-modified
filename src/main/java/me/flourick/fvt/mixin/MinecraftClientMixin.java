@@ -39,13 +39,13 @@ import net.minecraft.util.math.BlockPos;
 @Mixin(MinecraftClient.class)
 abstract class MinecraftClientMixin
 {
-	private List<BlockPos> placementHistory = new ArrayList<>();
-	private boolean xAligned = false;
-	private boolean yAligned = false;
-	private boolean zAligned = false;
-	private int xAlign = 0;
-	private int yAlign = 0;
-	private int zAlign = 0;
+	private List<BlockPos> FVT_placementHistory = new ArrayList<>();
+	private boolean FVT_xAligned = false;
+	private boolean FVT_yAligned = false;
+	private boolean FVT_zAligned = false;
+	private int FVT_xAlign = 0;
+	private int FVT_yAlign = 0;
+	private int FVT_zAlign = 0;
 
 	@Shadow
 	private ServerInfo currentServerEntry;
@@ -123,20 +123,20 @@ abstract class MinecraftClientMixin
 	private void onHandleInputEvents(CallbackInfo info)
 	{
 		// called when user presses the use key (aka will clear the placement history for every fresh keypress)
-		placementHistory.clear();
-		xAligned = false;
-		yAligned = false;
-		zAligned = false;
+		FVT_placementHistory.clear();
+		FVT_xAligned = false;
+		FVT_yAligned = false;
+		FVT_zAligned = false;
 	}
 
 	@Inject(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getCount()I", ordinal = 0, shift = At.Shift.AFTER), cancellable = true)
 	private void onDoItemUsePlaceBlock(CallbackInfo info)
 	{
 		// user placed three blocks so that's our cue to limit his placement!
-		if(FVT.OPTIONS.placementLock.getValueRaw() && placementHistory.size() == 3) {
+		if(FVT.OPTIONS.placementLock.getValueRaw() && FVT_placementHistory.size() == 3) {
 			BlockPos expected = ((BlockHitResult) FVT.MC.crosshairTarget).getBlockPos().offset(((BlockHitResult) FVT.MC.crosshairTarget).getSide());
 			
-			if((xAligned && xAlign != expected.getX()) || (yAligned && yAlign != expected.getY()) || (zAligned && zAlign != expected.getZ())) {
+			if((FVT_xAligned && FVT_xAlign != expected.getX()) || (FVT_yAligned && FVT_yAlign != expected.getY()) || (FVT_zAligned && FVT_zAlign != expected.getZ())) {
 				info.cancel();
 			}
 		}
@@ -147,23 +147,23 @@ abstract class MinecraftClientMixin
 	{
 		ActionResult result = manager.interactBlock(player, world, hand, hitResult);
 
-		if(result.isAccepted() && placementHistory.size() < 3) {
-			placementHistory.add(hitResult.getBlockPos().offset(hitResult.getSide()));
+		if(result.isAccepted() && FVT_placementHistory.size() < 3) {
+			FVT_placementHistory.add(hitResult.getBlockPos().offset(hitResult.getSide()));
 
-			if(placementHistory.size() == 3) {
-				if(placementHistory.get(0).getX() == placementHistory.get(1).getX() && placementHistory.get(1).getX() == placementHistory.get(2).getX()) {
-					xAligned = true;
-					xAlign = placementHistory.get(0).getX();
+			if(FVT_placementHistory.size() == 3) {
+				if(FVT_placementHistory.get(0).getX() == FVT_placementHistory.get(1).getX() && FVT_placementHistory.get(1).getX() == FVT_placementHistory.get(2).getX()) {
+					FVT_xAligned = true;
+					FVT_xAlign = FVT_placementHistory.get(0).getX();
 				}
 
-				if(placementHistory.get(0).getY() == placementHistory.get(1).getY() && placementHistory.get(1).getY() == placementHistory.get(2).getY()) {
-					yAligned = true;
-					yAlign = placementHistory.get(0).getY();
+				if(FVT_placementHistory.get(0).getY() == FVT_placementHistory.get(1).getY() && FVT_placementHistory.get(1).getY() == FVT_placementHistory.get(2).getY()) {
+					FVT_yAligned = true;
+					FVT_yAlign = FVT_placementHistory.get(0).getY();
 				}
 
-				if(placementHistory.get(0).getZ() == placementHistory.get(1).getZ() && placementHistory.get(1).getZ() == placementHistory.get(2).getZ()) {
-					zAligned = true;
-					zAlign = placementHistory.get(0).getZ();
+				if(FVT_placementHistory.get(0).getZ() == FVT_placementHistory.get(1).getZ() && FVT_placementHistory.get(1).getZ() == FVT_placementHistory.get(2).getZ()) {
+					FVT_zAligned = true;
+					FVT_zAlign = FVT_placementHistory.get(0).getZ();
 				}
 			}
 		}
