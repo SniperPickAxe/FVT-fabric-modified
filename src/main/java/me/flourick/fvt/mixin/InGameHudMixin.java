@@ -31,6 +31,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
 /**
@@ -77,11 +78,23 @@ abstract class InGameHudMixin extends DrawableHelper
 	@Shadow
 	abstract PlayerEntity getCameraPlayer();
 
+	private float FVT_getHotbarInteractionScalar()
+	{
+		long delay = 1200L; // 1200ms max time left opened
+		long closeDelay = 300L; // 300ms closing animation
+		long openDelay = 150L; // 150ms opening animation
+
+		long timeLeft = FVT.VARS.getHotbarLastInteractionTime() - Util.getMeasuringTimeMs() + delay;
+
+		boolean shouldOpenAnimate = timeLeft > delay - openDelay;
+
+		return MathHelper.clamp((shouldOpenAnimate ? delay - timeLeft : timeLeft) * (((float)delay / (float)closeDelay) / (float)delay), 0.0F, 1.0F);
+	}
+
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void onTick(CallbackInfo info)
 	{
 		FVT.VARS.tickToolWarningTicks();
-		FVT.VARS.tickHotbarHideTicks();
 	}
 
 	@Inject(method = "render", at = @At("HEAD"))
@@ -228,7 +241,11 @@ abstract class InGameHudMixin extends DrawableHelper
 				RenderSystem.setShader(GameRenderer::getPositionTexShader);
 				RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
 
-				float scalar = MathHelper.clamp(0.1F * (FVT.VARS.getHotbarHideTicksLeft() > 46 ? 50 - FVT.VARS.getHotbarHideTicksLeft() : FVT.VARS.getHotbarHideTicksLeft()), 0.0F, 1.0F);
+				float scalar = FVT_getHotbarInteractionScalar();
+
+				if(scalar <= 0.0F) {
+					// TODO: reset fresh open
+				}
 
 				int scaledWidth = this.client.getWindow().getScaledWidth();
 				int scaledHeight = this.client.getWindow().getScaledHeight() + (int)(23 - (23 * scalar));

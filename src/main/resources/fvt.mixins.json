@@ -22,7 +22,8 @@
 		"HorseScreenMixin",
 		"ItemStackMixin",
 		"WorldRendererMixin",
-		"LivingEntityMixin"
+		"LivingEntityMixin",
+		"PlayerInventoryMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

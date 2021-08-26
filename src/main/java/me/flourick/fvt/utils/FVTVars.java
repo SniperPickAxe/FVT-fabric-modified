@@ -3,6 +3,7 @@ package me.flourick.fvt.utils;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.Vec3d;
 
 /**
@@ -43,7 +44,7 @@ public class FVTVars
 	private String deathWorld;
 	public boolean isAfterDeath;
 
-	private int hotbarHideTicksLeft;
+	private long hotbarLastInteractionTime;
 
 	private int toolWarningTextTicksLeft;
 	public int toolDurability;
@@ -62,7 +63,7 @@ public class FVTVars
 		this.autoReconnectTicks = 0;
 		this.autoReconnectTries = 0;
 
-		hotbarHideTicksLeft = 0;
+		this.hotbarLastInteractionTime = 0L;
 		
 		this.toolWarningTextTicksLeft = 0;
 		this.toolDurability = 0;
@@ -99,21 +100,19 @@ public class FVTVars
 		return this.deathWorld;
 	}
 
-	public int getHotbarHideTicksLeft()
+	public long getHotbarLastInteractionTime()
 	{
-		return hotbarHideTicksLeft;
+		return hotbarLastInteractionTime;
 	}
 
-	public void resetHotbarHideTicksLeft()
+	public void zeroHotbarLastInteractionTime()
 	{
-		hotbarHideTicksLeft = 50;
+		hotbarLastInteractionTime = 0L;
 	}
 
-	public void tickHotbarHideTicks()
+	public void resetHotbarLastInteractionTime()
 	{
-		if(hotbarHideTicksLeft > 0) {
-			hotbarHideTicksLeft -= 1;
-		}
+		hotbarLastInteractionTime = Util.getMeasuringTimeMs();
 	}
 
 	public int getToolWarningTextTicksLeft()
