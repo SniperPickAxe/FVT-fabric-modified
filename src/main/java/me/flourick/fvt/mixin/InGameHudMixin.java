@@ -22,12 +22,13 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 
 /**
- * FEATURES: Tool Breaking Warning, HUD Info, Mount Hunger, Crosshair
+ * FEATURES: Tool Breaking Warning, HUD Info, Mount Hunger, Crosshair, No Vignette, No Spyglass Overlay
  * 
  * @author Flourick
  */
@@ -47,6 +48,12 @@ abstract class InGameHudMixin extends DrawableHelper
 
 	@Shadow
 	abstract LivingEntity getRiddenEntity();
+
+	@Shadow
+	abstract void renderVignetteOverlay(Entity entity);
+
+	@Shadow
+	abstract  void renderSpyglassOverlay(float scale);
 
 	@Shadow
 	abstract int getHeartCount(LivingEntity entity);
@@ -89,6 +96,22 @@ abstract class InGameHudMixin extends DrawableHelper
 			matrixStack.scale(FVT.OPTIONS.toolWarningScale.getValueRaw().floatValue(), FVT.OPTIONS.toolWarningScale.getValueRaw().floatValue(), 1.0f);
 			OnScreenText.drawToolWarningText(matrixStack);
 			matrixStack.pop();
+		}
+	}
+
+	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderVignetteOverlay(Lnet/minecraft/entity/Entity;)V", ordinal = 0))
+	private void hijackRenderVignetteOverlay(InGameHud igHud, Entity entity)
+	{
+		if(!FVT.OPTIONS.noVignette.getValueRaw()) {
+			this.renderVignetteOverlay(entity);
+		}
+	}
+
+	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderSpyglassOverlay(F)V", ordinal = 0))
+	private void hijackRenderSpyglassOverlay(InGameHud igHud, float scale)
+	{
+		if(!FVT.OPTIONS.noSpyglassOverlay.getValueRaw()) {
+			this.renderSpyglassOverlay(scale);
 		}
 	}
 

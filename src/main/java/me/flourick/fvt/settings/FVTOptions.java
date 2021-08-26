@@ -194,9 +194,23 @@ public class FVTOptions
 		noPotionParticles = new FVTBooleanOption(
 			"fvt.feature.name.no_potion_particles",
 			"fvt.feature.name.no_potion_particles.tooltip",
-			false
+			true
 		);
 		saveableFeatures.put("noPotionParticles", noPotionParticles);
+
+		noVignette = new FVTBooleanOption(
+			"fvt.feature.name.no_vignette",
+			"fvt.feature.name.no_vignette.tooltip",
+			false
+		);
+		saveableFeatures.put("noHUDVignette", noVignette);
+
+		noSpyglassOverlay = new FVTBooleanOption(
+			"fvt.feature.name.no_spyglass_overlay",
+			"fvt.feature.name.no_spyglass_overlay.tooltip",
+			false
+		);
+		saveableFeatures.put("noSpyglassOverlay", noSpyglassOverlay);
 
 		refillHand = new FVTBooleanOption(
 			"fvt.feature.name.refill_hand",
@@ -325,6 +339,8 @@ public class FVTOptions
 	public final FVTBooleanOption noNetherFog;
 	public final FVTBooleanOption noBlockBreakParticles;
 	public final FVTBooleanOption noPotionParticles;
+	public final FVTBooleanOption noVignette;
+	public final FVTBooleanOption noSpyglassOverlay;
 	public final FVTBooleanOption refillHand;
 	public final FVTBooleanOption autoReconnect;
 	public final FVTDoubleOption  autoReconnectMaxTries;
@@ -363,6 +379,9 @@ public class FVTOptions
 		randomPlacement.setValueDefault();
 		noNetherFog.setValueDefault();
 		noBlockBreakParticles.setValueDefault();
+		noPotionParticles.setValueDefault();
+		noVignette.setValueDefault();
+		noSpyglassOverlay.setValueDefault();
 		refillHand.setValueDefault();
 		autoReconnect.setValueDefault();
 		autoReconnectMaxTries.setValueDefault();
@@ -375,6 +394,7 @@ public class FVTOptions
 		creativeBreakDelay.setValueDefault();
 		placementLock.setValueDefault();
 		containerButtons.setValueDefault();
+		invisibleOffhand.setValueDefault();
 	}
 
 	public void write()

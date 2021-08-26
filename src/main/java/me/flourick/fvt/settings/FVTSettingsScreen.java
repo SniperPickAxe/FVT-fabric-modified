@@ -67,6 +67,7 @@ public class FVTSettingsScreen extends Screen
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.render"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.noPotionParticles, FVT.OPTIONS.noBlockBreakParticles});
 		this.list.addAll(new Option[] {FVT.OPTIONS.noNetherFog, FVT.OPTIONS.invisibleOffhand});
+		this.list.addAll(new Option[] {FVT.OPTIONS.noVignette, FVT.OPTIONS.noSpyglassOverlay});
 		this.list.addSingleOptionEntry(FVT.OPTIONS.cloudHeight);
 		this.list.addAll(new Option[] {FVT.OPTIONS.fullbright, FVT.OPTIONS.entityOutline});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.auto"));

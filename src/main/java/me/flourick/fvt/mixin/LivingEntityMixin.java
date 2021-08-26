@@ -19,7 +19,7 @@ import net.minecraft.entity.LivingEntity;
 abstract class LivingEntityMixin
 {
 	@Inject(method = "tickStatusEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"), cancellable = true)
-	protected void onTickStatusEffects(CallbackInfo info)
+	private void onTickStatusEffects(CallbackInfo info)
 	{
 		if((Object)this instanceof ClientPlayerEntity) {
 			if(FVT.OPTIONS.noPotionParticles.getValueRaw()) {

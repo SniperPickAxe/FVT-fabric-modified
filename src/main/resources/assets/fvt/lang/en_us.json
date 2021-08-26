@@ -100,6 +100,12 @@
 	"fvt.feature.name.no_potion_particles": "No Potion Particles",
 	"fvt.feature.name.no_potion_particles.tooltip": "Disables particles that spawn around you when you use a potion on yourself.",
 
+	"fvt.feature.name.no_vignette": "No Vignette",
+	"fvt.feature.name.no_vignette.tooltip": "Disables the black vignette around HUD.",
+
+	"fvt.feature.name.no_spyglass_overlay": "No Spyglass Overlay",
+	"fvt.feature.name.no_spyglass_overlay.tooltip": "Disables spyglass overlay while zooming in.",
+
 	"fvt.feature.name.refill_hand": "Refill Hand",
 	"fvt.feature.name.refill_hand.tooltip": "Once the stack in your main hand is below 50% automatically finds the same item in your inventory and restocks it.",
 
