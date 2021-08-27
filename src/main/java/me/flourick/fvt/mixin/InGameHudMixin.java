@@ -85,7 +85,7 @@ abstract class InGameHudMixin extends DrawableHelper
 	{
 		long delay = MathHelper.ceil(FVT.OPTIONS.autoHideHotbarTimeout.getValueRaw() * 1000.0D); // 1000-5000 max time left opened
 		long closeDelay = 300L; // 300ms closing animation
-		long openDelay = 150L; // 150ms opening animation
+		long openDelay = 80L; // 80ms opening animation
 
 		if(FVT_firstHotbarOpen) {
 			FVT_firstHotbarOpen = false;
@@ -106,7 +106,14 @@ abstract class InGameHudMixin extends DrawableHelper
 			timeLeft = FVT.VARS.getHotbarLastInteractionTime() - Util.getMeasuringTimeMs() + delay;
 		}
 
-		return MathHelper.clamp((timeLeft > delay - openDelay ? delay - timeLeft : timeLeft) * (((float)delay / (float)closeDelay) / (float)delay), 0.0F, 1.0F);
+		float scalar = MathHelper.clamp((timeLeft > delay - openDelay ? delay - timeLeft : timeLeft) * (((float)delay / (float)closeDelay) / (float)delay), 0.0F, 1.0F);
+
+		if(scalar <= 0.0F) {
+			FVT_firstHotbarOpen = true;
+			FVT_firstHotbarOpenTimeLeft = 0L;
+		}
+
+		return scalar;
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))
@@ -160,6 +167,29 @@ abstract class InGameHudMixin extends DrawableHelper
 		}
 	}
 
+	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderMountJumpBar(Lnet/minecraft/client/util/math/MatrixStack;I)V", ordinal = 0))
+	private void hijackRenderMountJumpBar(InGameHud igHud, MatrixStack matrices, int x)
+	{
+		// makes it so jump bar is only visible while actually jumping
+		if(FVT.MC.options.keyJump.isPressed()) {
+			boolean autoHideHotbar = FVT.OPTIONS.autoHideHotbar.getValueRaw();
+
+			if(autoHideHotbar) {
+				matrices.push();
+				matrices.translate(0, (int)(23 - (23 * FVT_getHotbarInteractionScalar())), this.getZOffset());
+			}
+
+			igHud.renderMountJumpBar(matrices, x);
+
+			if(autoHideHotbar) {
+				matrices.pop();
+			}
+		}
+		else if(FVT.MC.interactionManager.hasExperienceBar()) {
+			igHud.renderExperienceBar(matrices, x);
+		}
+	}
+
 	@Redirect(method = "renderStatusBars(Lnet/minecraft/client/util/math/MatrixStack;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;getHeartRows(I)I", ordinal = 0))
 	private int hijackGetHeartRows(InGameHud igHud, int heartCount)
 	{
@@ -172,9 +202,31 @@ abstract class InGameHudMixin extends DrawableHelper
 		}
 	}
 
+	@Inject(method = "renderStatusBars", at = @At("HEAD"))
+	private void onRenderStatusBarsBegin(MatrixStack matrices, CallbackInfo info)
+	{
+		if(FVT.OPTIONS.autoHideHotbar.getValueRaw()) {
+			matrices.push();
+			matrices.translate(0, (int)(23 - (23 * FVT_getHotbarInteractionScalar())), this.getZOffset());
+		}
+	}
+
+	@Inject(method = "renderStatusBars", at = @At("RETURN"))
+	private void onRenderStatusBarsEnd(MatrixStack matrices, CallbackInfo info)
+	{
+		if(FVT.OPTIONS.autoHideHotbar.getValueRaw()) {
+			matrices.pop();
+		}
+	}
+	
 	@Inject(method = "renderMountHealth", at = @At("HEAD"), cancellable = true)
 	private void onRenderMountHealth(MatrixStack matrices, CallbackInfo info)
 	{
+		if(FVT.OPTIONS.autoHideHotbar.getValueRaw()) {
+			matrices.push();
+			matrices.translate(0, (int)(23 - (23 * FVT_getHotbarInteractionScalar())), this.getZOffset());
+		}
+
 		PlayerEntity playerEntity = this.getCameraPlayer();
 		LivingEntity livingEntity = this.getRiddenEntity();
 		int riddenEntityHearts = this.getHeartCount(livingEntity);
@@ -243,7 +295,36 @@ abstract class InGameHudMixin extends DrawableHelper
 				currentRowY -= 10;
 			}
 
+			if(FVT.OPTIONS.autoHideHotbar.getValueRaw()) {
+				matrices.pop();
+			}
+
 			info.cancel();
+		}
+	}
+
+	@Inject(method = "renderMountHealth", at = @At("RETURN"))
+	private void onRenderMountHealthEnd(MatrixStack matrices, CallbackInfo info)
+	{
+		if(FVT.OPTIONS.autoHideHotbar.getValueRaw()) {
+			matrices.pop();
+		}
+	}
+
+	@Inject(method = "renderExperienceBar", at = @At("HEAD"))
+	private void onRenderExperienceBarBegin(MatrixStack matrices, int x, CallbackInfo info)
+	{
+		if(FVT.OPTIONS.autoHideHotbar.getValueRaw()) {
+			matrices.push();
+			matrices.translate(0, (int)(23 - (23 * FVT_getHotbarInteractionScalar())), this.getZOffset());
+		}
+	}
+
+	@Inject(method = "renderExperienceBar", at = @At("RETURN"))
+	private void onRenderExperienceBarEnd(MatrixStack matrices, int x, CallbackInfo info)
+	{
+		if(FVT.OPTIONS.autoHideHotbar.getValueRaw()) {
+			matrices.pop();
 		}
 	}
 
@@ -259,15 +340,8 @@ abstract class InGameHudMixin extends DrawableHelper
 				RenderSystem.setShader(GameRenderer::getPositionTexShader);
 				RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
 
-				float scalar = FVT_getHotbarInteractionScalar();
-
-				if(scalar <= 0.0F) {
-					FVT_firstHotbarOpen = true;
-					FVT_firstHotbarOpenTimeLeft = 0L;
-				}
-
 				int scaledWidth = this.client.getWindow().getScaledWidth();
-				int scaledHeight = this.client.getWindow().getScaledHeight() + (int)(23 - (23 * scalar));
+				int scaledHeight = this.client.getWindow().getScaledHeight() + (int)(23 - (23 * FVT_getHotbarInteractionScalar()));
 				int scaledHalfWidth = scaledWidth / 2;
 
 				ItemStack itemStack = playerEntity.getOffHandStack();

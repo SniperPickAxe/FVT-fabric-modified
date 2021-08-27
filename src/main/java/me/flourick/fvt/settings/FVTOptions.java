@@ -356,7 +356,7 @@ public class FVTOptions
 			"fvt.feature.name.auto_hide_hotbar_timeout.tooltip",
 			1.0d, 5.0d, 0.2d, 1.4d, FVTDoubleOption.Mode.NORMAL
 		);
-		savedFeatures.put("creativeBreakDelay", autoHideHotbarTimeout);
+		savedFeatures.put("autoHideHotbarTimeout", autoHideHotbarTimeout);
 
 		init();
 	}

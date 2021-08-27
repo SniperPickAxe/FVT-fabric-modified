@@ -32,7 +32,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 
 /**
- * FEATURES: Prevent Tool Breaking, Freecam, Use Delay, Entity Outline, AutoReconnect, Placement Lock
+ * FEATURES: Prevent Tool Breaking, Freecam, Use Delay, Entity Outline, AutoReconnect, Placement Lock, Hotbar Autohide
  * 
  * @author Flourick
  */
@@ -111,6 +111,12 @@ abstract class MinecraftClientMixin
 		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.cancel();
 		}
+	}
+
+	@Inject(method = "handleInputEvents", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I", ordinal = 0, shift = At.Shift.BEFORE))
+	private void onHandleHotbarKeyPress(CallbackInfo info)
+	{
+		FVT.VARS.resetHotbarLastInteractionTime();
 	}
 
 	@Inject(method = "doItemUse", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;itemUseCooldown:I", ordinal = 0, shift = At.Shift.AFTER))

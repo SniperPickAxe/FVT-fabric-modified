@@ -23,7 +23,8 @@
 		"ItemStackMixin",
 		"WorldRendererMixin",
 		"LivingEntityMixin",
-		"PlayerInventoryMixin"
+		"PlayerInventoryMixin",
+		"CreativeInventoryScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

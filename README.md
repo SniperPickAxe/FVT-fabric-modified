@@ -16,7 +16,7 @@ Features that are always enabled and don't have a switch.
 
 * ### Mount Hunger
 
-    When riding a mount that has health your hunger bar will be still visible instead of the vanilla behavior which hides it completely.
+    When riding a mount that has health your hunger bar will be still visible instead of the vanilla behavior which hides it completely. Also your experience bar will remain visible unless you jump with a horse.
 
 * ### Horse Info
 
@@ -49,6 +49,10 @@ List of all toggleable features. Configuration is in in-game options menu called
 * ### HUD Info
 
     Shows your location, pitch, cardinal direction and block light while ingame.
+
+* ### Hotbar Autohide
+
+    Automatically hides your hotbar when not in use (meaning not switching items or optionally using them).
 
 * ### Disable 'W' To Sprint
 
