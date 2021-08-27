@@ -67,6 +67,9 @@
 	"fvt.feature.name.auto_hide_hotbar": "Automatické skrývání panelu nástrojů",
 	"fvt.feature.name.auto_hide_hotbar.tooltip": "Automaticky skrývá panel nástrojů, když ho zrovna nepoužíváš.",
 
+	"fvt.feature.name.auto_hide_hotbar_timeout": "Zpoždění panelu nást.",
+	"fvt.feature.name.auto_hide_hotbar_timeout.tooltip": "Jak dlouho má trvat než se panel nástrojů sám zavře (v sekundách).",
+
 	"fvt.feature.name.no_tool_breaking": "Zabránit zničení",
 	"fvt.feature.name.no_tool_breaking.tooltip": "Jakmile tvůj aktivní nástroj je dostatečně poškozen (u většiny nástrojů to jsou dvě jednotky životů), tak ti ho nedovolí dále používat. Jedná se o nástroje jako meč, krumpáč, sekera, lopata, motyka, trojzubec, luk a kuše.",
 	"fvt.feature.name.tool_breaking_override": "Vypnutí funkce 'Zabránit zničení' nástroje",
@@ -118,7 +121,7 @@
 	"fvt.feature.name.autoreconnect.tries": "Počet pokusů znovu přip.",
 	"fvt.feature.name.autoreconnect.tries.tooltip": "Kolikrát se to pokusí o znovu připojení k serveru.",
 	"fvt.feature.name.autoreconnect.timeout": "Časový limit znovu připojování",
-	"fvt.feature.name.autoreconnect.timeout.tooltip": "Jak dlouho se má čekat než se zkusíme znovu připojit.",
+	"fvt.feature.name.autoreconnect.timeout.tooltip": "Jak dlouho se má čekat než se zkusíme znovu připojit (v sekundách).",
 
 	"fvt.feature.name.autoeat": "Samojezení",
 	"fvt.feature.name.autoeat.tooltip": "Automaticky sní jídlo ve tvé vedlější ruce jakmile bude potřeba. Pozor, nebude fungovat když máš kurzor např. na truhle.",

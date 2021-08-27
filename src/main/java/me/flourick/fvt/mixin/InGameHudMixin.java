@@ -35,7 +35,7 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
 /**
- * FEATURES: Tool Breaking Warning, HUD Info, Mount Hunger, Crosshair, No Vignette, No Spyglass Overlay, Toolbar Autohide
+ * FEATURES: Tool Breaking Warning, HUD Info, Mount Hunger, Crosshair, No Vignette, No Spyglass Overlay, Hotbar Autohide
  * 
  * @author Flourick
  */
@@ -78,17 +78,35 @@ abstract class InGameHudMixin extends DrawableHelper
 	@Shadow
 	abstract PlayerEntity getCameraPlayer();
 
+	private long FVT_firstHotbarOpenTimeLeft = 0L;
+	private boolean FVT_firstHotbarOpen = true;
+
 	private float FVT_getHotbarInteractionScalar()
 	{
-		long delay = 1200L; // 1200ms max time left opened
+		long delay = MathHelper.ceil(FVT.OPTIONS.autoHideHotbarTimeout.getValueRaw() * 1000.0D); // 1000-5000 max time left opened
 		long closeDelay = 300L; // 300ms closing animation
 		long openDelay = 150L; // 150ms opening animation
 
-		long timeLeft = FVT.VARS.getHotbarLastInteractionTime() - Util.getMeasuringTimeMs() + delay;
+		if(FVT_firstHotbarOpen) {
+			FVT_firstHotbarOpen = false;
+			FVT_firstHotbarOpenTimeLeft = FVT.VARS.getHotbarLastInteractionTime();
+		}
 
-		boolean shouldOpenAnimate = timeLeft > delay - openDelay;
+		long timeLeft;
 
-		return MathHelper.clamp((shouldOpenAnimate ? delay - timeLeft : timeLeft) * (((float)delay / (float)closeDelay) / (float)delay), 0.0F, 1.0F);
+		if(FVT_firstHotbarOpenTimeLeft > 0) {
+			timeLeft = FVT_firstHotbarOpenTimeLeft - Util.getMeasuringTimeMs() + delay;
+
+			// if the open animation ended we use the current time left minus the time the opening animation takes
+			if(timeLeft < delay - openDelay) {
+				timeLeft = (FVT.VARS.getHotbarLastInteractionTime() - Util.getMeasuringTimeMs() + delay) - openDelay;
+			}
+		}
+		else {
+			timeLeft = FVT.VARS.getHotbarLastInteractionTime() - Util.getMeasuringTimeMs() + delay;
+		}
+
+		return MathHelper.clamp((timeLeft > delay - openDelay ? delay - timeLeft : timeLeft) * (((float)delay / (float)closeDelay) / (float)delay), 0.0F, 1.0F);
 	}
 
 	@Inject(method = "tick", at = @At("HEAD"))
@@ -244,7 +262,8 @@ abstract class InGameHudMixin extends DrawableHelper
 				float scalar = FVT_getHotbarInteractionScalar();
 
 				if(scalar <= 0.0F) {
-					// TODO: reset fresh open
+					FVT_firstHotbarOpen = true;
+					FVT_firstHotbarOpenTimeLeft = 0L;
 				}
 
 				int scaledWidth = this.client.getWindow().getScaledWidth();

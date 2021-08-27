@@ -71,6 +71,7 @@ public class FVTOptions
 	public final FVTBooleanOption containerButtons;
 	public final FVTBooleanOption invisibleOffhand;
 	public final FVTBooleanOption autoHideHotbar;
+	public final FVTDoubleOption  autoHideHotbarTimeout;
 
 	public FVTOptions()
 	{
@@ -349,6 +350,13 @@ public class FVTOptions
 			false
 		);
 		savedFeatures.put("autoHideHotbar", autoHideHotbar);
+
+		autoHideHotbarTimeout = new FVTDoubleOption(
+			"fvt.feature.name.auto_hide_hotbar_timeout",
+			"fvt.feature.name.auto_hide_hotbar_timeout.tooltip",
+			1.0d, 5.0d, 0.2d, 1.4d, FVTDoubleOption.Mode.NORMAL
+		);
+		savedFeatures.put("creativeBreakDelay", autoHideHotbarTimeout);
 
 		init();
 	}

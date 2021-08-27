@@ -9,7 +9,7 @@ import me.flourick.fvt.FVT;
 import net.minecraft.entity.player.PlayerInventory;
 
 /**
- * FEATURES: Toolbar Autohide
+ * FEATURES: Hotbar Autohide
  * 
  * @author Flourick
  */
