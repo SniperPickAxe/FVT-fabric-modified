@@ -81,11 +81,18 @@ abstract class InGameHudMixin extends DrawableHelper
 	private long FVT_firstHotbarOpenTimeLeft = 0L;
 	private boolean FVT_firstHotbarOpen = true;
 
+	private int FVT_getHotbarHideHeight()
+	{
+		int adjustment = FVT.OPTIONS.autoHideHotbarMode.getValueRaw() ? 70 : 23;
+
+		return (int)(adjustment - (adjustment * FVT_getHotbarInteractionScalar()));
+	}
+
 	private float FVT_getHotbarInteractionScalar()
 	{
 		long delay = MathHelper.ceil(FVT.OPTIONS.autoHideHotbarTimeout.getValueRaw() * 1000.0D); // 1000-5000 max time left opened
-		long closeDelay = 300L; // 300ms closing animation
-		long openDelay = 80L; // 80ms opening animation
+		long closeDelay = FVT.OPTIONS.autoHideHotbarMode.getValueRaw() ? 400L : 250L; // 400/250ms closing animation
+		long openDelay = FVT.OPTIONS.autoHideHotbarMode.getValueRaw() ? 160L : 80L; // 200/80ms opening animation
 
 		if(FVT_firstHotbarOpen) {
 			FVT_firstHotbarOpen = false;
@@ -176,7 +183,7 @@ abstract class InGameHudMixin extends DrawableHelper
 
 			if(autoHideHotbar) {
 				matrices.push();
-				matrices.translate(0, (int)(23 - (23 * FVT_getHotbarInteractionScalar())), this.getZOffset());
+				matrices.translate(0, FVT_getHotbarHideHeight(), this.getZOffset());
 			}
 
 			igHud.renderMountJumpBar(matrices, x);
@@ -207,7 +214,7 @@ abstract class InGameHudMixin extends DrawableHelper
 	{
 		if(FVT.OPTIONS.autoHideHotbar.getValueRaw()) {
 			matrices.push();
-			matrices.translate(0, (int)(23 - (23 * FVT_getHotbarInteractionScalar())), this.getZOffset());
+			matrices.translate(0, FVT_getHotbarHideHeight(), this.getZOffset());
 		}
 	}
 
@@ -224,7 +231,7 @@ abstract class InGameHudMixin extends DrawableHelper
 	{
 		if(FVT.OPTIONS.autoHideHotbar.getValueRaw()) {
 			matrices.push();
-			matrices.translate(0, (int)(23 - (23 * FVT_getHotbarInteractionScalar())), this.getZOffset());
+			matrices.translate(0, FVT_getHotbarHideHeight(), this.getZOffset());
 		}
 
 		PlayerEntity playerEntity = this.getCameraPlayer();
@@ -316,7 +323,7 @@ abstract class InGameHudMixin extends DrawableHelper
 	{
 		if(FVT.OPTIONS.autoHideHotbar.getValueRaw()) {
 			matrices.push();
-			matrices.translate(0, (int)(23 - (23 * FVT_getHotbarInteractionScalar())), this.getZOffset());
+			matrices.translate(0, FVT_getHotbarHideHeight(), this.getZOffset());
 		}
 	}
 
@@ -341,7 +348,7 @@ abstract class InGameHudMixin extends DrawableHelper
 				RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
 
 				int scaledWidth = this.client.getWindow().getScaledWidth();
-				int scaledHeight = this.client.getWindow().getScaledHeight() + (int)(23 - (23 * FVT_getHotbarInteractionScalar()));
+				int scaledHeight = this.client.getWindow().getScaledHeight() + FVT_getHotbarHideHeight();
 				int scaledHalfWidth = scaledWidth / 2;
 
 				ItemStack itemStack = playerEntity.getOffHandStack();

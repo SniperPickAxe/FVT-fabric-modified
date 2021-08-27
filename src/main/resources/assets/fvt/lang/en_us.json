@@ -17,7 +17,7 @@
 	"fvt.feature_category.render": "Render",
 	"fvt.feature_category.auto": "Auto",
 	"fvt.feature_category.placement": "Placement",
-	"fvt.feature_category.other": "Other",
+	"fvt.feature_category.misc": "Miscellaneous",
 	
 	"fvt.feature.default": "Default: %s",
 
@@ -69,6 +69,11 @@
 
 	"fvt.feature.name.auto_hide_hotbar_timeout": "Hotbar Timeout",
 	"fvt.feature.name.auto_hide_hotbar_timeout.tooltip": "How long it should take before the hotbar autocloses (in seconds).",
+
+	"fvt.feature.name.auto_hide_hotbar_mode": "Hotbar Mode",
+	"fvt.feature.name.auto_hide_hotbar_mode.tooltip": "States if health, armor and other indicators should hide aswell with the hotbar or just the hotbar.",
+	"fvt.feature.name.auto_hide_hotbar_mode.full": "Full",
+	"fvt.feature.name.auto_hide_hotbar_mode.partial": "Partial",
 
 	"fvt.feature.name.no_tool_breaking": "Prevent Breaking",
 	"fvt.feature.name.no_tool_breaking.tooltip": "Makes your tools stop working at certain durability (will stop at 2 durability for most tools). This includes swords, pickaxes, axes, shovels, hoes, tridents, bows and crossbows.",

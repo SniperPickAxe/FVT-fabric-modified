@@ -52,7 +52,17 @@ List of all toggleable features. Configuration is in in-game options menu called
 
 * ### Hotbar Autohide
 
-    Automatically hides your hotbar when not in use (meaning not switching items or optionally using them).
+    Automatically hides your hotbar when not in use (meaning not switching items or optionally using them). The amount of time it takes to hide is also adjustable.
+
+    Has two independent modes:
+
+    **1) Full**
+
+    The entire hotbar (including health, armor, hunger etc.) will be automatically hidden.
+
+    **2) Partial**
+
+    Only hotbar itself will be hidden.
 
 * ### Disable 'W' To Sprint
 
@@ -167,7 +177,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 <details><summary>Ingame menu with default settings. (CLICK ME)</summary>
 <p>
 
-![menu](https://user-images.githubusercontent.com/33128006/130351576-9770cddb-6dea-4b71-8ccf-a41e5736fd8a.png)
+![menu](https://user-images.githubusercontent.com/33128006/131179799-e9c0a456-55c2-4567-921f-47bac192eeab.png)
 
 </p>
 </details>

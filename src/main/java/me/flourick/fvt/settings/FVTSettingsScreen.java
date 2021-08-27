@@ -62,23 +62,23 @@ public class FVTSettingsScreen extends Screen
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.hud")); 
 		this.list.addAll(new Option[] {FVT.OPTIONS.showHUDInfo, FVT.OPTIONS.coordinatesPosition});
 		this.list.addSingleOptionEntry(FVT.OPTIONS.autoHideHotbar);
-		this.list.addAll(new Option[] {FVT.OPTIONS.autoHideHotbarTimeout});
-		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.tools"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.noToolBreaking, FVT.OPTIONS.toolWarning});
-		this.list.addAll(new Option[] {FVT.OPTIONS.toolWarningPosition, FVT.OPTIONS.toolWarningScale});
+		this.list.addAll(new Option[] {FVT.OPTIONS.autoHideHotbarTimeout, FVT.OPTIONS.autoHideHotbarMode});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.render"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.noPotionParticles, FVT.OPTIONS.noBlockBreakParticles});
 		this.list.addAll(new Option[] {FVT.OPTIONS.noNetherFog, FVT.OPTIONS.invisibleOffhand});
 		this.list.addAll(new Option[] {FVT.OPTIONS.noVignette, FVT.OPTIONS.noSpyglassOverlay});
 		this.list.addSingleOptionEntry(FVT.OPTIONS.cloudHeight);
 		this.list.addAll(new Option[] {FVT.OPTIONS.fullbright, FVT.OPTIONS.entityOutline});
+		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.tools"));
+		this.list.addAll(new Option[] {FVT.OPTIONS.noToolBreaking, FVT.OPTIONS.toolWarning});
+		this.list.addAll(new Option[] {FVT.OPTIONS.toolWarningPosition, FVT.OPTIONS.toolWarningScale});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.auto"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.autoReconnect, FVT.OPTIONS.autoReconnectMaxTries});
 		this.list.addSingleOptionEntry(FVT.OPTIONS.autoReconnectTimeout);
 		this.list.addAll(new Option[] {FVT.OPTIONS.autoEat, FVT.OPTIONS.triggerBot, FVT.OPTIONS.autoTotem, FVT.OPTIONS.refillHand});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.placement"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.randomPlacement, FVT.OPTIONS.useDelay, FVT.OPTIONS.creativeBreakDelay, FVT.OPTIONS.placementLock});
-		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.other"));
+		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.misc"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates, FVT.OPTIONS.freecam, FVT.OPTIONS.containerButtons});
 		this.addSelectableChild(this.list);
 
