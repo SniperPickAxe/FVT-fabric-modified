@@ -52,7 +52,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
 * ### Hotbar Autohide
 
-    Automatically hides your hotbar when not in use (meaning not switching items or optionally using them). The amount of time it takes to hide is also adjustable.
+    Automatically hides your hotbar when not in use (meaning not switching items or optionally using/picking/droping them). The amount of time it takes to hide is also adjustable.
 
     Has two independent modes:
 
@@ -108,10 +108,6 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Disables spyglass overlay while zooming in.
 
-* ### Invisible Offhand
-
-    Makes your offhand completely invisible but will still remain fully functional.
-
 * ### Refill Hand
 
     Once the stack in your main hand is below 50% automatically finds the same item in your inventory and restocks it.
@@ -139,6 +135,10 @@ List of all toggleable features. Configuration is in in-game options menu called
 * ### Container Buttons
 
     Chests, barrels and shulker boxes have three buttons that let you deposit all into the container, yoink all from the container or yeet it all out on the ground.
+
+* ### Invisible Offhand (keybindable)
+
+    Makes your offhand completely invisible but will still remain fully functional.
 
 * ### Random Block Placement (keybindable)
 
@@ -177,7 +177,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 <details><summary>Ingame menu with default settings. (CLICK ME)</summary>
 <p>
 
-![menu](https://user-images.githubusercontent.com/33128006/131179799-e9c0a456-55c2-4567-921f-47bac192eeab.png)
+![menu](https://user-images.githubusercontent.com/33128006/131262470-925cadf0-a89c-41e1-8d0d-fce44b37ddc2.png)
 
 </p>
 </details>

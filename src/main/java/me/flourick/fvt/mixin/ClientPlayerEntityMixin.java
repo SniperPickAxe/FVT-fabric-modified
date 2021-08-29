@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import me.flourick.fvt.FVT;
 
 /**
- * FEATURES: AutoReconnect, Chat Death Coordinates, Disable 'W' To Sprint, Freecam
+ * FEATURES: AutoReconnect, Chat Death Coordinates, Disable 'W' To Sprint, Freecam, Hotbar Autohide
  * 
  * @author Flourick
  */
@@ -58,6 +58,14 @@ abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 				new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.name.send_death_coordinates.message", BigDecimal.valueOf(FVT.VARS.getLastDeathX()).setScale(2, BigDecimal.ROUND_DOWN).doubleValue(), BigDecimal.valueOf(FVT.VARS.getLastDeathZ()).setScale(2, BigDecimal.ROUND_DOWN).doubleValue(), BigDecimal.valueOf(FVT.VARS.getLastDeathY()).setScale(2, BigDecimal.ROUND_DOWN).doubleValue(), FVT.VARS.getLastDeathWorld())), 
 				UUID.fromString("00000000-0000-0000-0000-000000000000")
 			);
+		}
+	}
+
+	@Inject(method = "dropSelectedItem", at = @At("HEAD"))
+	private void onDropSelectedItem(CallbackInfoReturnable<Boolean> info)
+	{
+		if(FVT.OPTIONS.autoHideHotbarItem.getValueRaw()) {
+			FVT.VARS.resetHotbarLastInteractionTime();
 		}
 	}
 

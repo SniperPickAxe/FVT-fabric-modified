@@ -13,6 +13,7 @@
 
 	"fvt.feature_category.crosshair": "Crosshair",
 	"fvt.feature_category.hud": "HUD",
+	"fvt.feature_category.hotbar": "Hotbar",
 	"fvt.feature_category.tools": "Tools",
 	"fvt.feature_category.render": "Render",
 	"fvt.feature_category.auto": "Auto",
@@ -54,20 +55,26 @@
 	"fvt.feature.name.send_death_coordinates.message": "You died at X: %d Z: %d Y: %d in %s!",
 	"fvt.feature.name.send_death_coordinates.tooltip": "Sends your last death coordinates in chat after you respawn (only visible to you).",
 
+	"fvt.feature.name.show_info": "HUD Info",
+	"fvt.feature.name.show_info.visible": "Visible",
+	"fvt.feature.name.show_info.hidden": "Hidden",
+	"fvt.feature.name.show_info.tooltip": "Shows your location, pitch, cardinal direction and block light while ingame. Sort of like a mini F3 screen.",
+
 	"fvt.feature.name.hud_coordinates": "Coords Position",
 	"fvt.feature.name.hud_coordinates.vertical": "Vertical",
 	"fvt.feature.name.hud_coordinates.horizontal": "Horizontal",
 	"fvt.feature.name.hud_coordinates.tooltip": "Defines coordinates stacking, either on one line or each coordinate on it's own line.",
 
-	"fvt.feature.name.show_hud_info": "HUD Info",
-	"fvt.feature.name.show_hud_info.visible": "Visible",
-	"fvt.feature.name.show_hud_info.hidden": "Hidden",
-	"fvt.feature.name.show_hud_info.tooltip": "Shows your location, pitch, cardinal direction and block light while ingame. Sort of like a mini F3 screen.",
-
-	"fvt.feature.name.auto_hide_hotbar": "Hotbar Autohide",
+	"fvt.feature.name.auto_hide_hotbar": "Autohide",
 	"fvt.feature.name.auto_hide_hotbar.tooltip": "Automatically hides hotbar when not in use.",
 
-	"fvt.feature.name.auto_hide_hotbar_timeout": "Hotbar Timeout",
+	"fvt.feature.name.auto_hide_hotbar_use": "Popup Use Events",
+	"fvt.feature.name.auto_hide_hotbar_use.tooltip": "If hotbar should also popup on items being used.",
+
+	"fvt.feature.name.auto_hide_hotbar_item": "Popup Item Events",
+	"fvt.feature.name.auto_hide_hotbar_item.tooltip": "If hotbar should also popup on items being picked/dropped.",
+
+	"fvt.feature.name.auto_hide_hotbar_timeout": "Autohide Timeout",
 	"fvt.feature.name.auto_hide_hotbar_timeout.tooltip": "How long it should take before the hotbar autocloses (in seconds).",
 
 	"fvt.feature.name.auto_hide_hotbar_mode": "Hotbar Mode",

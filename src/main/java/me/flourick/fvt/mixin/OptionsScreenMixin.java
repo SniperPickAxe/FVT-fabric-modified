@@ -43,7 +43,7 @@ abstract class OptionsScreenMixin extends Screen
 				return;
 
 			case "3": // OUTSIDE
-				x = this.width / 2 + 160;
+				x = this.width / 2 + 165;
 				y = this.height / 6 + 24 - 6;
 				l = 40;
 				break;

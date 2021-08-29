@@ -43,7 +43,7 @@ public class FVTOptions
 	public final FVTBooleanOption disableWToSprint;
 	public final FVTBooleanOption sendDeathCoordinates;
 	public final FVTBooleanOption coordinatesPosition;
-	public final FVTBooleanOption showHUDInfo;
+	public final FVTBooleanOption showInfo;
 	public final FVTBooleanOption noToolBreaking;
 	public final FVTBooleanOption toolWarning;
 	public final FVTDoubleOption  toolWarningScale;
@@ -73,6 +73,8 @@ public class FVTOptions
 	public final FVTBooleanOption autoHideHotbar;
 	public final FVTBooleanOption autoHideHotbarMode;
 	public final FVTDoubleOption  autoHideHotbarTimeout;
+	public final FVTBooleanOption autoHideHotbarUse;
+	public final FVTBooleanOption autoHideHotbarItem;
 
 	public FVTOptions()
 	{
@@ -152,14 +154,14 @@ public class FVTOptions
 		);
 		savedFeatures.put("coordinatesPosition", coordinatesPosition);
 
-		showHUDInfo = new FVTBooleanOption(
-			"fvt.feature.name.show_hud_info",
-			"fvt.feature.name.show_hud_info.tooltip",
+		showInfo = new FVTBooleanOption(
+			"fvt.feature.name.show_info",
+			"fvt.feature.name.show_info.tooltip",
 			true,
-			new TranslatableText("fvt.feature.name.show_hud_info.visible"),
-			new TranslatableText("fvt.feature.name.show_hud_info.hidden")
+			new TranslatableText("fvt.feature.name.show_info.visible"),
+			new TranslatableText("fvt.feature.name.show_info.hidden")
 		);
-		savedFeatures.put("showHUDInfo", showHUDInfo);
+		savedFeatures.put("showHUDInfo", showInfo);
 
 		noToolBreaking = new FVTBooleanOption(
 			"fvt.feature.name.no_tool_breaking",
@@ -364,9 +366,23 @@ public class FVTOptions
 		autoHideHotbarTimeout = new FVTDoubleOption(
 			"fvt.feature.name.auto_hide_hotbar_timeout",
 			"fvt.feature.name.auto_hide_hotbar_timeout.tooltip",
-			1.0d, 5.0d, 0.2d, 1.6d, FVTDoubleOption.Mode.NORMAL
+			1.0d, 10.0d, 0.2d, 1.6d, FVTDoubleOption.Mode.NORMAL
 		);
 		savedFeatures.put("autoHideHotbarTimeout", autoHideHotbarTimeout);
+
+		autoHideHotbarUse = new FVTBooleanOption(
+			"fvt.feature.name.auto_hide_hotbar_use",
+			"fvt.feature.name.auto_hide_hotbar_use.tooltip",
+			false
+		);
+		savedFeatures.put("autoHideHotbarUse", autoHideHotbarUse);
+
+		autoHideHotbarItem = new FVTBooleanOption(
+			"fvt.feature.name.auto_hide_hotbar_item",
+			"fvt.feature.name.auto_hide_hotbar_item.tooltip",
+			false
+		);
+		savedFeatures.put("autoHideHotbarItem", autoHideHotbarItem);
 
 		init();
 	}

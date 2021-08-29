@@ -17,7 +17,7 @@ import net.minecraft.entity.player.PlayerInventory;
 abstract class PlayerInventoryMixin
 {
 	@Inject(method = "scrollInHotbar", at = @At("HEAD"))
-	private void onScrollInHotbar(double scrollAmount, CallbackInfo info)
+	private void onScrollInHotbar(CallbackInfo info)
 	{
 		FVT.VARS.resetHotbarLastInteractionTime();
 	}

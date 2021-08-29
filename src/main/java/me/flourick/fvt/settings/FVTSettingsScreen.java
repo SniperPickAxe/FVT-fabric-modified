@@ -60,9 +60,11 @@ public class FVTSettingsScreen extends Screen
 		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairGreenComponent);
 		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairBlueComponent);
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.hud")); 
-		this.list.addAll(new Option[] {FVT.OPTIONS.showHUDInfo, FVT.OPTIONS.coordinatesPosition});
+		this.list.addAll(new Option[] {FVT.OPTIONS.showInfo, FVT.OPTIONS.coordinatesPosition});
+		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.hotbar")); 
 		this.list.addSingleOptionEntry(FVT.OPTIONS.autoHideHotbar);
 		this.list.addAll(new Option[] {FVT.OPTIONS.autoHideHotbarTimeout, FVT.OPTIONS.autoHideHotbarMode});
+		this.list.addAll(new Option[] {FVT.OPTIONS.autoHideHotbarUse, FVT.OPTIONS.autoHideHotbarItem});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.render"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.noPotionParticles, FVT.OPTIONS.noBlockBreakParticles});
 		this.list.addAll(new Option[] {FVT.OPTIONS.noNetherFog, FVT.OPTIONS.invisibleOffhand});
@@ -75,11 +77,14 @@ public class FVTSettingsScreen extends Screen
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.auto"));
 		this.list.addAll(new Option[] {FVT.OPTIONS.autoReconnect, FVT.OPTIONS.autoReconnectMaxTries});
 		this.list.addSingleOptionEntry(FVT.OPTIONS.autoReconnectTimeout);
-		this.list.addAll(new Option[] {FVT.OPTIONS.autoEat, FVT.OPTIONS.triggerBot, FVT.OPTIONS.autoTotem, FVT.OPTIONS.refillHand});
+		this.list.addAll(new Option[] {FVT.OPTIONS.autoEat, FVT.OPTIONS.triggerBot});
+		this.list.addAll(new Option[] {FVT.OPTIONS.autoTotem, FVT.OPTIONS.refillHand});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.placement"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.randomPlacement, FVT.OPTIONS.useDelay, FVT.OPTIONS.creativeBreakDelay, FVT.OPTIONS.placementLock});
+		this.list.addAll(new Option[] {FVT.OPTIONS.randomPlacement, FVT.OPTIONS.useDelay});
+		this.list.addAll(new Option[] {FVT.OPTIONS.creativeBreakDelay, FVT.OPTIONS.placementLock});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.misc"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates, FVT.OPTIONS.freecam, FVT.OPTIONS.containerButtons});
+		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates});
+		this.list.addAll(new Option[] {FVT.OPTIONS.freecam, FVT.OPTIONS.containerButtons});
 		this.addSelectableChild(this.list);
 
 		// DEFAULTS button at the top left corner

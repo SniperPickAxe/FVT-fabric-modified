@@ -133,20 +133,22 @@ abstract class InGameHudMixin extends DrawableHelper
 	private void onRender(MatrixStack matrixStack, float f, CallbackInfo info)
 	{
 		// renders on screen text only if not in debug or hud is hidden or if options don't say so
-		if(this.client.options.debugEnabled || this.client.options.hudHidden || !FVT.OPTIONS.showHUDInfo.getValueRaw()) {
+		if(this.client.options.debugEnabled || this.client.options.hudHidden) {
 			return;
 		}
 
-		// HUD info moves to the top if chat is open
-		if(FVT.MC.currentScreen instanceof ChatScreen) {
-			OnScreenText.drawCoordinatesTextUpper(matrixStack);
-			OnScreenText.drawLightLevelTextUpper(matrixStack);
-			OnScreenText.drawPFTextUpper(matrixStack);
-		}
-		else {
-			OnScreenText.drawCoordinatesTextLower(matrixStack);
-			OnScreenText.drawLightLevelTextLower(matrixStack);
-			OnScreenText.drawPFTextLower(matrixStack);
+		if(FVT.OPTIONS.showInfo.getValueRaw()) {
+			// HUD info moves to the top if chat is open
+			if(FVT.MC.currentScreen instanceof ChatScreen) {
+				OnScreenText.drawCoordinatesTextUpper(matrixStack);
+				OnScreenText.drawLightLevelTextUpper(matrixStack);
+				OnScreenText.drawPFTextUpper(matrixStack);
+			}
+			else {
+				OnScreenText.drawCoordinatesTextLower(matrixStack);
+				OnScreenText.drawLightLevelTextLower(matrixStack);
+				OnScreenText.drawPFTextLower(matrixStack);
+			}
 		}
 
 		if(FVT.VARS.getToolWarningTextTicksLeft() > 0) {

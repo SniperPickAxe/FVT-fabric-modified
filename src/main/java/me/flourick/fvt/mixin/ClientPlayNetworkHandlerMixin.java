@@ -3,9 +3,12 @@ package me.flourick.fvt.mixin;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.s2c.play.DeathMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
+import net.minecraft.network.packet.s2c.play.ItemPickupAnimationS2CPacket;
 import net.minecraft.screen.slot.SlotActionType;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -14,11 +17,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import me.flourick.fvt.FVT;
 
 /**
- * FEATURES: Chat Death Coordinates, AutoTotem
+ * FEATURES: Chat Death Coordinates, AutoTotem, Hotbar Autohide
  * 
  * @author Flourick
  */
@@ -33,6 +37,14 @@ abstract class ClientPlayNetworkHandlerMixin
 		if(entity == FVT.MC.player) {
 			FVT.VARS.setLastDeathCoordinates(FVT.MC.player.getX(), FVT.MC.player.getY(), FVT.MC.player.getZ(), WordUtils.capitalize(FVT.MC.player.clientWorld.getRegistryKey().getValue().toString().split(":")[1].replace('_', ' ')));
 			FVT.VARS.isAfterDeath = true;
+		}
+	}
+
+	@Inject(method = "onItemPickupAnimation", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/ItemEntity;getStack()Lnet/minecraft/item/ItemStack;"), locals = LocalCapture.CAPTURE_FAILHARD)
+	private void onOnItemPickupAnimation(ItemPickupAnimationS2CPacket packet, CallbackInfo info, Entity entity, LivingEntity livingEntity, ItemEntity itemEntity)
+	{
+		if(FVT.OPTIONS.autoHideHotbarItem.getValueRaw() && livingEntity == FVT.MC.player) {
+			FVT.VARS.resetHotbarLastInteractionTime();
 		}
 	}
 

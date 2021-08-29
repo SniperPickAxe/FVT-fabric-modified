@@ -108,9 +108,19 @@ abstract class MinecraftClientMixin
 			}
 		}
 
+		if(FVT.OPTIONS.autoHideHotbarUse.getValueRaw()) {
+			FVT.VARS.resetHotbarLastInteractionTime();
+		}
+
 		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.cancel();
 		}
+	}
+
+	@Inject(method = "doItemPick", at = @At("HEAD"))
+	private void onDoItemPick(CallbackInfo info)
+	{
+		FVT.VARS.resetHotbarLastInteractionTime();
 	}
 
 	@Inject(method = "handleInputEvents", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I", ordinal = 0, shift = At.Shift.BEFORE))
@@ -229,6 +239,10 @@ abstract class MinecraftClientMixin
 					}
 				}
 			}
+		}
+
+		if(FVT.OPTIONS.autoHideHotbarUse.getValueRaw()) {
+			FVT.VARS.resetHotbarLastInteractionTime();
 		}
 
 		if(FVT.OPTIONS.freecam.getValueRaw()) {
