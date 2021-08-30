@@ -2,7 +2,7 @@
 
 Various tweaks fabric mod, compatible with Sodium/Canvas.
 
-Translations are handled on [Crowdin](https://crwd.in/flours-various-tweaks). If you wish to translate the mod and your language is not listed there, start a thread in Discussions.
+Translations are handled on [Crowdin](https://crowdin.com/project/flours-various-tweaks). If you wish to translate the mod and your language is not listed there, start a thread in Discussions.
 
 ## Installation
 
