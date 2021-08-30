@@ -1,4 +1,4 @@
-# FVT (Flour's Various Tweaks)
+# Flour's Various Tweaks (FVT)
 
 Various tweaks fabric mod, compatible with Sodium/Canvas.
 
