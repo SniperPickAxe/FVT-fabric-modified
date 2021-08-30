@@ -2,6 +2,8 @@
 
 Various tweaks fabric mod, compatible with Sodium/Canvas.
 
+Translations are handled on [Crowdin](https://crwd.in/flours-various-tweaks). If you wish to translate the mod and your language is not listed there, start a thread in Discussions.
+
 ## Installation
 
 1. Download fabric loader from [here](https://fabricmc.net/use/) (**REQUIRES** Fabric-API! Get it [here](https://www.curseforge.com/minecraft/mc-mods/fabric-api/files))
