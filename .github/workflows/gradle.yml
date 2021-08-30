@@ -1,5 +1,9 @@
 name: build
-on: [pull_request, push]
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
 
 jobs:
   build:
