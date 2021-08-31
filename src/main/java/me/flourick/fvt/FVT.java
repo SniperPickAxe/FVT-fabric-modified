@@ -6,6 +6,7 @@ import org.lwjgl.glfw.GLFW;
 
 import me.flourick.fvt.settings.FVTOptions;
 import me.flourick.fvt.settings.FVTSettingsScreen;
+import me.flourick.fvt.utils.CrowdinTranslations;
 import me.flourick.fvt.utils.FVTVars;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -49,6 +50,9 @@ public class FVT implements ClientModInitializer
 		INSTANCE = this;
 		MC = MinecraftClient.getInstance();
 		OPTIONS = new FVTOptions();
+
+		// downloads all available translations from Crowdin and loads them
+		CrowdinTranslations.download();
 
 		registerKeys();
 		registerCallbacks();

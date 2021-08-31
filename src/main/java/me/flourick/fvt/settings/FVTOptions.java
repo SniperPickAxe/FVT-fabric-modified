@@ -3,6 +3,7 @@ package me.flourick.fvt.settings;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -13,8 +14,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import com.google.common.io.Files;
 
 import org.apache.logging.log4j.LogManager;
 
@@ -78,7 +77,7 @@ public class FVTOptions
 
 	public FVTOptions()
 	{
-		this.optionsFile = new File(FVT.MC.runDirectory, "config/fvt.properties");
+		this.optionsFile = new File(FVT.MC.runDirectory, "config/fvt/fvt.properties");
 		this.savedFeatures = new HashMap<String, FVTOption<?>>();
 
 		// FEATURES CREATION
@@ -247,7 +246,7 @@ public class FVTOptions
 			"fvt.feature.name.no_vignette.tooltip",
 			false
 		);
-		savedFeatures.put("noHUDVignette", noVignette);
+		savedFeatures.put("noVignette", noVignette);
 
 		noSpyglassOverlay = new FVTBooleanOption(
 			"fvt.feature.name.no_spyglass_overlay",
@@ -390,6 +389,7 @@ public class FVTOptions
 	private void init()
 	{
 		if(!optionsFile.exists()) {
+			optionsFile.getParentFile().mkdirs();
 			write();
 		}
 		else {
@@ -424,7 +424,7 @@ public class FVTOptions
 
 	private void read()
 	{
-		try(BufferedReader bufferedReader = Files.newReader(optionsFile, StandardCharsets.UTF_8)) {
+		try(BufferedReader bufferedReader = new BufferedReader(new FileReader(optionsFile, StandardCharsets.UTF_8))) {
 			bufferedReader.lines().forEach((line) -> {
 				if(line.startsWith("#")) {
 					// skips comments
