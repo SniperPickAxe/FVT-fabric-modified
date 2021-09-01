@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -25,16 +28,15 @@ public class CrowdinTranslations
 {
 	public static void download()
 	{
-		new Runner().start();
+		new CrowdinRunner().start();
 	}
 
-	// it usually doesn't take long but just in case the download hangs we run it in a separate thread
-	private static class Runner extends Thread
+	private static class CrowdinRunner extends Thread
 	{
 		private final Map<String, String> langs;
 		private final Path translationsDir = Paths.get(FVT.MC.runDirectory.getAbsolutePath(), "config", "fvt", "translations");
 
-		Runner()
+		CrowdinRunner()
 		{
 			// all 119 beautiful languages, custom languages are commented for now
 			langs = new HashMap<>(){{
@@ -174,7 +176,17 @@ public class CrowdinTranslations
 				}
 			}
 			else {
-				// TODO: let's check if we should even download new translations or not, how? no fokin idea
+				// a bit simple but works
+				try {
+					Instant lastDownload = Files.readAttributes(translationsDir, BasicFileAttributes.class).lastModifiedTime().toInstant().plus(24, ChronoUnit.HOURS);
+					
+					if(lastDownload.isAfter(Instant.now())) {
+						download = false;
+					}
+				}
+				catch (IOException e) {
+					// nada, let download be true since we have no idea when was the last download
+				}
 			}
 
 			if(download) {
