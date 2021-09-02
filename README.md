@@ -2,7 +2,7 @@
 
 Various tweaks fabric mod, compatible with Sodium/Canvas.
 
-Translations are handled on [Crowdin](https://crowdin.com/project/flours-various-tweaks). If you wish to translate the mod and your language is not listed there, start a thread in Discussions.
+Translations are handled on [Crowdin](https://crowdin.com/project/flours-various-tweaks). If you wish to translate the mod and your language is not listed there, start a thread in [Discussions](https://github.com/Flourick/FVT-fabric/discussions) or message me on Crowdin.
 
 ## Installation
 
@@ -186,4 +186,4 @@ List of all toggleable features. Configuration is in in-game options menu called
 
 ----
 
-If you have any issues/bug report you can post in Issues for everything else use Discussions.
+If you have any issues/bug report you can post in [Issues](https://github.com/Flourick/FVT-fabric/issues) for everything else use [Discussions](https://github.com/Flourick/FVT-fabric/discussions).
