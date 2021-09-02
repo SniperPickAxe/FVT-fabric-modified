@@ -24,7 +24,8 @@
 		"WorldRendererMixin",
 		"LivingEntityMixin",
 		"PlayerInventoryMixin",
-		"CreativeInventoryScreenMixin"
+		"CreativeInventoryScreenMixin",
+		"ReloadableResourceManagerImplMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -20,7 +20,7 @@ import org.apache.logging.log4j.LogManager;
 import me.flourick.fvt.FVT;
 
 /**
- * Downloads this mods translations from Crowdin and loads them on startup.
+ * Downloads this mods translations from Crowdin.
  * 
  * @author Flourick
  */
@@ -34,7 +34,7 @@ public class CrowdinTranslations
 	private static class CrowdinRunner extends Thread
 	{
 		private final Map<String, String> langs;
-		private final Path translationsDir = Paths.get(FVT.MC.runDirectory.getAbsolutePath(), "config", "fvt", "translations");
+		private final Path translationsDir = Paths.get(FVT.MC.runDirectory.getAbsolutePath(), "config", "fvt", "translations", "assets", "fvt", "lang");
 
 		CrowdinRunner()
 		{
@@ -176,7 +176,7 @@ public class CrowdinTranslations
 				}
 			}
 			else {
-				// a bit simple but works
+				// a bit simple but works, skips downloading if the directory was last changed in less than 24 hours
 				try {
 					Instant lastDownload = Files.readAttributes(translationsDir, BasicFileAttributes.class).lastModifiedTime().toInstant().plus(24, ChronoUnit.HOURS);
 					
@@ -209,8 +209,6 @@ public class CrowdinTranslations
 					LogManager.getLogger().error("[FVT] Cannot download translations:", e.toString());
 				}
 			}
-
-			// TODO: load translation jsons in, how? no fokin idea
 		}
 	}
 }
