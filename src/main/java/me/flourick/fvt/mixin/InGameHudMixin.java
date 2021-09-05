@@ -64,9 +64,6 @@ abstract class InGameHudMixin extends DrawableHelper
 	abstract void renderVignetteOverlay(Entity entity);
 
 	@Shadow
-	abstract  void renderSpyglassOverlay(float scale);
-
-	@Shadow
 	abstract int getHeartCount(LivingEntity entity);
 
 	@Shadow
@@ -129,6 +126,14 @@ abstract class InGameHudMixin extends DrawableHelper
 		FVT.VARS.tickToolWarningTicks();
 	}
 
+	@Inject(method = "renderSpyglassOverlay", at = @At("HEAD"), cancellable = true)
+	private void onRenderSpyglassOverlay(CallbackInfo info)
+	{
+		if(FVT.OPTIONS.noSpyglassOverlay.getValueRaw()) {
+			info.cancel();
+		}
+	}
+
 	@Inject(method = "render", at = @At("HEAD"))
 	private void onRender(MatrixStack matrixStack, float f, CallbackInfo info)
 	{
@@ -165,14 +170,6 @@ abstract class InGameHudMixin extends DrawableHelper
 	{
 		if(!FVT.OPTIONS.noVignette.getValueRaw()) {
 			this.renderVignetteOverlay(entity);
-		}
-	}
-
-	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderSpyglassOverlay(F)V", ordinal = 0))
-	private void hijackRenderSpyglassOverlay(InGameHud igHud, float scale)
-	{
-		if(!FVT.OPTIONS.noSpyglassOverlay.getValueRaw()) {
-			this.renderSpyglassOverlay(scale);
 		}
 	}
 
