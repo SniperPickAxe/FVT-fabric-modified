@@ -51,7 +51,7 @@ public class FVT implements ClientModInitializer
 		MC = MinecraftClient.getInstance();
 		OPTIONS = new FVTOptions();
 
-		// downloads all available translations from Crowdin and loads them
+		// downloads all available translations from Crowdin
 		CrowdinTranslations.download();
 
 		registerKeys();
