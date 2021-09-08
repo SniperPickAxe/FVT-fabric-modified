@@ -22,6 +22,7 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.MessageType;
 import net.minecraft.text.TranslatableText;
@@ -266,7 +267,7 @@ public class FVT implements ClientModInitializer
 					if(((EntityHitResult)FVT.MC.crosshairTarget).getEntity() instanceof LivingEntity) {
 						LivingEntity livingEntity = (LivingEntity)((EntityHitResult)FVT.MC.crosshairTarget).getEntity();
 
-						if(livingEntity.isAttackable() && (livingEntity.hurtTime == 0 || livingEntity instanceof WitherEntity) && livingEntity.isAlive()) {
+						if(livingEntity.isAttackable() && (livingEntity.hurtTime == 0 || livingEntity instanceof WitherEntity) && livingEntity.isAlive() && !(livingEntity instanceof PlayerEntity)) {
 							FVT.MC.interactionManager.attackEntity(FVT.MC.player, livingEntity);
 							FVT.MC.player.swingHand(Hand.MAIN_HAND);
 						}

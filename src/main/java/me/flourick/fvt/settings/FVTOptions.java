@@ -34,11 +34,12 @@ public class FVTOptions
 	// all the FEATURES
 	public final FVTCyclingOption buttonPosition;
 	public final FVTBooleanOption featureToggleMessages;
-	public final FVTBooleanOption crosshairStaticColor;
-	public final FVTDoubleOption  crosshairRedComponent;
-	public final FVTDoubleOption  crosshairGreenComponent;
-	public final FVTDoubleOption  crosshairBlueComponent;
 	public final FVTDoubleOption  crosshairScale;
+	public final FVTBooleanOption crosshairStaticColor;
+	public final FVTDoubleOption  crosshairStaticColorRed;
+	public final FVTDoubleOption  crosshairStaticColorGreen;
+	public final FVTDoubleOption  crosshairStaticColorBlue;
+	public final FVTDoubleOption  crosshairStaticColorAlpha;
 	public final FVTBooleanOption disableWToSprint;
 	public final FVTBooleanOption sendDeathCoordinates;
 	public final FVTBooleanOption coordinatesPosition;
@@ -95,6 +96,13 @@ public class FVTOptions
 		);
 		savedFeatures.put("featureToggleMessages", featureToggleMessages);
 
+		crosshairScale = new FVTDoubleOption(
+			"fvt.feature.name.crosshair_scale",
+			"fvt.feature.name.crosshair_scale.tooltip",
+			0.0d, 5.0d, 0.01d, 1.0d, FVTDoubleOption.Mode.PERCENT
+		);
+		savedFeatures.put("crosshairScale", crosshairScale);
+
 		crosshairStaticColor = new FVTBooleanOption(
 			"fvt.feature.name.crosshair_static_color",
 			"fvt.feature.name.crosshair_static_color.tooltip",
@@ -102,33 +110,33 @@ public class FVTOptions
 		);
 		savedFeatures.put("crosshairStaticColor", crosshairStaticColor);
 
-		crosshairRedComponent = new FVTDoubleOption(
-			"fvt.feature.name.crosshair_static_color.red_component",
-			"fvt.feature.name.crosshair_static_color.red_component.tooltip",
+		crosshairStaticColorRed = new FVTDoubleOption(
+			"fvt.feature.name.crosshair_static_color.red",
+			"fvt.feature.name.crosshair_static_color.red.tooltip",
 			0.0d, 255.0d, 1.0d, 255.0d, FVTDoubleOption.Mode.WHOLE
 		);
-		savedFeatures.put("crosshairRedComponent", crosshairRedComponent);
+		savedFeatures.put("crosshairStaticColorRed", crosshairStaticColorRed);
 
-		crosshairGreenComponent = new FVTDoubleOption(
-			"fvt.feature.name.crosshair_static_color.green_component",
-			"fvt.feature.name.crosshair_static_color.green_component.tooltip",
+		crosshairStaticColorGreen = new FVTDoubleOption(
+			"fvt.feature.name.crosshair_static_color.green",
+			"fvt.feature.name.crosshair_static_color.green.tooltip",
 			0.0d, 255.0d, 1.0d, 255.0d, FVTDoubleOption.Mode.WHOLE
 		);
-		savedFeatures.put("crosshairGreenComponent", crosshairGreenComponent);
+		savedFeatures.put("crosshairStaticColorGreen", crosshairStaticColorGreen);
 
-		crosshairBlueComponent = new FVTDoubleOption(
-			"fvt.feature.name.crosshair_static_color.blue_component",
-			"fvt.feature.name.crosshair_static_color.blue_component.tooltip",
+		crosshairStaticColorBlue = new FVTDoubleOption(
+			"fvt.feature.name.crosshair_static_color.blue",
+			"fvt.feature.name.crosshair_static_color.blue.tooltip",
 			0.0d, 255.0d, 1.0d, 255.0d, FVTDoubleOption.Mode.WHOLE
 		);
-		savedFeatures.put("crosshairBlueComponent", crosshairBlueComponent);
+		savedFeatures.put("crosshairStaticColorBlue", crosshairStaticColorBlue);
 
-		crosshairScale = new FVTDoubleOption(
-			"fvt.feature.name.crosshair_scale",
-			"fvt.feature.name.crosshair_scale.tooltip",
-			0.0d, 3.0d, 0.01d, 1.0d, FVTDoubleOption.Mode.PERCENT
+		crosshairStaticColorAlpha = new FVTDoubleOption(
+			"fvt.feature.name.crosshair_static_color.alpha",
+			"fvt.feature.name.crosshair_static_color.alpha.tooltip",
+			0.0d, 255.0d, 1.0d, 255.0d, FVTDoubleOption.Mode.WHOLE
 		);
-		savedFeatures.put("crosshairScale", crosshairScale);
+		savedFeatures.put("crosshairStaticColorAlpha", crosshairStaticColorAlpha);
 
 		disableWToSprint = new FVTBooleanOption(
 			"fvt.feature.name.disable_w_to_sprint",

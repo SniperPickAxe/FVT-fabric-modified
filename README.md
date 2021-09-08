@@ -164,7 +164,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
 * ### Trigger AutoAttack (keybindable)
 
-    Automatically attacks entities if you place your crosshair over them and in reach. Primarily meant for AFK farms.
+    Automatically attacks living beings (not players) if you place your crosshair over them and in reach. Primarily meant for AFK farms.
 
 ## Preview (v1.7.1)
 

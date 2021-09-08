@@ -5,7 +5,6 @@ import java.util.Random;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import org.lwjgl.opengl.GL14;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -428,19 +427,16 @@ abstract class InGameHudMixin extends DrawableHelper
 		matrixStack.push();
 		matrixStack.translate((float)(scaledWidth / 2), (float)(scaledHeight / 2), (float)this.getZOffset());
 
-		RenderSystem.enableBlend();
 		if(FVT.OPTIONS.crosshairStaticColor.getValueRaw()) {
-			// no idea, but it got removed in 1.17 so
-			GL14.glBlendColor(FVT.OPTIONS.crosshairRedComponent.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairGreenComponent.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairBlueComponent.getValueRawNormalized().floatValue(), 1.0f);
-			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.CONSTANT_COLOR, GlStateManager.DstFactor.ZERO, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
+			RenderSystem.setShaderColor(FVT.OPTIONS.crosshairStaticColorRed.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairStaticColorGreen.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairStaticColorBlue.getValueRawNormalized().floatValue(), FVT.OPTIONS.crosshairStaticColorAlpha.getValueRawNormalized().floatValue());
+			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		}
 		else {
 			RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.ONE_MINUS_DST_COLOR, GlStateManager.DstFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		}
-		
+	
 		matrixStack.scale(FVT.OPTIONS.crosshairScale.getValueRaw().floatValue(), FVT.OPTIONS.crosshairScale.getValueRaw().floatValue(), 1.0f);
 		this.drawTexture(matrixStack, -15/2, -15/2, 0, 0, 15, 15);
-		RenderSystem.disableBlend();
 		matrixStack.pop();
 	}
 }

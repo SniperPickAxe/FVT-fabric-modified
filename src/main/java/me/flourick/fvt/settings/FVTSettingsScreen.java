@@ -14,7 +14,6 @@ import me.flourick.fvt.utils.Color;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
-import net.minecraft.client.gui.widget.ButtonListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.option.Option;
@@ -33,10 +32,15 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Matrix4f;
 
+/**
+ * This mods settings screen.
+ * 
+ * @author Flourick
+ */
 public class FVTSettingsScreen extends Screen
 {
 	private final Screen parent;
-	private ButtonListWidget list;
+	private FVTButtonListWidget list;
 
 	private boolean tooltipsActive = false;
 
@@ -52,39 +56,38 @@ public class FVTSettingsScreen extends Screen
 
 	protected void init()
 	{
-		this.list = new ButtonListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
-		this.list.addAll(new Option[] {FVT.OPTIONS.buttonPosition, FVT.OPTIONS.featureToggleMessages});
+		this.list = new FVTButtonListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
+		this.list.addDualOptionEntry(FVT.OPTIONS.buttonPosition, FVT.OPTIONS.featureToggleMessages);
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.crosshair"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.crosshairStaticColor, FVT.OPTIONS.crosshairScale});
-		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairRedComponent);
-		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairGreenComponent);
-		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairBlueComponent);
+		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairScale);
+		this.list.addSingleOptionEntry(FVT.OPTIONS.crosshairStaticColor);
+		this.list.addEntry(new Option[] {FVT.OPTIONS.crosshairStaticColorRed, FVT.OPTIONS.crosshairStaticColorGreen, FVT.OPTIONS.crosshairStaticColorBlue, FVT.OPTIONS.crosshairStaticColorAlpha});
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.hud")); 
-		this.list.addAll(new Option[] {FVT.OPTIONS.showInfo, FVT.OPTIONS.coordinatesPosition});
+		this.list.addDualOptionEntry(FVT.OPTIONS.showInfo, FVT.OPTIONS.coordinatesPosition);
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.hotbar")); 
 		this.list.addSingleOptionEntry(FVT.OPTIONS.autoHideHotbar);
-		this.list.addAll(new Option[] {FVT.OPTIONS.autoHideHotbarTimeout, FVT.OPTIONS.autoHideHotbarMode});
-		this.list.addAll(new Option[] {FVT.OPTIONS.autoHideHotbarUse, FVT.OPTIONS.autoHideHotbarItem});
+		this.list.addDualOptionEntry(FVT.OPTIONS.autoHideHotbarTimeout, FVT.OPTIONS.autoHideHotbarMode);
+		this.list.addDualOptionEntry(FVT.OPTIONS.autoHideHotbarUse, FVT.OPTIONS.autoHideHotbarItem);
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.render"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.noPotionParticles, FVT.OPTIONS.noBlockBreakParticles});
-		this.list.addAll(new Option[] {FVT.OPTIONS.noNetherFog, FVT.OPTIONS.invisibleOffhand});
-		this.list.addAll(new Option[] {FVT.OPTIONS.noVignette, FVT.OPTIONS.noSpyglassOverlay});
+		this.list.addDualOptionEntry(FVT.OPTIONS.noPotionParticles, FVT.OPTIONS.noBlockBreakParticles);
+		this.list.addDualOptionEntry(FVT.OPTIONS.noNetherFog, FVT.OPTIONS.invisibleOffhand);
+		this.list.addDualOptionEntry(FVT.OPTIONS.noVignette, FVT.OPTIONS.noSpyglassOverlay);
 		this.list.addSingleOptionEntry(FVT.OPTIONS.cloudHeight);
-		this.list.addAll(new Option[] {FVT.OPTIONS.fullbright, FVT.OPTIONS.entityOutline});
+		this.list.addDualOptionEntry(FVT.OPTIONS.fullbright, FVT.OPTIONS.entityOutline);
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.tools"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.noToolBreaking, FVT.OPTIONS.toolWarning});
-		this.list.addAll(new Option[] {FVT.OPTIONS.toolWarningPosition, FVT.OPTIONS.toolWarningScale});
+		this.list.addDualOptionEntry(FVT.OPTIONS.noToolBreaking, FVT.OPTIONS.toolWarning);
+		this.list.addDualOptionEntry(FVT.OPTIONS.toolWarningPosition, FVT.OPTIONS.toolWarningScale);
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.auto"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.autoReconnect, FVT.OPTIONS.autoReconnectMaxTries});
+		this.list.addDualOptionEntry(FVT.OPTIONS.autoReconnect, FVT.OPTIONS.autoReconnectMaxTries);
 		this.list.addSingleOptionEntry(FVT.OPTIONS.autoReconnectTimeout);
-		this.list.addAll(new Option[] {FVT.OPTIONS.autoEat, FVT.OPTIONS.triggerBot});
-		this.list.addAll(new Option[] {FVT.OPTIONS.autoTotem, FVT.OPTIONS.refillHand});
+		this.list.addDualOptionEntry(FVT.OPTIONS.autoEat, FVT.OPTIONS.triggerBot);
+		this.list.addDualOptionEntry(FVT.OPTIONS.autoTotem, FVT.OPTIONS.refillHand);
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.placement"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.randomPlacement, FVT.OPTIONS.useDelay});
-		this.list.addAll(new Option[] {FVT.OPTIONS.creativeBreakDelay, FVT.OPTIONS.placementLock});
+		this.list.addDualOptionEntry(FVT.OPTIONS.randomPlacement, FVT.OPTIONS.useDelay);
+		this.list.addDualOptionEntry(FVT.OPTIONS.creativeBreakDelay, FVT.OPTIONS.placementLock);
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.misc"));
-		this.list.addAll(new Option[] {FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates});
-		this.list.addAll(new Option[] {FVT.OPTIONS.freecam, FVT.OPTIONS.containerButtons});
+		this.list.addDualOptionEntry(FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates);
+		this.list.addDualOptionEntry(FVT.OPTIONS.freecam, FVT.OPTIONS.containerButtons);
 		this.addSelectableChild(this.list);
 
 		// DEFAULTS button at the top left corner
