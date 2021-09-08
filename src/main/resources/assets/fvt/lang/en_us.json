@@ -40,7 +40,7 @@
 	"fvt.feature.name.crosshair_scale": "Scale",
 	"fvt.feature.name.crosshair_scale.tooltip": "Let's you make the crosshair bigger or smaller. Values close to zero percent make it disappear.",
 	"fvt.feature.name.crosshair_static_color": "Static Color",
-	"fvt.feature.name.crosshair_static_color.tooltip": "Disables crosshair changing it's color based on background and instead let's you choose the color yourself using RGB scheme.",
+	"fvt.feature.name.crosshair_static_color.tooltip": "Disables crosshair changing it's color based on background and instead let's you choose the color yourself using RGBA model.",
 	"fvt.feature.name.crosshair_static_color.blue": "Blue",
 	"fvt.feature.name.crosshair_static_color.blue.tooltip": "Represents the blue part of crosshair color.",
 	"fvt.feature.name.crosshair_static_color.green": "Green",
