@@ -59,7 +59,7 @@ public class CrowdinTranslations
 				put("de-CH", "de_ch");
 				put("de", "de_de");
 				put("el", "el_gr");
-				put("de-AT", "en_au");
+				put("en-AU", "en_au");
 				put("en-CA", "en_ca");
 				put("en-GB", "en_gb");
 				put("en-NZ", "en_nz");
