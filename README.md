@@ -28,6 +28,10 @@ Features that are always enabled and don't have a switch.
 
     Adds a bee count and honey level to Bee Hives & Nests tooltip (ADVANCED TOOLTIPS has to be enabled!).
 
+* ### Merchant Autotrade
+
+    If you hold shift while clicking on a villager trade it will automatically perform the trade. Basically shift-clicks the output slot for you, therefore saving you a click.
+
 ## Toggleable Features
 
 List of all toggleable features. Configuration is in in-game options menu called 'FVT...'. Keybindings are configured in the usual Controls menu (FVT category) and are by default unset. There is a keybind for opening the menu aswell.

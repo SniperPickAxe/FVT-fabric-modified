@@ -1,6 +1,7 @@
 package me.flourick.fvt.utils;
 
 import net.minecraft.client.network.ServerInfo;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
@@ -13,6 +14,9 @@ import net.minecraft.util.math.Vec3d;
  */
 public class FVTVars
 {
+	public boolean waitForTrade;
+	public Item tradeItem;
+
 	public boolean autoEating;
 
 	public double freecamYaw;
@@ -54,6 +58,9 @@ public class FVTVars
 
 	public FVTVars()
 	{
+		this.waitForTrade = false;
+		this.tradeItem = null;
+
 		this.deathX = 0;
 		this.deathY = 0;
 		this.deathZ = 0;

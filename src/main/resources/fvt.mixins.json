@@ -27,7 +27,9 @@
 		"CreativeInventoryScreenMixin",
 		"ReloadableResourceManagerImplMixin",
 		"PlayerEntityRendererMixin",
-		"SkyPropertiesMixin"
+		"SkyPropertiesMixin",
+		"MerchantScreenHandlerMixin",
+		"MerchantScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
