@@ -88,8 +88,9 @@ public class FVTSettingsScreen extends Screen
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.misc"));
 		this.list.addDualOptionEntry(FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates);
 		this.list.addDualOptionEntry(FVT.OPTIONS.freecam, FVT.OPTIONS.containerButtons);
+		this.list.addEntry(new Option[] {FVT.OPTIONS.attackThrough, null});
 		this.addSelectableChild(this.list);
-
+		
 		// DEFAULTS button at the top left corner
 		this.addDrawableChild(new ButtonWidget(6, 6, 55, 20, new TranslatableText("fvt.options.defaults"), (buttonWidget) -> {
 			FVT.OPTIONS.reset();
@@ -98,7 +99,7 @@ public class FVTSettingsScreen extends Screen
 			this.renderTooltip(matrixStack, new TranslatableText("fvt.options.defaults.tooltip").formatted(Formatting.YELLOW), i, j + 8);
 		}));
 
-		// ?/- (tooltip) button at the top right corner
+		// TOOLTIP (?/-) button at the top right corner
 		this.addDrawableChild(new ButtonWidget(this.width - 26, 6, 20, 20, new LiteralText("?"), (buttonWidget) -> {
 			tooltipsActive = !tooltipsActive;
 

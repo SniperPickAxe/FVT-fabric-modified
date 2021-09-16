@@ -34,13 +34,13 @@ abstract class ClientPlayerInteractionManagerMixin
 	private int blockBreakingCooldown;
 
 	@Inject(method = "attackBlock", at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;blockBreakingCooldown:I", ordinal = 0, shift = At.Shift.AFTER))
-	public void onAttackBlockCooldown(CallbackInfoReturnable<Boolean> info)
+	private void onAttackBlockCooldown(CallbackInfoReturnable<Boolean> info)
 	{
 		blockBreakingCooldown = FVT.OPTIONS.creativeBreakDelay.getValueAsInteger(); // -1 is intentionally not here so the first block broken has always atleast some delay to make accidental double breaking not as common
 	}
 
 	@Inject(method = "updateBlockBreakingProgress", at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;blockBreakingCooldown:I", ordinal = 3, shift = At.Shift.AFTER))
-	public void onUpdateBlockBreakingProgressCooldown(CallbackInfoReturnable<Boolean> info)
+	private void onUpdateBlockBreakingProgressCooldown(CallbackInfoReturnable<Boolean> info)
 	{
 		blockBreakingCooldown = FVT.OPTIONS.creativeBreakDelay.getValueAsInteger() - 1;
 	}
@@ -51,7 +51,7 @@ abstract class ClientPlayerInteractionManagerMixin
 		if(FVT.OPTIONS.randomPlacement.getValueRaw()) {
 			PlayerInventory inventory  = FVT.MC.player.getInventory();
 
-			// need to hold a block first for it to pick a block
+			// need to hold a block first for it to pick a block or empty hand
 			if(inventory.getStack(inventory.selectedSlot).getItem() instanceof BlockItem || inventory.getStack(inventory.selectedSlot).getItem() == Items.AIR) {
 				List<Integer> blockIndexes = new ArrayList<>();
 

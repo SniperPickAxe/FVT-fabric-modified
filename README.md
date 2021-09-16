@@ -114,13 +114,13 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Disables spyglass overlay while zooming in.
 
+* ### Attack Through
+
+    Let's you attack entities through collisionless blocks such as grass and flowers.
+
 * ### Refill Hand
 
     Once the stack in your main hand is below 50% automatically finds the same item in your inventory and restocks it.
-
-* ### AutoReconnect
-
-    Will try to automatically reconnect you to the server you got disconnected from. Number of tries and the time after which it tries to reconnect you are configurable.
 
 * ### Offhand AutoEat
 
@@ -141,6 +141,10 @@ List of all toggleable features. Configuration is in in-game options menu called
 * ### Container Buttons
 
     Chests, barrels and shulker boxes have three buttons that let you deposit all into the container, yoink all from the container or yeet it all out on the ground.
+
+* ### AutoReconnect
+
+    Will try to automatically reconnect you to the server you got disconnected from. Number of tries and the time after which it tries to reconnect you are configurable.
 
 * ### Invisible Offhand (keybindable)
 

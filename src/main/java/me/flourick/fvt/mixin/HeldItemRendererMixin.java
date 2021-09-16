@@ -24,7 +24,7 @@ abstract class HeldItemRendererMixin
 	@Inject(method = "renderFirstPersonItem", at = @At(value = "HEAD"), cancellable = true)
 	public void onRenderFirstPersonItem(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo info)
 	{
-		if(hand == Hand.OFF_HAND && FVT.OPTIONS.invisibleOffhand.getValueRaw()) {
+		if(FVT.OPTIONS.invisibleOffhand.getValueRaw() && hand == Hand.OFF_HAND) {
 			info.cancel();
 		}
 	}

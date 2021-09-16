@@ -48,46 +48,19 @@ abstract class MinecraftClientMixin
 	private int FVT_zAlign = 0;
 
 	@Shadow
+	private ClientPlayerEntity player;
+
+	@Shadow
 	private ServerInfo currentServerEntry;
 
 	@Shadow
 	private int itemUseCooldown;
 
-	@Inject(method = "handleBlockBreaking", at = @At("HEAD"), cancellable = true)
-	private void onHandleBlockBreaking(boolean bl, CallbackInfo info)
-	{
-		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
-			ItemStack mainHandItem = FVT.MC.player.getMainHandStack();
-
-			if(mainHandItem.isDamaged()) {
-				if(mainHandItem.getItem() instanceof SwordItem) {
-					if(mainHandItem.getMaxDamage() - mainHandItem.getDamage() < 3) {
-						info.cancel();
-					}
-				}
-				else if(mainHandItem.getItem() instanceof TridentItem) {
-					if(mainHandItem.getMaxDamage() - mainHandItem.getDamage() < 3) {
-						info.cancel();
-					}
-				}
-				else if(mainHandItem.getItem() instanceof MiningToolItem){
-					if(mainHandItem.getMaxDamage() - mainHandItem.getDamage() < 3) {
-						info.cancel();
-					}
-				}
-			}
-		}
-
-		if(FVT.OPTIONS.freecam.getValueRaw()) {
-			info.cancel();
-		}
-	}
-
 	@Inject(method = "doAttack", at = @At("HEAD"), cancellable = true)
 	private void onDoAttack(CallbackInfo info)
 	{
 		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
-			ItemStack mainHandItem = FVT.MC.player.getMainHandStack();
+			ItemStack mainHandItem = player.getMainHandStack();
 
 			if(mainHandItem.isDamaged()) {
 				if(mainHandItem.getItem() instanceof SwordItem) {
@@ -117,82 +90,42 @@ abstract class MinecraftClientMixin
 		}
 	}
 
-	@Inject(method = "doItemPick", at = @At("HEAD"))
-	private void onDoItemPick(CallbackInfo info)
+	@Inject(method = "handleBlockBreaking", at = @At("HEAD"), cancellable = true)
+	private void onHandleBlockBreaking(boolean bl, CallbackInfo info)
 	{
-		FVT.VARS.resetHotbarLastInteractionTime();
-	}
+		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
+			ItemStack mainHandItem = player.getMainHandStack();
 
-	@Inject(method = "handleInputEvents", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I", ordinal = 0, shift = At.Shift.BEFORE))
-	private void onHandleHotbarKeyPress(CallbackInfo info)
-	{
-		FVT.VARS.resetHotbarLastInteractionTime();
-	}
-
-	@Inject(method = "doItemUse", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;itemUseCooldown:I", ordinal = 0, shift = At.Shift.AFTER))
-	private void onDoItemUseCooldown(CallbackInfo info)
-	{
-		itemUseCooldown = FVT.OPTIONS.useDelay.getValueAsInteger();
-	}
-
-	@Inject(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;doItemUse()V", ordinal = 0, shift = At.Shift.BEFORE))
-	private void onHandleInputEvents(CallbackInfo info)
-	{
-		// called when user presses the use key (aka will clear the placement history for every fresh keypress)
-		FVT_placementHistory.clear();
-		FVT_xAligned = false;
-		FVT_yAligned = false;
-		FVT_zAligned = false;
-	}
-
-	@Inject(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getCount()I", ordinal = 0, shift = At.Shift.AFTER), cancellable = true)
-	private void onDoItemUsePlaceBlock(CallbackInfo info)
-	{
-		// user placed three blocks so that's our cue to limit his placement!
-		if(FVT.OPTIONS.placementLock.getValueRaw() && FVT_placementHistory.size() == 3) {
-			BlockPos expected = ((BlockHitResult) FVT.MC.crosshairTarget).getBlockPos().offset(((BlockHitResult) FVT.MC.crosshairTarget).getSide());
-			
-			if((FVT_xAligned && FVT_xAlign != expected.getX()) || (FVT_yAligned && FVT_yAlign != expected.getY()) || (FVT_zAligned && FVT_zAlign != expected.getZ())) {
-				info.cancel();
-			}
-		}
-	}
-
-	@Redirect(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;interactBlock(Lnet/minecraft/client/network/ClientPlayerEntity;Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/util/Hand;Lnet/minecraft/util/hit/BlockHitResult;)Lnet/minecraft/util/ActionResult;", ordinal = 0))
-	private ActionResult onDoItemUse(ClientPlayerInteractionManager manager, ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult)
-	{
-		ActionResult result = manager.interactBlock(player, world, hand, hitResult);
-
-		if(result.isAccepted() && FVT_placementHistory.size() < 3) {
-			FVT_placementHistory.add(hitResult.getBlockPos().offset(hitResult.getSide()));
-
-			if(FVT_placementHistory.size() == 3) {
-				if(FVT_placementHistory.get(0).getX() == FVT_placementHistory.get(1).getX() && FVT_placementHistory.get(1).getX() == FVT_placementHistory.get(2).getX()) {
-					FVT_xAligned = true;
-					FVT_xAlign = FVT_placementHistory.get(0).getX();
+			if(mainHandItem.isDamaged()) {
+				if(mainHandItem.getItem() instanceof SwordItem) {
+					if(mainHandItem.getMaxDamage() - mainHandItem.getDamage() < 3) {
+						info.cancel();
+					}
 				}
-
-				if(FVT_placementHistory.get(0).getY() == FVT_placementHistory.get(1).getY() && FVT_placementHistory.get(1).getY() == FVT_placementHistory.get(2).getY()) {
-					FVT_yAligned = true;
-					FVT_yAlign = FVT_placementHistory.get(0).getY();
+				else if(mainHandItem.getItem() instanceof TridentItem) {
+					if(mainHandItem.getMaxDamage() - mainHandItem.getDamage() < 3) {
+						info.cancel();
+					}
 				}
-
-				if(FVT_placementHistory.get(0).getZ() == FVT_placementHistory.get(1).getZ() && FVT_placementHistory.get(1).getZ() == FVT_placementHistory.get(2).getZ()) {
-					FVT_zAligned = true;
-					FVT_zAlign = FVT_placementHistory.get(0).getZ();
+				else if(mainHandItem.getItem() instanceof MiningToolItem){
+					if(mainHandItem.getMaxDamage() - mainHandItem.getDamage() < 3) {
+						info.cancel();
+					}
 				}
 			}
 		}
 
-		return result;
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
+			info.cancel();
+		}
 	}
 
 	@Inject(method = "doItemUse", at = @At("HEAD"), cancellable = true)
 	private void onDoItemUseBefore(CallbackInfo info)
 	{
 		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
-			ItemStack mainHandItem = FVT.MC.player.getStackInHand(Hand.MAIN_HAND).isEmpty() ? null : FVT.MC.player.getStackInHand(Hand.MAIN_HAND);
-			ItemStack offHandItem = FVT.MC.player.getStackInHand(Hand.OFF_HAND).isEmpty() ? null : FVT.MC.player.getStackInHand(Hand.OFF_HAND);
+			ItemStack mainHandItem = player.getStackInHand(Hand.MAIN_HAND).isEmpty() ? null : player.getStackInHand(Hand.MAIN_HAND);
+			ItemStack offHandItem = player.getStackInHand(Hand.OFF_HAND).isEmpty() ? null : player.getStackInHand(Hand.OFF_HAND);
 
 			if(mainHandItem != null && mainHandItem.isDamaged()) {
 				if(mainHandItem.getItem() instanceof MiningToolItem){
@@ -248,6 +181,82 @@ abstract class MinecraftClientMixin
 		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.cancel();
 		}
+	}
+
+	@Inject(method = "doItemUse", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;itemUseCooldown:I", ordinal = 0, shift = At.Shift.AFTER))
+	private void onDoItemUseCooldown(CallbackInfo info)
+	{
+		itemUseCooldown = FVT.OPTIONS.useDelay.getValueAsInteger();
+	}
+
+	@Inject(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getCount()I", ordinal = 0, shift = At.Shift.AFTER), cancellable = true)
+	private void onDoItemUsePlaceBlock(CallbackInfo info)
+	{
+		// user placed three blocks so that's our cue to limit the placement!
+		if(FVT.OPTIONS.placementLock.getValueRaw() && FVT_placementHistory.size() == 3) {
+			BlockPos expected = ((BlockHitResult) FVT.MC.crosshairTarget).getBlockPos().offset(((BlockHitResult) FVT.MC.crosshairTarget).getSide());
+			
+			if((FVT_xAligned && FVT_xAlign != expected.getX()) || (FVT_yAligned && FVT_yAlign != expected.getY()) || (FVT_zAligned && FVT_zAlign != expected.getZ())) {
+				info.cancel();
+			}
+		}
+	}
+
+	@Redirect(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;interactBlock(Lnet/minecraft/client/network/ClientPlayerEntity;Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/util/Hand;Lnet/minecraft/util/hit/BlockHitResult;)Lnet/minecraft/util/ActionResult;", ordinal = 0))
+	private ActionResult hijackInteractBlock(ClientPlayerInteractionManager manager, ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult)
+	{
+		ActionResult result = manager.interactBlock(player, world, hand, hitResult);
+
+		if(result.isAccepted() && FVT_placementHistory.size() < 3) {
+			FVT_placementHistory.add(hitResult.getBlockPos().offset(hitResult.getSide()));
+
+			if(FVT_placementHistory.size() == 3) {
+				if(FVT_placementHistory.get(0).getX() == FVT_placementHistory.get(1).getX() && FVT_placementHistory.get(1).getX() == FVT_placementHistory.get(2).getX()) {
+					FVT_xAligned = true;
+					FVT_xAlign = FVT_placementHistory.get(0).getX();
+				}
+
+				if(FVT_placementHistory.get(0).getY() == FVT_placementHistory.get(1).getY() && FVT_placementHistory.get(1).getY() == FVT_placementHistory.get(2).getY()) {
+					FVT_yAligned = true;
+					FVT_yAlign = FVT_placementHistory.get(0).getY();
+				}
+
+				if(FVT_placementHistory.get(0).getZ() == FVT_placementHistory.get(1).getZ() && FVT_placementHistory.get(1).getZ() == FVT_placementHistory.get(2).getZ()) {
+					FVT_zAligned = true;
+					FVT_zAlign = FVT_placementHistory.get(0).getZ();
+				}
+			}
+		}
+
+		return result;
+	}
+
+	@Inject(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;doItemUse()V", ordinal = 0, shift = At.Shift.BEFORE))
+	private void onHandleItemUse(CallbackInfo info)
+	{
+		// called when user presses the use key (aka will clear the placement history for every fresh keypress)
+		FVT_placementHistory.clear();
+		FVT_xAligned = false;
+		FVT_yAligned = false;
+		FVT_zAligned = false;
+	}
+
+	@Redirect(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;dropSelectedItem(Z)Z", ordinal = 0))
+	private boolean onHandleDropSelectedItem(ClientPlayerEntity player, boolean entireStack)
+	{
+		return FVT.OPTIONS.freecam.getValueRaw() ? false : player.dropSelectedItem(entireStack);
+	}
+
+	@Inject(method = "handleInputEvents", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I", ordinal = 0, shift = At.Shift.BEFORE))
+	private void onHandleHotbarKeyPress(CallbackInfo info)
+	{
+		FVT.VARS.resetHotbarLastInteractionTime();
+	}
+
+	@Inject(method = "doItemPick", at = @At("HEAD"))
+	private void onDoItemPick(CallbackInfo info)
+	{
+		FVT.VARS.resetHotbarLastInteractionTime();
 	}
 
 	@Inject(method = "hasOutline", at = @At("HEAD"), cancellable = true)

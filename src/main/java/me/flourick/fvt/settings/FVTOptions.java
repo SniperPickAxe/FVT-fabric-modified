@@ -75,6 +75,7 @@ public class FVTOptions
 	public final FVTDoubleOption  autoHideHotbarTimeout;
 	public final FVTBooleanOption autoHideHotbarUse;
 	public final FVTBooleanOption autoHideHotbarItem;
+	public final FVTBooleanOption attackThrough;
 
 	public FVTOptions()
 	{
@@ -390,6 +391,13 @@ public class FVTOptions
 			false
 		);
 		savedFeatures.put("autoHideHotbarItem", autoHideHotbarItem);
+
+		attackThrough = new FVTBooleanOption(
+			"fvt.feature.name.attack_through",
+			"fvt.feature.name.attack_through.tooltip",
+			false
+		);
+		savedFeatures.put("attackThrough", attackThrough);
 
 		init();
 	}

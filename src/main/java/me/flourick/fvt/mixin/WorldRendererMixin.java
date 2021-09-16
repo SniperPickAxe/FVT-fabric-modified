@@ -18,7 +18,7 @@ import net.minecraft.entity.Entity;
 abstract class WorldRendererMixin
 {
 	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;getTeamColorValue()I", ordinal = 0))
-	public int onPlayerGlow(Entity entity)
+	private int onPlayerGlow(Entity entity)
 	{
 		// NOTE: Does now work in Canvas as it replaces the WorldRenderer instance and it has it's own render method
 

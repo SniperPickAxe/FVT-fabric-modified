@@ -172,6 +172,9 @@
 	"fvt.feature.name.placement_lock": "Placement Lock",
 	"fvt.feature.name.placement_lock.tooltip": "Forces placement to a single plane or axis, determined from the first three placed blocks when placing blocks by holding the use key (usually RMB). Very useful for making platforms and pillars.",
 
+	"fvt.feature.name.attack_through": "Attack Through",
+	"fvt.feature.name.attack_through.tooltip": "Allows you to attack entities through blocks that have no collision box such as grass and flowers.",
+
 	"fvt.feature.name.bee_info.honey": "Honey: %s",
 	"fvt.feature.name.bee_info.bees": "Bees: %s"
 }
