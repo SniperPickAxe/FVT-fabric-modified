@@ -44,6 +44,7 @@ public class FVTSettingsScreen extends Screen
 
 	private boolean tooltipsActive = false;
 
+	// getter for ModMenu
 	public static Screen getNewScreen(Screen parent) {
         return new FVTSettingsScreen(parent);
     }

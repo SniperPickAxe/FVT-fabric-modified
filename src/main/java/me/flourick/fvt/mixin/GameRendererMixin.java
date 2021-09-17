@@ -7,9 +7,7 @@ import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 
@@ -61,9 +59,9 @@ abstract class GameRendererMixin
 				Box box = cameraEntity.getBoundingBox().stretch(cameraRotation.multiply(reachDistance)).expand(1.0D, 1.0D, 1.0D);
 
                 // gets a collisionless block in reach or air at reach if none found
-                BlockHitResult visibleResult = FVT.MC.world.raycast(new RaycastContext(cameraPos, cameraPos.add(cameraRotation.x * reachDistanceBase, cameraRotation.y * reachDistanceBase, cameraRotation.z * reachDistanceBase), RaycastContext.ShapeType.VISUAL, RaycastContext.FluidHandling.NONE, cameraEntity));
+                BlockHitResult visibleResult = FVT.MC.world.raycast(new RaycastContext(cameraPos, cameraPos.add(cameraRotation.x * reachDistanceBase, cameraRotation.y * reachDistanceBase, cameraRotation.z * reachDistanceBase), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, cameraEntity));
 				
-                // limiting the distance to which an entity will be searched for (so we don't look behind solid blocks)
+                // limiting the distance to which an entity will be searched for (so we don't look behind solid blocks BUT IGNORE COLLISIONLESS ONES)
 				if(visibleResult != null) {
 					calcReach = visibleResult.getPos().squaredDistanceTo(cameraPos);
 				}
@@ -87,9 +85,6 @@ abstract class GameRendererMixin
 							FVT.MC.targetedEntity = hitEntity;
 						}
 					}
-                    else {
-                        FVT.MC.crosshairTarget = BlockHitResult.createMissed(hitEntityPos, Direction.getFacing(cameraPos.x, cameraPos.y, cameraPos.z), new BlockPos(hitEntityPos));
-                    }
 				}
 
 				FVT.MC.getProfiler().pop();

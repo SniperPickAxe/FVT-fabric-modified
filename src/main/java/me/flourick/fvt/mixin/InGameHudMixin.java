@@ -79,6 +79,7 @@ abstract class InGameHudMixin extends DrawableHelper
 
 	private int FVT_getHotbarHideHeight()
 	{
+		// either entire hotbar + health, armor... or just the items part
 		int adjustment = FVT.OPTIONS.autoHideHotbarMode.getValueRaw() ? 70 : 23;
 
 		return (int)(adjustment - (adjustment * FVT_getHotbarInteractionScalar()));
@@ -86,9 +87,9 @@ abstract class InGameHudMixin extends DrawableHelper
 
 	private float FVT_getHotbarInteractionScalar()
 	{
-		long delay = MathHelper.ceil(FVT.OPTIONS.autoHideHotbarTimeout.getValueRaw() * 1000.0D); // 1000-5000 max time left opened
+		long delay = MathHelper.ceil(FVT.OPTIONS.autoHideHotbarTimeout.getValueRaw() * 1000.0D); // 1-10s max time left opened
 		long closeDelay = FVT.OPTIONS.autoHideHotbarMode.getValueRaw() ? 400L : 250L; // 400/250ms closing animation
-		long openDelay = FVT.OPTIONS.autoHideHotbarMode.getValueRaw() ? 160L : 80L; // 200/80ms opening animation
+		long openDelay = FVT.OPTIONS.autoHideHotbarMode.getValueRaw() ? 160L : 80L; // 160/80ms opening animation
 
 		if(FVT_firstHotbarOpen) {
 			FVT_firstHotbarOpen = false;
@@ -337,6 +338,7 @@ abstract class InGameHudMixin extends DrawableHelper
 	private void onRenderHotbar(float tickDelta, MatrixStack matrices, CallbackInfo info)
 	{
 		// couldn't just simply push & pop into matrices becouse only HALF OF THE FUCKING FUNCTION USES THEM, the other half is still on the old system... ugh.
+		// so yeah enjoy the entire function being rewritten, glorious!
 		if(FVT.OPTIONS.autoHideHotbar.getValueRaw()) {
 			PlayerEntity playerEntity = this.getCameraPlayer();
 			

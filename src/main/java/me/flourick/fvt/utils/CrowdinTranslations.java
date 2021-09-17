@@ -173,10 +173,12 @@ public class CrowdinTranslations
 				}
 				catch (IOException e) {
 					LogManager.getLogger().error("[FVT] Cannot create required translation directories:", e.toString());
+					download = false;
 				}
 			}
 			else {
 				// a bit simple but works, skips downloading if the directory was last changed in less than 24 hours
+				// EVENTUALLY: maybe one day make it download only if translations build time is newer than when it was downloaded
 				try {
 					Instant lastDownload = Files.readAttributes(translationsDir, BasicFileAttributes.class).lastModifiedTime().toInstant().plus(24, ChronoUnit.HOURS);
 					
