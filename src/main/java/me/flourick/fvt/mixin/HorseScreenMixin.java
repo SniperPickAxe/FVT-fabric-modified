@@ -58,7 +58,7 @@ abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 		Text header = new TranslatableText("fvt.feature.name.horses.button");
 
 		this.FVT_buttonHeight = 12;
-		this.FVT_buttonWidth = FVT.MC.textRenderer.getWidth(header) + 4;
+		this.FVT_buttonWidth = FVT.MC.textRenderer.getWidth(header) + 6;
 
 		FVT_tooltip = new ArrayList<>();
 		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.health", FVT_getHorseHealth()).asOrderedText());
