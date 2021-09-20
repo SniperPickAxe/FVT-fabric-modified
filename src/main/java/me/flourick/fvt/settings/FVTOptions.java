@@ -346,7 +346,7 @@ public class FVTOptions
 			"fvt.feature.name.containers.tooltip",
 			true
 		);
-		savedFeatures.put("containerButtons", placementLock);
+		savedFeatures.put("containerButtons", containerButtons);
 
 		invisibleOffhand = new FVTBooleanOption(
 			"fvt.feature.name.invisible_offhand",
