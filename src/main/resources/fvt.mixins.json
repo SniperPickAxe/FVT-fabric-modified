@@ -29,7 +29,8 @@
 		"PlayerEntityRendererMixin",
 		"SkyPropertiesMixin",
 		"MerchantScreenHandlerMixin",
-		"MerchantScreenMixin"
+		"MerchantScreenMixin",
+		"HandledScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

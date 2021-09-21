@@ -158,6 +158,10 @@
 	"fvt.feature.name.containers.get.tooltip": "Get all!",
 	"fvt.feature.name.containers.store.tooltip": "Store all!",
 
+	"fvt.feature.name.inventory_buttons": "Inventory Button",
+	"fvt.feature.name.inventory_buttons.tooltip": "Adds a button to every screen where you have your inventory that allows you to drop everything on the ground.",
+	"fvt.feature.name.inventory_buttons.drop.tooltip": "Drop inventory!",
+
 	"fvt.feature.name.horses.button": "Stats",
 	"fvt.feature.name.horses.button.tooltip.health": "§7Health§8:§r %s §r(15-30)",
 	"fvt.feature.name.horses.button.tooltip.speed": "§7Speed§8:§r %s §r(4.74-14.23)",

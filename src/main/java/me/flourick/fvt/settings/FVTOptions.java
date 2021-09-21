@@ -69,6 +69,7 @@ public class FVTOptions
 	public final FVTDoubleOption  creativeBreakDelay;
 	public final FVTBooleanOption placementLock;
 	public final FVTBooleanOption containerButtons;
+	public final FVTBooleanOption inventoryButtons;
 	public final FVTBooleanOption invisibleOffhand;
 	public final FVTBooleanOption autoHideHotbar;
 	public final FVTBooleanOption autoHideHotbarMode;
@@ -347,6 +348,13 @@ public class FVTOptions
 			true
 		);
 		savedFeatures.put("containerButtons", containerButtons);
+
+		inventoryButtons = new FVTBooleanOption(
+			"fvt.feature.name.inventory_buttons",
+			"fvt.feature.name.inventory_buttons.tooltip",
+			true
+		);
+		savedFeatures.put("inventoryButtons", inventoryButtons);
 
 		invisibleOffhand = new FVTBooleanOption(
 			"fvt.feature.name.invisible_offhand",
