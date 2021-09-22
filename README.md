@@ -142,6 +142,10 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Chests, barrels and shulker boxes have three buttons that let you deposit all into the container, yoink all from the container or yeet it all out on the ground.
 
+* ### Inventory Button
+
+    Adds a drop button to every screen with your inventory (crafting, dropper, horse... screen) that will drop your inventory on the ground (only your inventory, not every slot on the screen!).
+
 * ### AutoReconnect
 
     Will try to automatically reconnect you to the server you got disconnected from. Number of tries and the time after which it tries to reconnect you are configurable.

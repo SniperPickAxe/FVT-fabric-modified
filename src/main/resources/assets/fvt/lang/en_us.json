@@ -152,15 +152,15 @@
 	"fvt.feature.name.autototem": "AutoTotem",
 	"fvt.feature.name.autototem.tooltip": "Upon totem activation will automatically find another totem in your inventory and replace the one that was just consumed.",
 	
-	"fvt.feature.name.containers": "Container Buttons",
-	"fvt.feature.name.containers.tooltip": "Chests, barrels and shulker boxes have three buttons that let you deposit all items into the container, take all items from the container or drop the items on the ground.",
-	"fvt.feature.name.containers.drop.tooltip": "Drop all!",
-	"fvt.feature.name.containers.get.tooltip": "Get all!",
-	"fvt.feature.name.containers.store.tooltip": "Store all!",
+	"fvt.feature.name.container_buttons": "Container Buttons",
+	"fvt.feature.name.container_buttons.tooltip": "Chests, barrels and shulker boxes have three buttons that let you deposit all items into the container, take all items from the container or drop the items on the ground.",
+	"fvt.feature.name.container_buttons.drop.tooltip": "Drop all!",
+	"fvt.feature.name.container_buttons.get.tooltip": "Get all!",
+	"fvt.feature.name.container_buttons.store.tooltip": "Store all!",
 
-	"fvt.feature.name.inventory_buttons": "Inventory Button",
-	"fvt.feature.name.inventory_buttons.tooltip": "Adds a button to every screen where you have your inventory that allows you to drop everything on the ground.",
-	"fvt.feature.name.inventory_buttons.drop.tooltip": "Drop inventory!",
+	"fvt.feature.name.inventory_button": "Inventory Button",
+	"fvt.feature.name.inventory_button.tooltip": "Adds a button to every screen where you have your inventory that allows you to drop everything on the ground.",
+	"fvt.feature.name.inventory_button.drop.tooltip": "Drop inventory!",
 
 	"fvt.feature.name.horses.button": "Stats",
 	"fvt.feature.name.horses.button.tooltip.health": "§7Health§8:§r %s §r(15-30)",

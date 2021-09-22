@@ -43,17 +43,17 @@ abstract class ShulkerBoxScreenMixin extends HandledScreen<ShulkerBoxScreenHandl
 
 		this.addDrawableChild(new FVTButtonWidget(baseX, baseY, FVT_buttonWidth, FVT_buttonHeight, new LiteralText("⊽"), (buttonWidget) -> FVT_onDropButtonClick()
 		, (buttonWidget, matrixStack, i, j) -> {
-			this.renderTooltip(matrixStack, new TranslatableText("fvt.feature.name.containers.drop.tooltip"), i, j + 8);
+			this.renderTooltip(matrixStack, new TranslatableText("fvt.feature.name.container_buttons.drop.tooltip"), i, j + 8);
 		}, new Color(150, 255, 255, 255), new Color(220, 255, 255, 255)));
 
 		this.addDrawableChild(new FVTButtonWidget(baseX - FVT_buttonWidth - 2, baseY, FVT_buttonWidth, FVT_buttonHeight, new LiteralText("⊻"), (buttonWidget) -> FVT_onGetButtonClick()
 		, (buttonWidget, matrixStack, i, j) -> {
-			this.renderTooltip(matrixStack, new TranslatableText("fvt.feature.name.containers.get.tooltip"), i, j + 8);
+			this.renderTooltip(matrixStack, new TranslatableText("fvt.feature.name.container_buttons.get.tooltip"), i, j + 8);
 		}, new Color(150, 255, 255, 255), new Color(220, 255, 255, 255)));
 
 		this.addDrawableChild(new FVTButtonWidget(baseX - 2*FVT_buttonWidth - 4, baseY, FVT_buttonWidth, FVT_buttonHeight, new LiteralText("⊼"), (buttonWidget) -> FVT_onStoreButtonClick()
 		, (buttonWidget, matrixStack, i, j) -> {
-			this.renderTooltip(matrixStack, new TranslatableText("fvt.feature.name.containers.store.tooltip"), i, j + 8);
+			this.renderTooltip(matrixStack, new TranslatableText("fvt.feature.name.container_buttons.store.tooltip"), i, j + 8);
 		}, new Color(150, 255, 255, 255), new Color(220, 255, 255, 255)));
 	}
 
