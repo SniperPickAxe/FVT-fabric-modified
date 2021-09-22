@@ -30,7 +30,8 @@
 		"SkyPropertiesMixin",
 		"MerchantScreenHandlerMixin",
 		"MerchantScreenMixin",
-		"HandledScreenMixin"
+		"HandledScreenMixin",
+		"ScreenInvoker"
 	],
 	"injectors": {
 		"defaultRequire": 1

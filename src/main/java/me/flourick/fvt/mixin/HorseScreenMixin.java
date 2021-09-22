@@ -45,9 +45,6 @@ abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 	@Shadow
 	private HorseBaseEntity entity;
 
-	private int FVT_buttonWidth;
-	private int FVT_buttonHeight;
-
 	List<OrderedText> FVT_tooltip;
 
 	@Override
@@ -57,18 +54,18 @@ abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 
 		Text header = new TranslatableText("fvt.feature.name.horses.button");
 
-		this.FVT_buttonHeight = 12;
-		this.FVT_buttonWidth = FVT.MC.textRenderer.getWidth(header) + 6;
+		int buttonHeight = 12;
+		int buttonWidth = FVT.MC.textRenderer.getWidth(header) + 6;
 
 		FVT_tooltip = new ArrayList<>();
 		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.health", FVT_getHorseHealth()).asOrderedText());
 		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.speed", FVT_getHorseSpeed()).asOrderedText());
 		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.jump_height", FVT_getHorseJumpHeight()).asOrderedText());
 
-		int baseX = ((this.width - this.backgroundWidth) / 2) + this.backgroundWidth - FVT_buttonWidth - 7;
+		int baseX = ((this.width - this.backgroundWidth) / 2) + this.backgroundWidth - buttonWidth - 7;
 		int baseY = ((this.height - this.backgroundHeight) / 2) + 4;
 
-		FVTButtonWidget button = new FVTButtonWidget(baseX, baseY, FVT_buttonWidth, FVT_buttonHeight, header, null
+		FVTButtonWidget button = new FVTButtonWidget(baseX, baseY, buttonWidth, buttonHeight, header, null
 		, (buttonWidget, matrixStack, i, j) -> {
 			this.renderOrderedTooltip(matrixStack, FVT_tooltip, i, j + 8);
 		}, new Color(120, 255, 255, 255), new Color(220, 255, 255, 255));
