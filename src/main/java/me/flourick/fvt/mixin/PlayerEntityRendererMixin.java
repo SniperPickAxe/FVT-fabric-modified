@@ -25,7 +25,7 @@ abstract class PlayerEntityRendererMixin<T extends Entity> extends EntityRendere
 			return true;
 		}
 
-		return entity.shouldRenderName() && entity.hasCustomName();
+		return super.hasLabel(entity);
 	}
 
 	protected PlayerEntityRendererMixin(Context ctx) { super(ctx); } // IGNORED
