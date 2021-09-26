@@ -31,7 +31,7 @@
 		"MerchantScreenHandlerMixin",
 		"MerchantScreenMixin",
 		"HandledScreenMixin",
-		"ScreenInvoker"
+		"ScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
