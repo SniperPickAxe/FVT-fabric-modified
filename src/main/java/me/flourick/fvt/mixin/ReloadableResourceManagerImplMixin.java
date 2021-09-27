@@ -27,7 +27,7 @@ abstract class ReloadableResourceManagerImplMixin implements ReloadableResourceM
 	@Shadow
     abstract void addPack(ResourcePack resourcePack);
 
-	@Inject(method = "reload", at = @At("TAIL"))
+	@Inject(method = "reload", at = @At(value = "INVOKE", target = "Ljava/util/List;iterator()Ljava/util/Iterator;"))
     private void onReload(CallbackInfoReturnable<ResourceReload> info)
     {	
         this.addPack(new FVTLanguagesPack(new File(FVT.MC.runDirectory, "config/fvt/translations")));
