@@ -75,6 +75,7 @@ public class FVT implements ClientModInitializer
 		KeyBinding autoAttackKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.trigger_autoattack", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 		KeyBinding placementLockKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.placement_lock", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 		KeyBinding invisibleOffhandKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.invisible_offhand", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
+		KeyBinding autoEatKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.autoeat", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 
 		ClientTickEvents.END_CLIENT_TICK.register(client ->
 		{
@@ -172,6 +173,19 @@ public class FVT implements ClientModInitializer
 					}
 				}
 			}
+
+			while(autoEatKeybind.wasPressed()) {
+				FVT.OPTIONS.autoEat.toggle();
+
+				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {
+					if(FVT.OPTIONS.autoEat.getValueRaw()) {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.enabled", new TranslatableText("fvt.feature.name.autoeat"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+					else {
+						FVT.MC.inGameHud.addChatMessage(MessageType.CHAT, new TranslatableText("fvt.chat_messages_prefix", new TranslatableText("fvt.feature.disabled", new TranslatableText("fvt.feature.name.autoeat"))), UUID.fromString("00000000-0000-0000-0000-000000000000"));
+					}
+				}
+			}
 		});
 	}
 
@@ -256,6 +270,11 @@ public class FVT implements ClientModInitializer
 					FVT.VARS.autoEating = false;
 					FVT.MC.options.keyUse.setPressed(false);
 				}
+			}
+			else if(FVT.VARS.autoEating) {
+				// reset in case user turned autoeat off mid-eating
+				FVT.VARS.autoEating = false;
+				FVT.MC.options.keyUse.setPressed(false);
 			}
 		});
 

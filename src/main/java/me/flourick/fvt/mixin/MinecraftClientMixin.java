@@ -32,7 +32,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 
 /**
- * FEATURES: Prevent Tool Breaking, Freecam, Use Delay, Entity Outline, AutoReconnect, Placement Lock, Hotbar Autohide
+ * FEATURES: Prevent Tool Breaking, Freecam, Use Delay, Entity Outline, AutoReconnect, Placement Lock, Hotbar Autohide, Offhand AutoEat
  * 
  * @author Flourick
  */
@@ -181,6 +181,17 @@ abstract class MinecraftClientMixin
 		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.cancel();
 		}
+	}
+
+	@Redirect(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Hand;values()[Lnet/minecraft/util/Hand;", ordinal = 0))
+	private Hand[] hijackHandValues()
+	{
+		if(FVT.OPTIONS.autoEat.getValueRaw() && FVT.VARS.autoEating) {
+			FVT.MC.crosshairTarget = null; // so we don't target interactable blocks or entities while eating
+			return new Hand[] {Hand.OFF_HAND};
+		}
+
+		return Hand.values();
 	}
 
 	@Inject(method = "doItemUse", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;itemUseCooldown:I", ordinal = 0, shift = At.Shift.AFTER))
