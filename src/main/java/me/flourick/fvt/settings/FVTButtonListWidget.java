@@ -58,17 +58,17 @@ public class FVTButtonListWidget extends ElementListWidget<FVTButtonListWidget.F
 		return super.getScrollbarPositionX() + 32;
 	}
 
-	public Optional<ClickableWidget> getHoveredButton(double mouseX, double mouseY) {
-		Iterator<FVTButtonEntry> entryIterator = this.children().iterator();
+	public Optional<ClickableWidget> getHoveredButton(double mouseX, double mouseY)
+	{
+		FVTButtonEntry buttonEntry = this.getEntryAtPosition(mouseX, mouseY);
 
-		while(entryIterator.hasNext()) {
-			FVTButtonEntry buttonEntry = entryIterator.next();
+		if(buttonEntry != null) {
 			Iterator<ClickableWidget> clickableIterator = buttonEntry.buttons.iterator();
 
 			while(clickableIterator.hasNext()) {
 				ClickableWidget clickableWidget = clickableIterator.next();
 
-				if(clickableWidget.isMouseOver(mouseX, mouseY)) {
+				if(clickableWidget.isMouseOver(mouseX, mouseY) && mouseY >= this.top && mouseY < this.bottom) {
 					return Optional.of(clickableWidget);
 				}
 			}

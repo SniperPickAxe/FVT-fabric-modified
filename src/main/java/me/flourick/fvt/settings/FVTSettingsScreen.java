@@ -140,7 +140,7 @@ public class FVTSettingsScreen extends Screen
 	{
 		Optional<ClickableWidget> button = list.getHoveredButton((double)mouseX, (double)mouseY);
       	return (button.isPresent() && button.get() instanceof OrderableTooltip ? ((OrderableTooltip)button.get()).getOrderedTooltip() : ImmutableList.of());
-	 }
+	}
 
 	@Override
 	public void renderOrderedTooltip(MatrixStack matrices, List<? extends OrderedText> lines, int x, int y)
