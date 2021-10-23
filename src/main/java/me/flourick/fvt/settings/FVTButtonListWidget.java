@@ -77,6 +77,11 @@ public class FVTButtonListWidget extends ElementListWidget<FVTButtonListWidget.F
 		return Optional.empty();
 	}
 
+	public int getBottom()
+	{
+		return this.bottom;
+	}
+
 	// basically a button row in this list widget
 	final static class FVTButtonEntry extends ElementListWidget.Entry<FVTButtonListWidget.FVTButtonEntry>
 	{

@@ -1,9 +1,13 @@
 package me.flourick.fvt.utils;
 
-import me.flourick.fvt.FVT;
+import java.util.HashSet;
 
+import me.flourick.fvt.FVT;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
@@ -86,11 +90,33 @@ public class ContainerButtons<T extends ScreenHandler>
 	{
 		int sz = screen.getScreenHandler().slots.size() - PlayerInventory.MAIN_SIZE;
 
+		boolean onlyMatching = Screen.hasControlDown();
+		HashSet<Item> inventoryItems = new HashSet<>();
+
+		if(onlyMatching) {
+			for(int i = sz; i < screen.getScreenHandler().slots.size(); i++) {
+				Slot slot = screen.getScreenHandler().getSlot(i);
+				ItemStack itemStack = slot.getStack();
+
+				if(!itemStack.isEmpty()) {
+					inventoryItems.add(itemStack.getItem());
+				}
+			}
+		}
+
 		for(int i = 0; i < sz; i++) {
 			Slot slot = screen.getScreenHandler().getSlot(i);
 
 			if(slot.getStack().isEmpty()) {
 				continue;
+			}
+
+			if(onlyMatching) {
+				if(inventoryItems.contains(slot.getStack().getItem())) {
+					FVT.MC.interactionManager.clickSlot(screen.getScreenHandler().syncId, i, 0, SlotActionType.QUICK_MOVE, FVT.MC.player);
+				}
+
+				continue;	
 			}
 
 			FVT.MC.interactionManager.clickSlot(screen.getScreenHandler().syncId, i, 0, SlotActionType.QUICK_MOVE, FVT.MC.player);
@@ -101,11 +127,33 @@ public class ContainerButtons<T extends ScreenHandler>
 	{
 		int sz = screen.getScreenHandler().slots.size() - PlayerInventory.MAIN_SIZE;
 
+		boolean onlyMatching = Screen.hasControlDown();
+		HashSet<Item> inventoryItems = new HashSet<>();
+
+		if(onlyMatching) {
+			for(int i = 0; i < sz; i++) {
+				Slot slot = screen.getScreenHandler().getSlot(i);
+				ItemStack itemStack = slot.getStack();
+
+				if(!itemStack.isEmpty()) {
+					inventoryItems.add(itemStack.getItem());
+				}
+			}
+		}
+
 		for(int i = sz; i < screen.getScreenHandler().slots.size(); i++) {
 			Slot slot = screen.getScreenHandler().getSlot(i);
 
 			if(slot.getStack().isEmpty()) {
 				continue;
+			}
+
+			if(onlyMatching) {
+				if(inventoryItems.contains(slot.getStack().getItem())) {
+					FVT.MC.interactionManager.clickSlot(screen.getScreenHandler().syncId, i, 0, SlotActionType.QUICK_MOVE, FVT.MC.player);
+				}
+
+				continue;	
 			}
 
 			FVT.MC.interactionManager.clickSlot(screen.getScreenHandler().syncId, i, 0, SlotActionType.QUICK_MOVE, FVT.MC.player);

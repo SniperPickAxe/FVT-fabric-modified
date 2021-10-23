@@ -32,7 +32,6 @@ abstract class ShulkerBoxScreenMixin extends HandledScreen<ShulkerBoxScreenHandl
 		int baseY = ((this.height - this.backgroundHeight) / 2) + 5;
 
 		new ContainerButtons<ShulkerBoxScreenHandler>(this, baseX, baseY).create();
-	
 	}
 
 	public ShulkerBoxScreenMixin(ShulkerBoxScreenHandler handler, PlayerInventory inventory, Text title) {super(handler, inventory, title);} // IGNORED

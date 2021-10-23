@@ -45,7 +45,8 @@ public class FVTSettingsScreen extends Screen
 	private boolean tooltipsActive = false;
 
 	// getter for ModMenu
-	public static Screen getNewScreen(Screen parent) {
+	public static Screen getNewScreen(Screen parent)
+	{
         return new FVTSettingsScreen(parent);
     }
 
@@ -115,7 +116,7 @@ public class FVTSettingsScreen extends Screen
 		}));
 
 		// DONE button at the bottom
-		this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height - 27, 200, 20, ScreenTexts.DONE, (buttonWidget) -> {
+		this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.list.getBottom() + ((this.height - this.list.getBottom() - 20) / 2), 200, 20, ScreenTexts.DONE, (buttonWidget) -> {
 			FVT.OPTIONS.write();
 			this.client.setScreen(parent);
 		}));

@@ -19,7 +19,7 @@ import net.minecraft.client.gui.screen.Screen;
  * @author Flourick
  */
 @Mixin(Screen.class)
-public abstract class ScreenMixin implements IScreen
+abstract class ScreenMixin implements IScreen
 {
 	@Final
 	@Shadow
@@ -37,10 +37,10 @@ public abstract class ScreenMixin implements IScreen
 	public <T extends Element & Drawable & Selectable> T FVT_addDrawableSelectableChild(T child)
 	{
 		// cannot use Invoker becouse for some reason it cannot find those methods
-
 		this.drawables.add(child);
 		this.children.add(child);
 		this.selectables.add(child);
+
 		return child;
 	}
 }
