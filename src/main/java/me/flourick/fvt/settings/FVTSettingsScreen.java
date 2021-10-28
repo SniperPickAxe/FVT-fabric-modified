@@ -90,7 +90,8 @@ public class FVTSettingsScreen extends Screen
 		this.list.addSingleOptionEntry(new FTVCategoryOption("fvt.feature_category.misc"));
 		this.list.addDualOptionEntry(FVT.OPTIONS.disableWToSprint, FVT.OPTIONS.sendDeathCoordinates);
 		this.list.addDualOptionEntry(FVT.OPTIONS.freecam, FVT.OPTIONS.attackThrough);
-		this.list.addEntry(new Option[] {FVT.OPTIONS.containerButtons, FVT.OPTIONS.inventoryButton});
+		this.list.addDualOptionEntry(FVT.OPTIONS.containerButtons, FVT.OPTIONS.inventoryButton);
+		this.list.addEntry(new Option[] {FVT.OPTIONS.horseStats, null});
 		this.addSelectableChild(this.list);
 		
 		// DEFAULTS button at the top left corner

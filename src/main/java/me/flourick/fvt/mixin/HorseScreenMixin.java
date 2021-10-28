@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 import me.flourick.fvt.FVT;
-import me.flourick.fvt.utils.Color;
 import me.flourick.fvt.utils.FVTButtonWidget;
 
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -52,23 +51,27 @@ abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 	{
 		super.init();
 
-		Text header = new TranslatableText("fvt.feature.name.horses.button");
+		if(!FVT.OPTIONS.horseStats.getValueRaw()) {
+			return;
+		}
 
-		int buttonHeight = 12;
-		int buttonWidth = FVT.MC.textRenderer.getWidth(header) + 6;
+		Text header = new TranslatableText("fvt.feature.name.horse_stats.button");
+
+		int buttonHeight = 14;
+		int buttonWidth = FVT.MC.textRenderer.getWidth(header) + 8;
 
 		FVT_tooltip = new ArrayList<>();
-		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.health", FVT_getHorseHealth()).asOrderedText());
-		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.speed", FVT_getHorseSpeed()).asOrderedText());
-		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horses.button.tooltip.jump_height", FVT_getHorseJumpHeight()).asOrderedText());
+		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horse_stats.button.tooltip.health", FVT_getHorseHealth()).asOrderedText());
+		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horse_stats.button.tooltip.speed", FVT_getHorseSpeed()).asOrderedText());
+		FVT_tooltip.add(new TranslatableText("fvt.feature.name.horse_stats.button.tooltip.jump_height", FVT_getHorseJumpHeight()).asOrderedText());
 
 		int baseX = ((this.width - this.backgroundWidth) / 2) + this.backgroundWidth - buttonWidth - 7;
-		int baseY = ((this.height - this.backgroundHeight) / 2) + 4;
+		int baseY = ((this.height - this.backgroundHeight) / 2) - 12;
 
 		FVTButtonWidget button = new FVTButtonWidget(baseX, baseY, buttonWidth, buttonHeight, header, null
 		, (buttonWidget, matrixStack, i, j) -> {
-			this.renderOrderedTooltip(matrixStack, FVT_tooltip, i, j + 8);
-		}, new Color(120, 255, 255, 255), new Color(220, 255, 255, 255));
+			this.renderOrderedTooltip(matrixStack, FVT_tooltip, i, j - 8);
+		});
 		button.active = false;
 
 		this.addDrawableChild(button);

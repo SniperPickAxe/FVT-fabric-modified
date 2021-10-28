@@ -70,6 +70,7 @@ public class FVTOptions
 	public final FVTBooleanOption placementLock;
 	public final FVTBooleanOption containerButtons;
 	public final FVTBooleanOption inventoryButton;
+	public final FVTBooleanOption horseStats;
 	public final FVTBooleanOption invisibleOffhand;
 	public final FVTBooleanOption autoHideHotbar;
 	public final FVTBooleanOption autoHideHotbarMode;
@@ -355,6 +356,13 @@ public class FVTOptions
 			true
 		);
 		savedFeatures.put("inventoryButton", inventoryButton);
+
+		horseStats = new FVTBooleanOption(
+			"fvt.feature.name.horse_stats",
+			"fvt.feature.name.horse_stats.tooltip",
+			true
+		);
+		savedFeatures.put("horseStats", horseStats);
 
 		invisibleOffhand = new FVTBooleanOption(
 			"fvt.feature.name.invisible_offhand",
