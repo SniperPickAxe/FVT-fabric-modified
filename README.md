@@ -20,10 +20,6 @@ Features that are always enabled and don't have a switch.
 
     When riding a mount that has health your hunger bar will be still visible instead of the vanilla behavior which hides it completely. Also your experience bar will remain visible unless you jump with a horse.
 
-* ### Horse Info
-
-    Horses, donkeys and mules have a "Stats" button which shows it's health, speed and jump height on hover.
-
 * ### Bee Hive/Nest Info
 
     Adds a bee count and honey level to Bee Hives & Nests tooltip (ADVANCED TOOLTIPS has to be enabled!).
@@ -122,10 +118,6 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Once the stack in your main hand is below 50% automatically finds the same item in your inventory and restocks it.
 
-* ### Offhand AutoEat
-
-    Will automatically eat the food in your offhand as soon as you loose enough hunger for it to be fully utilized, will also eat if your health is low. Won't work if you for example aim at a chest or have a block in your main hand that can be placed.
-
 * ### AutoTotem
 
     Upon totem activation will automatically find another totem in your inventory and replace the one that was just consumed. Does not matter if you hold the totem in your main hand or offhand, works in both.
@@ -149,6 +141,14 @@ List of all toggleable features. Configuration is in in-game options menu called
 * ### AutoReconnect
 
     Will try to automatically reconnect you to the server you got disconnected from. Number of tries and the time after which it tries to reconnect you are configurable.
+
+* ### Horse Stats
+
+    Horses, donkeys and mules have a "Stats" button which upon hover shows it's health, speed and jump height.
+
+* ### Offhand AutoEat (keybindable)
+
+    Will automatically eat the food in your offhand as soon as you loose enough hunger for it to be fully utilized, will also eat if your health is low.
 
 * ### Invisible Offhand (keybindable)
 
