@@ -1,6 +1,5 @@
 package me.flourick.fvt.settings;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -13,19 +12,19 @@ import me.flourick.fvt.utils.Color;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
-import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.option.Option;
+import net.minecraft.client.util.OrderableTooltip;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferRenderer;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.util.OrderableTooltip;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.TranslatableText;
@@ -145,88 +144,6 @@ public class FVTSettingsScreen extends Screen
 	}
 
 	@Override
-	public void renderOrderedTooltip(MatrixStack matrices, List<? extends OrderedText> lines, int x, int y)
-	{
-		// basically a copy paste just to adjust some annoying spacing, yeah
-		List<TooltipComponent> components = lines.stream().map(TooltipComponent::of).collect(Collectors.toList());
-
-		if(!components.isEmpty()) {
-			int i = 0;
-			int j = components.size() == 1 ? -2 : 0;
-   
-			TooltipComponent tooltipComponent;
-			for(Iterator<TooltipComponent> var7 = components.iterator(); var7.hasNext(); j += tooltipComponent.getHeight()) {
-			   tooltipComponent = var7.next();
-			   int k = tooltipComponent.getWidth(this.textRenderer);
-			   if (k > i) {
-				  i = k;
-			   }
-			}
-   
-			int l = x + 12;
-			int m = y - 12;
-			if (l + i > this.width) {
-			   l -= 28 + i;
-			}
-   
-			if (m + j + 6 > this.height) {
-			   m = this.height - j - 6;
-			}
-   
-			matrices.push();
-
-			float f = this.itemRenderer.zOffset;
-			this.itemRenderer.zOffset = 400.0F;
-
-			Tessellator tessellator = Tessellator.getInstance();
-			BufferBuilder bufferBuilder = tessellator.getBuffer();
-			RenderSystem.setShader(GameRenderer::getPositionColorShader);
-			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
-			Matrix4f matrix4f = matrices.peek().getModel();
-			fillGradient(matrix4f, bufferBuilder, l - 3, m - 4, l + i + 3, m - 3, 400, -267386864, -267386864);
-			fillGradient(matrix4f, bufferBuilder, l - 3, m + j + 3, l + i + 3, m + j + 4, 400, -267386864, -267386864);
-			fillGradient(matrix4f, bufferBuilder, l - 3, m - 3, l + i + 3, m + j + 3, 400, -267386864, -267386864);
-			fillGradient(matrix4f, bufferBuilder, l - 4, m - 3, l - 3, m + j + 3, 400, -267386864, -267386864);
-			fillGradient(matrix4f, bufferBuilder, l + i + 3, m - 3, l + i + 4, m + j + 3, 400, -267386864, -267386864);
-			fillGradient(matrix4f, bufferBuilder, l - 3, m - 3 + 1, l - 3 + 1, m + j + 3 - 1, 400, 1347420415, 1344798847);
-			fillGradient(matrix4f, bufferBuilder, l + i + 2, m - 3 + 1, l + i + 3, m + j + 3 - 1, 400, 1347420415, 1344798847);
-			fillGradient(matrix4f, bufferBuilder, l - 3, m - 3, l + i + 3, m - 3 + 1, 400, 1347420415, 1347420415);
-			fillGradient(matrix4f, bufferBuilder, l - 3, m + j + 2, l + i + 3, m + j + 3, 400, 1344798847, 1344798847);
-			RenderSystem.enableDepthTest();
-			RenderSystem.disableTexture();
-			RenderSystem.enableBlend();
-			RenderSystem.defaultBlendFunc();
-			bufferBuilder.end();
-			BufferRenderer.draw(bufferBuilder);
-			RenderSystem.disableBlend();
-			RenderSystem.enableTexture();
-			VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-			matrices.translate(0.0D, 0.0D, 400.0D);
-			int t = m;
-   
-			int v;
-			TooltipComponent tooltipComponent3;
-			for(v = 0; v < components.size(); ++v) {
-			   tooltipComponent3 = components.get(v);
-			   tooltipComponent3.drawText(this.textRenderer, l, t, matrix4f, immediate);
-			   t += tooltipComponent3.getHeight() + (v == components.size() - 2 ? 2 : 0);
-			}
-   
-			immediate.draw();
-			matrices.pop();
-			t = m;
-   
-			for(v = 0; v < components.size(); ++v) {
-			   tooltipComponent3 = components.get(v);
-			   tooltipComponent3.drawItems(this.textRenderer, l, t, matrices, this.itemRenderer, 400, this.client.getTextureManager());
-			   t += tooltipComponent3.getHeight() + (v == components.size() - 2 ? 2 : 0);
-			}
-   
-			this.itemRenderer.zOffset = f;
-		}
-	}
-
-	@Override
 	public void removed()
 	{
 		FVT.OPTIONS.write();
@@ -236,5 +153,90 @@ public class FVTSettingsScreen extends Screen
 	public void onClose()
 	{
 		this.client.setScreen(parent);
+	}
+
+	@Override
+	public void renderOrderedTooltip(MatrixStack matrices, List<? extends OrderedText> lines, int x, int y)
+	{
+		// basically a copy paste just to adjust some annoying spacing, yeah
+		if(!lines.isEmpty() && lines.size() > 2) {
+			List<TooltipComponent> components = lines.stream().map(TooltipComponent::of).collect(Collectors.toList());
+
+			TooltipComponent tooltipComponent2;
+			int s;
+			int k;
+			if(components.isEmpty()) {
+				return;
+			}
+
+			int i = 0;
+			int j = components.size() == 1 ? -2 : 0;
+			for(TooltipComponent tooltipComponent : components) {
+				k = tooltipComponent.getWidth(this.textRenderer);
+				if (k > i) {
+					i = k;
+				}
+				j += tooltipComponent.getHeight();
+			}
+			int l = x + 12;
+			int tooltipComponent = y - 12;
+			k = i;
+			int m = j;
+
+			if(l + i > this.width) {
+				l -= 28 + i;
+			}
+
+			if(tooltipComponent + m + 6 > this.height) {
+				tooltipComponent = this.height - m - 6;
+			}
+
+			matrices.push();
+			float f = this.itemRenderer.zOffset;
+			this.itemRenderer.zOffset = 400.0f;
+			Tessellator tessellator = Tessellator.getInstance();
+			BufferBuilder bufferBuilder = tessellator.getBuffer();
+			RenderSystem.setShader(GameRenderer::getPositionColorShader);
+			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
+			Matrix4f matrix4f = matrices.peek().getPositionMatrix();
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 3, tooltipComponent - 4, l + k + 3, tooltipComponent - 3, 400, -267386864, -267386864);
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 3, tooltipComponent + m + 3, l + k + 3, tooltipComponent + m + 4, 400, -267386864, -267386864);
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 3, tooltipComponent - 3, l + k + 3, tooltipComponent + m + 3, 400, -267386864, -267386864);
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 4, tooltipComponent - 3, l - 3, tooltipComponent + m + 3, 400, -267386864, -267386864);
+			Screen.fillGradient(matrix4f, bufferBuilder, l + k + 3, tooltipComponent - 3, l + k + 4, tooltipComponent + m + 3, 400, -267386864, -267386864);
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 3, tooltipComponent - 3 + 1, l - 3 + 1, tooltipComponent + m + 3 - 1, 400, 0x505000FF, 1344798847);
+			Screen.fillGradient(matrix4f, bufferBuilder, l + k + 2, tooltipComponent - 3 + 1, l + k + 3, tooltipComponent + m + 3 - 1, 400, 0x505000FF, 1344798847);
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 3, tooltipComponent - 3, l + k + 3, tooltipComponent - 3 + 1, 400, 0x505000FF, 0x505000FF);
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 3, tooltipComponent + m + 2, l + k + 3, tooltipComponent + m + 3, 400, 1344798847, 1344798847);
+			RenderSystem.enableDepthTest();
+			RenderSystem.disableTexture();
+			RenderSystem.enableBlend();
+			RenderSystem.defaultBlendFunc();
+			bufferBuilder.end();
+			BufferRenderer.draw(bufferBuilder);
+			RenderSystem.disableBlend();
+			RenderSystem.enableTexture();
+			VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
+			matrices.translate(0.0, 0.0, 400.0);
+
+			int r = tooltipComponent;
+			for(s = 0; s < components.size(); ++s) {
+				tooltipComponent2 = components.get(s);
+				tooltipComponent2.drawText(this.textRenderer, l, r, matrix4f, immediate);
+				r += tooltipComponent2.getHeight() + (s == components.size() - 2 ? 2 : 0);
+			}
+			immediate.draw();
+			matrices.pop();
+			r = tooltipComponent;
+			for(s = 0; s < components.size(); ++s) {
+				tooltipComponent2 = components.get(s);
+				tooltipComponent2.drawItems(this.textRenderer, l, r, matrices, this.itemRenderer, 400);
+				r += tooltipComponent2.getHeight() + (s == components.size() - 2 ? 2 : 0);
+			}
+			this.itemRenderer.zOffset = f;
+		}
+		else {
+			super.renderOrderedTooltip(matrices, lines, x, y);
+		}
 	}
 }

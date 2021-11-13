@@ -13,8 +13,6 @@ import net.minecraft.network.packet.s2c.play.ItemPickupAnimationS2CPacket;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
 import net.minecraft.screen.slot.SlotActionType;
 
-import org.apache.commons.lang3.text.WordUtils;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -50,7 +48,7 @@ abstract class ClientPlayNetworkHandlerMixin
 		Entity entity = FVT.MC.world.getEntityById(packet.getEntityId());
 		
 		if(entity == FVT.MC.player) {
-			FVT.VARS.setLastDeathCoordinates(FVT.MC.player.getX(), FVT.MC.player.getY(), FVT.MC.player.getZ(), WordUtils.capitalize(FVT.MC.player.clientWorld.getRegistryKey().getValue().toString().split(":")[1].replace('_', ' ')));
+			FVT.VARS.setLastDeathCoordinates(FVT.MC.player.getX(), FVT.MC.player.getY(), FVT.MC.player.getZ(), FVT.MC.player.clientWorld.getRegistryKey().getValue().toString().split(":")[1].replace('_', ' '));
 			FVT.VARS.isAfterDeath = true;
 		}
 	}

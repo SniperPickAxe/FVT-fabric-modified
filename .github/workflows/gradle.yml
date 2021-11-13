@@ -10,9 +10,10 @@ jobs:
     strategy:
       matrix:
         java: [
-          16 # Minimum supported by Minecraft
+          16, # Minimum supported by Minecraft
+          17  # Current Java LTS
         ]
-        os: [ubuntu-20.04, windows-latest]
+        os: [ubuntu-20.04, windows-2022]
 
     runs-on: ${{ matrix.os }}
 
@@ -31,7 +32,7 @@ jobs:
       - name: build
         run: ./gradlew build
       # - name: capture build artifacts
-      #   if: ${{ runner.os == 'Linux' && matrix.java == '16' }}
+      #   if: ${{ runner.os == 'Linux' && matrix.java == '17' }}
       #   uses: actions/upload-artifact@v2
       #   with:
       #     name: Artifacts

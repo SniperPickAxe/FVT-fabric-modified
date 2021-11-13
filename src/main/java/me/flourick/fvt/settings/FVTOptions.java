@@ -206,7 +206,7 @@ public class FVTOptions
 		cloudHeight = new FVTDoubleOption(
 			"fvt.feature.name.cloud_height",
 			"fvt.feature.name.cloud_height.tooltip",
-			0.0d, 256.0d, 1.0d, 128.0d, FVTDoubleOption.Mode.WHOLE
+			-64.0d, 320.0d, 1.0d, 192.0d, FVTDoubleOption.Mode.WHOLE
 		);
 		savedFeatures.put("cloudHeight", cloudHeight);
 

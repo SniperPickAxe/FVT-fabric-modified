@@ -1,8 +1,8 @@
 package me.flourick.fvt.mixin;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -13,8 +13,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import me.flourick.fvt.FVT;
 import me.flourick.fvt.utils.FVTButtonWidget;
 
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.HorseScreen;
+import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferRenderer;
 import net.minecraft.client.render.GameRenderer;
@@ -22,6 +24,7 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -30,7 +33,6 @@ import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.Matrix4f;
-import net.minecraft.client.util.math.MatrixStack;
 
 /**
  * FEATURES: Horse Info
@@ -116,51 +118,54 @@ abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 	{
 		// basically a copy paste just to adjust some annoying spacing, yeah
 		if(!lines.isEmpty() && lines.size() > 2) {
+			List<TooltipComponent> components = lines.stream().map(TooltipComponent::of).collect(Collectors.toList());
+
+			TooltipComponent tooltipComponent2;
+			int s;
+			int k;
+			if(components.isEmpty()) {
+				return;
+			}
+
 			int i = 0;
-			Iterator<? extends OrderedText> linesIterator = lines.iterator();
-
-			while(linesIterator.hasNext()) {
-				OrderedText orderedText = (OrderedText)linesIterator.next();
-				int j = this.textRenderer.getWidth(orderedText);
-				if (j > i) {
-					i = j;
+			int j = components.size() == 1 ? -2 : 0;
+			for(TooltipComponent tooltipComponent : components) {
+				k = tooltipComponent.getWidth(this.textRenderer);
+				if (k > i) {
+					i = k;
 				}
+				j += tooltipComponent.getHeight();
+			}
+			int l = x + 12;
+			int tooltipComponent = y - 12;
+			k = i;
+			int m = j;
+
+			if(l + i > this.width) {
+				l -= 28 + i;
 			}
 
-			int k = x + 12;
-			int l = y - 12;
-			int n = 8;
-			if(lines.size() > 1) {
-				n += 2 + (lines.size() - 1) * 10;
-			}
-
-			if(k + i > this.width) {
-				k -= 28 + i;
-			}
-
-			if(l + n + 6 > this.height) {
-				l = this.height - n - 6;
+			if(tooltipComponent + m + 6 > this.height) {
+				tooltipComponent = this.height - m - 6;
 			}
 
 			matrices.push();
-
 			float f = this.itemRenderer.zOffset;
-			this.itemRenderer.zOffset = 400.0F;
-
+			this.itemRenderer.zOffset = 400.0f;
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferBuilder = tessellator.getBuffer();
 			RenderSystem.setShader(GameRenderer::getPositionColorShader);
 			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
-			Matrix4f matrix4f = matrices.peek().getModel();
-			fillGradient(matrix4f, bufferBuilder, k - 3, l - 4, k + i + 3, l - 3, 400, -267386864, -267386864);
-			fillGradient(matrix4f, bufferBuilder, k - 3, l + n + 3, k + i + 3, l + n + 4, 400, -267386864, -267386864);
-			fillGradient(matrix4f, bufferBuilder, k - 3, l - 3, k + i + 3, l + n + 3, 400, -267386864, -267386864);
-			fillGradient(matrix4f, bufferBuilder, k - 4, l - 3, k - 3, l + n + 3, 400, -267386864, -267386864);
-			fillGradient(matrix4f, bufferBuilder, k + i + 3, l - 3, k + i + 4, l + n + 3, 400, -267386864, -267386864);
-			fillGradient(matrix4f, bufferBuilder, k - 3, l - 3 + 1, k - 3 + 1, l + n + 3 - 1, 400, 1347420415, 1344798847);
-			fillGradient(matrix4f, bufferBuilder, k + i + 2, l - 3 + 1, k + i + 3, l + n + 3 - 1, 400, 1347420415, 1344798847);
-			fillGradient(matrix4f, bufferBuilder, k - 3, l - 3, k + i + 3, l - 3 + 1, 400, 1347420415, 1347420415);
-			fillGradient(matrix4f, bufferBuilder, k - 3, l + n + 2, k + i + 3, l + n + 3, 400, 1344798847, 1344798847);
+			Matrix4f matrix4f = matrices.peek().getPositionMatrix();
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 3, tooltipComponent - 4, l + k + 3, tooltipComponent - 3, 400, -267386864, -267386864);
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 3, tooltipComponent + m + 3, l + k + 3, tooltipComponent + m + 4, 400, -267386864, -267386864);
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 3, tooltipComponent - 3, l + k + 3, tooltipComponent + m + 3, 400, -267386864, -267386864);
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 4, tooltipComponent - 3, l - 3, tooltipComponent + m + 3, 400, -267386864, -267386864);
+			Screen.fillGradient(matrix4f, bufferBuilder, l + k + 3, tooltipComponent - 3, l + k + 4, tooltipComponent + m + 3, 400, -267386864, -267386864);
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 3, tooltipComponent - 3 + 1, l - 3 + 1, tooltipComponent + m + 3 - 1, 400, 0x505000FF, 1344798847);
+			Screen.fillGradient(matrix4f, bufferBuilder, l + k + 2, tooltipComponent - 3 + 1, l + k + 3, tooltipComponent + m + 3 - 1, 400, 0x505000FF, 1344798847);
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 3, tooltipComponent - 3, l + k + 3, tooltipComponent - 3 + 1, 400, 0x505000FF, 0x505000FF);
+			Screen.fillGradient(matrix4f, bufferBuilder, l - 3, tooltipComponent + m + 2, l + k + 3, tooltipComponent + m + 3, 400, 1344798847, 1344798847);
 			RenderSystem.enableDepthTest();
 			RenderSystem.disableTexture();
 			RenderSystem.enableBlend();
@@ -170,20 +175,22 @@ abstract class HorseScreenMixin extends HandledScreen<HorseScreenHandler>
 			RenderSystem.disableBlend();
 			RenderSystem.enableTexture();
 			VertexConsumerProvider.Immediate immediate = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
-			matrices.translate(0.0D, 0.0D, 400.0D);
+			matrices.translate(0.0, 0.0, 400.0);
 
-			for(int s = 0; s < lines.size(); ++s) {
-				OrderedText orderedText2 = (OrderedText)lines.get(s);
-				if(orderedText2 != null) {
-					this.textRenderer.draw(orderedText2, (float)k, (float)l, -1, true, matrix4f, immediate, false, 0, 15728880);
-				}
-
-				l += 10;
+			int r = tooltipComponent;
+			for(s = 0; s < components.size(); ++s) {
+				tooltipComponent2 = components.get(s);
+				tooltipComponent2.drawText(this.textRenderer, l, r, matrix4f, immediate);
+				r += tooltipComponent2.getHeight();
 			}
-
 			immediate.draw();
 			matrices.pop();
-
+			r = tooltipComponent;
+			for(s = 0; s < components.size(); ++s) {
+				tooltipComponent2 = components.get(s);
+				tooltipComponent2.drawItems(this.textRenderer, l, r, matrices, this.itemRenderer, 400);
+				r += tooltipComponent2.getHeight();
+			}
 			this.itemRenderer.zOffset = f;
 		}
 		else {
