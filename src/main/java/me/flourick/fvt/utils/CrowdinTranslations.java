@@ -125,7 +125,7 @@ public class CrowdinTranslations
 				put("nl-BE", "nl_be");
 				put("nl", "nl_nl");
 				put("nn-NO", "nn_no");
-				put("no", "no_no‌");
+				put("no", "no_no");
 				put("oc", "oc_fr");
 				//put("ovd", "ovd");			// Elfdalian
 				put("pl", "pl_pl");

@@ -16,6 +16,8 @@ import net.minecraft.resource.ReloadableResourceManagerImpl;
 import net.minecraft.resource.ResourcePack;
 import net.minecraft.resource.ResourceReload;
 
+import org.apache.logging.log4j.LogManager;
+
 /**
  * Adds our custom resource pack with language definitions.
  * 
@@ -29,7 +31,12 @@ abstract class ReloadableResourceManagerImplMixin implements ReloadableResourceM
 
 	@Inject(method = "reload", at = @At(value = "INVOKE", target = "Ljava/util/List;iterator()Ljava/util/Iterator;"))
     private void onReload(CallbackInfoReturnable<ResourceReload> info)
-    {	
-        this.addPack(new FVTLanguagesPack(new File(FVT.MC.runDirectory, "config/fvt/translations")));
+    {
+        if(FVT.MC != null) {
+            this.addPack(new FVTLanguagesPack(new File(FVT.MC.runDirectory, "config/fvt/translations")));
+        }
+        else {
+            LogManager.getLogger().error("[FVT] Error adding translations resource pack!");
+        }
     }
 }
