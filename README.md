@@ -88,7 +88,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
 * ### Cloud Height
 
-    Allows you to set the height at which clouds render (0 - 256).
+    Allows you to set the height at which clouds render (-64 to 320).
 
 * ### No Nether Thick Fog
 
@@ -112,7 +112,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
 * ### Attack Through
 
-    Let's you attack entities through collisionless blocks such as grass and flowers.
+    Let's you attack entities through collisionless blocks such as grass and flowers without destroying them first.
 
 * ### Refill Hand
 
@@ -132,7 +132,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
 * ### Container Buttons
 
-    Chests, barrels and shulker boxes have three buttons that let you deposit all into the container, yoink all from the container or yeet it all out on the ground.
+    Chests, barrels and shulker boxes have three buttons that let you deposit all into the container, yoink all from the container or yeet it all out on the ground. If you hold CTRL while clicking either the take or deposit button it will only move matching items, meaning only those that are present in the inventory you move the items to.
 
 * ### Inventory Button
 
@@ -172,7 +172,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
 * ### Freecam (keybindable)
 
-    Allows you to leave your body and explore your surroundings. Works similar to spectator.
+    Allows you to leave your body and explore your surroundings. Works similar to spectator mode.
 
 * ### Trigger AutoAttack (keybindable)
 
