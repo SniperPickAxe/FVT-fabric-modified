@@ -31,7 +31,8 @@
 		"MerchantScreenHandlerMixin",
 		"MerchantScreenMixin",
 		"HandledScreenMixin",
-		"ScreenMixin"
+		"ScreenMixin",
+		"EntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -15,9 +15,7 @@ import me.flourick.fvt.FVT;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.network.ServerInfo;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BowItem;
@@ -26,9 +24,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.MiningToolItem;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.TridentItem;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 
 /**
@@ -36,7 +34,7 @@ import net.minecraft.util.math.BlockPos;
  * 
  * @author Flourick
  */
-@Mixin(MinecraftClient.class)
+@Mixin(value = MinecraftClient.class, priority = 999)
 abstract class MinecraftClientMixin
 {
 	private List<BlockPos> FVT_placementHistory = new ArrayList<>();
@@ -55,6 +53,9 @@ abstract class MinecraftClientMixin
 
 	@Shadow
 	private int itemUseCooldown;
+
+	@Shadow
+	public HitResult crosshairTarget;
 
 	@Inject(method = "doAttack", at = @At("HEAD"), cancellable = true)
 	private void onDoAttack(CallbackInfo info)
@@ -187,7 +188,7 @@ abstract class MinecraftClientMixin
 	private Hand[] hijackHandValues()
 	{
 		if(FVT.OPTIONS.autoEat.getValueRaw() && FVT.VARS.autoEating) {
-			FVT.MC.crosshairTarget = null; // so we don't target interactable blocks or entities while eating
+			crosshairTarget = null; // so we don't target interactable blocks or entities while eating
 			return new Hand[] {Hand.OFF_HAND};
 		}
 
@@ -205,7 +206,7 @@ abstract class MinecraftClientMixin
 	{
 		// user placed three blocks so that's our cue to limit the placement!
 		if(FVT.OPTIONS.placementLock.getValueRaw() && FVT_placementHistory.size() == 3) {
-			BlockPos expected = ((BlockHitResult) FVT.MC.crosshairTarget).getBlockPos().offset(((BlockHitResult) FVT.MC.crosshairTarget).getSide());
+			BlockPos expected = ((BlockHitResult) crosshairTarget).getBlockPos().offset(((BlockHitResult) crosshairTarget).getSide());
 			
 			if((FVT_xAligned && FVT_xAlign != expected.getX()) || (FVT_yAligned && FVT_yAlign != expected.getY()) || (FVT_zAligned && FVT_zAlign != expected.getZ())) {
 				info.cancel();
@@ -213,13 +214,13 @@ abstract class MinecraftClientMixin
 		}
 	}
 
-	@Redirect(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;interactBlock(Lnet/minecraft/client/network/ClientPlayerEntity;Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/util/Hand;Lnet/minecraft/util/hit/BlockHitResult;)Lnet/minecraft/util/ActionResult;", ordinal = 0))
-	private ActionResult hijackInteractBlock(ClientPlayerInteractionManager manager, ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult)
+	@Inject(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/ActionResult;isAccepted()Z", ordinal = 2))
+	private void onInteractBlock(CallbackInfo info)
 	{
-		ActionResult result = manager.interactBlock(player, world, hand, hitResult);
+		if(FVT.OPTIONS.placementLock.getValueRaw() && FVT_placementHistory.size() < 3) {
+			BlockHitResult blockHitResult = (BlockHitResult)crosshairTarget;
 
-		if(result.isAccepted() && FVT_placementHistory.size() < 3) {
-			FVT_placementHistory.add(hitResult.getBlockPos().offset(hitResult.getSide()));
+			FVT_placementHistory.add(blockHitResult.getBlockPos().offset(blockHitResult.getSide()));
 
 			if(FVT_placementHistory.size() == 3) {
 				if(FVT_placementHistory.get(0).getX() == FVT_placementHistory.get(1).getX() && FVT_placementHistory.get(1).getX() == FVT_placementHistory.get(2).getX()) {
@@ -238,8 +239,6 @@ abstract class MinecraftClientMixin
 				}
 			}
 		}
-
-		return result;
 	}
 
 	@Inject(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;doItemUse()V", ordinal = 0, shift = At.Shift.BEFORE))

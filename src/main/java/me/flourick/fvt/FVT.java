@@ -77,7 +77,7 @@ public class FVT implements ClientModInitializer
 		KeyBinding invisibleOffhandKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.invisible_offhand", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 		KeyBinding autoEatKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("fvt.feature.name.autoeat", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_UNKNOWN, "FVT"));
 
-		ClientTickEvents.END_CLIENT_TICK.register(client ->
+		ClientTickEvents.END_WORLD_TICK.register(client ->
 		{
 			while(openSettingsMenuKeybind.wasPressed()) {
 				FVT.MC.setScreen(new FVTSettingsScreen(FVT.MC.currentScreen));
@@ -122,7 +122,7 @@ public class FVT implements ClientModInitializer
 				}
 			}
 
-			while(freecamKeybind.wasPressed()) {
+			while(freecamKeybind.wasPressed() && FVT.MC.player.getVelocity() != null) {
 				FVT.OPTIONS.freecam.toggle();
 
 				if(FVT.OPTIONS.featureToggleMessages.getValueRaw()) {

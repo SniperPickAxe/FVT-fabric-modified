@@ -69,7 +69,7 @@ abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 		}
 	}
 
-	@Inject(method = "tickMovement", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "tickMovement", at = @At("HEAD"))
 	private void onTickMovement(CallbackInfo info)
 	{
 		if(FVT.OPTIONS.disableWToSprint.getValueRaw()) {
