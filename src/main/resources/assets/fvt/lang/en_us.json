@@ -181,6 +181,9 @@
 	"fvt.feature.name.attack_through": "Attack Through",
 	"fvt.feature.name.attack_through.tooltip": "Allows you to attack entities through blocks that have no collision box such as grass and flowers.",
 
+	"fvt.feature.name.auto_elytra": "AutoElytra",
+	"fvt.feature.name.auto_elytra.tooltip": "Automatically switches to elytra when trying to fly as if you had one in the first place, when you land it will switch back to a chestplate if one is in your inventory.",
+
 	"fvt.feature.name.bee_info.honey": "Honey: %s",
 	"fvt.feature.name.bee_info.bees": "Bees: %s"
 }

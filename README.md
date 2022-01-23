@@ -1,6 +1,6 @@
 # Flour's Various Tweaks (FVT)
 
-Various tweaks fabric mod, compatible with Sodium/Canvas.
+Various client-side tweaks fabric mod, compatible with Sodium/Canvas.
 
 Translations are handled on [Crowdin](https://crowdin.com/project/flours-various-tweaks). If you wish to translate the mod and your language is not listed there, start a thread in [Discussions](https://github.com/Flourick/FVT-fabric/discussions) or message me on Crowdin.
 
@@ -121,6 +121,10 @@ List of all toggleable features. Configuration is in in-game options menu called
 * ### AutoTotem
 
     Upon totem activation will automatically find another totem in your inventory and replace the one that was just consumed. Does not matter if you hold the totem in your main hand or offhand, works in both.
+
+* ### AutoElytra
+
+    If you have a chestplate on and an elytra in your inventory will automatically swap them when flying/landing. NOTE: will pick the items from the upper-left corner first so if you have multiple chestplates the one closer to that corner will be picked first.
 
 * ### Use Delay
 

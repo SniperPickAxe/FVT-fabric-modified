@@ -78,6 +78,7 @@ public class FVTOptions
 	public final FVTBooleanOption autoHideHotbarUse;
 	public final FVTBooleanOption autoHideHotbarItem;
 	public final FVTBooleanOption attackThrough;
+	public final FVTBooleanOption autoElytra;
 
 	public FVTOptions()
 	{
@@ -414,6 +415,13 @@ public class FVTOptions
 			false
 		);
 		savedFeatures.put("attackThrough", attackThrough);
+
+		autoElytra = new FVTBooleanOption(
+			"fvt.feature.name.auto_elytra",
+			"fvt.feature.name.auto_elytra.tooltip",
+			false
+		);
+		savedFeatures.put("autoElytra", autoElytra);
 
 		init();
 	}
