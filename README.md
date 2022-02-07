@@ -2,7 +2,7 @@
 
 Various client-side tweaks fabric mod, compatible with Sodium/Canvas.
 
-Translations are handled on [Crowdin](https://crowdin.com/project/flours-various-tweaks). If you wish to translate the mod and your language is not listed there, start a thread in [Discussions](https://github.com/Flourick/FVT-fabric/discussions) or message me on Crowdin.
+Translations are handled on [Crowdin](https://crowdin.com/project/flours-various-tweaks). If you wish to translate the mod and your language is not listed there, start a thread in [Discussions](https://github.com/Flourick/FVT-fabric/discussions) or message me on Crowdin. The mod is currently fully translated into English, Czech, Russian and Brazilian Portuguese.
 
 ## Installation
 
