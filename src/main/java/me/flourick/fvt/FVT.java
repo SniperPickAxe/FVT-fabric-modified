@@ -3,10 +3,11 @@ package me.flourick.fvt;
 import java.util.UUID;
 
 import org.lwjgl.glfw.GLFW;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import me.flourick.fvt.settings.FVTOptions;
 import me.flourick.fvt.settings.FVTSettingsScreen;
-import me.flourick.fvt.utils.CrowdinTranslations;
 import me.flourick.fvt.utils.FVTVars;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -38,6 +39,8 @@ import net.minecraft.util.math.MathHelper;
  */
 public class FVT implements ClientModInitializer
 {
+	public static final Logger LOGGER = LoggerFactory.getLogger("FVT");
+
 	public static FVT INSTANCE;
 	public static MinecraftClient MC;
 	public static FVTOptions OPTIONS;
@@ -51,9 +54,6 @@ public class FVT implements ClientModInitializer
 		INSTANCE = this;
 		MC = MinecraftClient.getInstance();
 		OPTIONS = new FVTOptions();
-
-		// downloads all available translations from Crowdin
-		CrowdinTranslations.download();
 
 		registerKeys();
 		registerCallbacks();
@@ -258,23 +258,23 @@ public class FVT implements ClientModInitializer
 				if(foodLevel < 20 && FVT.MC.player.getOffHandStack().isFood()) {
 					// either we low on health so eat anyway or hunger is low enough for the food to be fully utilized
 					if(FVT.MC.player.getOffHandStack().getItem().getFoodComponent().getHunger() + foodLevel <= 20 || FVT.MC.player.getHealth() <= 12.0f) {
-						FVT.MC.options.keyUse.setPressed(true);
+						FVT.MC.options.useKey.setPressed(true);
 						FVT.VARS.autoEating = true;
 					}
 					else if(FVT.VARS.autoEating) {
 						FVT.VARS.autoEating = false;
-						FVT.MC.options.keyUse.setPressed(false);
+						FVT.MC.options.useKey.setPressed(false);
 					}
 				}
 				else if(FVT.VARS.autoEating) {
 					FVT.VARS.autoEating = false;
-					FVT.MC.options.keyUse.setPressed(false);
+					FVT.MC.options.useKey.setPressed(false);
 				}
 			}
 			else if(FVT.VARS.autoEating) {
 				// reset in case user turned autoeat off mid-eating
 				FVT.VARS.autoEating = false;
-				FVT.MC.options.keyUse.setPressed(false);
+				FVT.MC.options.useKey.setPressed(false);
 			}
 		});
 

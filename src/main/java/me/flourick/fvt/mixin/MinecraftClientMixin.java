@@ -58,7 +58,7 @@ abstract class MinecraftClientMixin
 	public HitResult crosshairTarget;
 
 	@Inject(method = "doAttack", at = @At("HEAD"), cancellable = true)
-	private void onDoAttack(CallbackInfo info)
+	private void onDoAttack(CallbackInfoReturnable<Boolean> info)
 	{
 		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
 			ItemStack mainHandItem = player.getMainHandStack();
@@ -66,17 +66,17 @@ abstract class MinecraftClientMixin
 			if(mainHandItem.isDamaged()) {
 				if(mainHandItem.getItem() instanceof SwordItem) {
 					if(mainHandItem.getMaxDamage() - mainHandItem.getDamage() < 3) {
-						info.cancel();
+						info.setReturnValue(false);
 					}
 				}
 				else if(mainHandItem.getItem() instanceof TridentItem) {
 					if(mainHandItem.getMaxDamage() - mainHandItem.getDamage() < 3) {
-						info.cancel();
+						info.setReturnValue(false);
 					}
 				}
 				else if(mainHandItem.getItem() instanceof MiningToolItem){
 					if(mainHandItem.getMaxDamage() - mainHandItem.getDamage() < 3) {
-						info.cancel();
+						info.setReturnValue(false);
 					}
 				}
 			}
@@ -87,7 +87,7 @@ abstract class MinecraftClientMixin
 		}
 
 		if(FVT.OPTIONS.freecam.getValueRaw()) {
-			info.cancel();
+			info.setReturnValue(false);
 		}
 	}
 

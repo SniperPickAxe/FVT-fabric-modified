@@ -26,7 +26,6 @@
 		"LivingEntityMixin",
 		"PlayerInventoryMixin",
 		"CreativeInventoryScreenMixin",
-		"ReloadableResourceManagerImplMixin",
 		"PlayerEntityRendererMixin",
 		"MerchantScreenHandlerMixin",
 		"MerchantScreenMixin",

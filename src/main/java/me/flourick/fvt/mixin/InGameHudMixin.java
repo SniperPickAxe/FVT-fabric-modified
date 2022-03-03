@@ -177,7 +177,7 @@ abstract class InGameHudMixin extends DrawableHelper
 	private void hijackRenderMountJumpBar(InGameHud igHud, MatrixStack matrices, int x)
 	{
 		// makes it so jump bar is only visible while actually jumping
-		if(FVT.MC.options.keyJump.isPressed()) {
+		if(FVT.MC.options.jumpKey.isPressed()) {
 			boolean autoHideHotbar = FVT.OPTIONS.autoHideHotbar.getValueRaw();
 
 			if(autoHideHotbar) {

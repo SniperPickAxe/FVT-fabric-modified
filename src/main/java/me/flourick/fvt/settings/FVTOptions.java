@@ -15,8 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.logging.log4j.LogManager;
-
 import me.flourick.fvt.FVT;
 
 import net.minecraft.text.TranslatableText;
@@ -458,7 +456,7 @@ public class FVTOptions
 			}
 		}
 		catch(Exception e) {
-			LogManager.getLogger().error("[FVT] Failed to write to 'fvt.properties':", e.toString());
+			FVT.LOGGER.error("Failed to write to 'fvt.properties':", e.toString());
 		}
 	}
 
@@ -474,7 +472,7 @@ public class FVTOptions
 				String[] v = line.split("=");
 
 				if(v.length != 2) {
-					LogManager.getLogger().warn("[FVT] Skipping bad config option line!");
+					FVT.LOGGER.warn("Skipping bad config option line!");
 					return;
 				}
 
@@ -482,12 +480,12 @@ public class FVTOptions
 				String value = v[1];
 
 				if(savedFeatures.get(key) == null || !savedFeatures.get(key).setValueFromString(value)) {
-					LogManager.getLogger().warn("[FVT] Skipping bad config option (" + value + ")" + " for " + key);
+					FVT.LOGGER.warn("Skipping bad config option (" + value + ")" + " for " + key);
 				}
 			});
 		}
 		catch(IOException e) {
-			LogManager.getLogger().error("[FVT] Failed to read from 'fvt.properties':", e.toString());
+			FVT.LOGGER.error("Failed to read from 'fvt.properties':", e.toString());
 		}
 	}
 }
