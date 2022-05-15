@@ -1,8 +1,5 @@
 package me.flourick.fvt.mixin;
 
-import com.ibm.icu.math.BigDecimal;
-import com.mojang.authlib.GameProfile;
-import me.flourick.fvt.FVT;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.input.Input;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -22,6 +19,12 @@ import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.stat.StatHandler;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.MathHelper;
+
+import java.util.UUID;
+
+import com.ibm.icu.math.BigDecimal;
+import com.mojang.authlib.GameProfile;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.UUID;
+import me.flourick.fvt.FVT;
 
 /**
  * FEATURES: AutoReconnect, Chat Death Coordinates, Disable 'W' To Sprint, Freecam, Hotbar Autohide, AutoElytra
@@ -75,9 +78,10 @@ abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	@Inject(method = "dropSelectedItem", at = @At("HEAD"), cancellable = true)
 	private void onDropSelectedItem(CallbackInfoReturnable<Boolean> info)
 	{
-		if (FVT.OPTIONS.freecam.getValueRaw()) {
+		if(FVT.OPTIONS.freecam.getValueRaw()) {
 			info.setReturnValue(false);
-		} else if(FVT.OPTIONS.autoHideHotbarItem.getValueRaw()) {
+		}
+		else if(FVT.OPTIONS.autoHideHotbarItem.getValueRaw()) {
 			FVT.VARS.resetHotbarLastInteractionTime();
 		}
 	}
