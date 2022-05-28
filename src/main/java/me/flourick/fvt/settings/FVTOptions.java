@@ -77,6 +77,7 @@ public class FVTOptions
 	public final FVTBooleanOption autoHideHotbarItem;
 	public final FVTBooleanOption attackThrough;
 	public final FVTBooleanOption autoElytra;
+	public final FVTBooleanOption fastTrade;
 
 	public FVTOptions()
 	{
@@ -420,6 +421,13 @@ public class FVTOptions
 			false
 		);
 		savedFeatures.put("autoElytra", autoElytra);
+
+		fastTrade = new FVTBooleanOption(
+			"fvt.feature.name.fast_trade",
+			"fvt.feature.name.fast_trade.tooltip",
+			false
+		);
+		savedFeatures.put("fastTrade", fastTrade);
 
 		init();
 	}

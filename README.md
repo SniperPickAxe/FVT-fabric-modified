@@ -2,7 +2,7 @@
 
 Various client-side tweaks fabric mod, compatible with Sodium/Canvas.
 
-Translations are handled on [Crowdin](https://crowdin.com/project/flours-various-tweaks). If you wish to translate the mod and your language is not listed there, start a thread in [Discussions](https://github.com/Flourick/FVT-fabric/discussions) or message me on Crowdin. The mod is currently fully translated into English, Czech, Russian and Brazilian Portuguese.
+Translations are handled on [Crowdin](https://crowdin.com/project/flours-various-tweaks). If you wish to translate the mod and your language is not listed there, start a thread in [Discussions](https://github.com/Flourick/FVT-fabric/discussions) or message me on Crowdin.
 
 ## Installation
 
@@ -23,10 +23,6 @@ Features that are always enabled and don't have a switch.
 * ### Bee Hive/Nest Info
 
     Adds a bee count and honey level to Bee Hives & Nests tooltip (ADVANCED TOOLTIPS has to be enabled!).
-
-* ### Merchant Autotrade
-
-    If you hold shift while clicking on a villager trade it will automatically perform the trade. Basically shift-clicks the output slot for you, therefore saving you a click.
 
 ## Toggleable Features
 
@@ -125,6 +121,10 @@ List of all toggleable features. Configuration is in in-game options menu called
 * ### AutoElytra
 
     If you have a chestplate on and an elytra in your inventory will automatically swap them when flying/landing. NOTE: will pick the items from the upper-left corner first so if you have multiple chestplates the one closer to that corner will be picked first.
+
+* ### FastTrade
+
+    If you hold shift while clicking on a villager trade it will automatically perform the trade. Basically shift-clicks the output slot for you, therefore saving you a click.
 
 * ### Use Delay
 
