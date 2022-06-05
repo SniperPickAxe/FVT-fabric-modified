@@ -182,7 +182,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Automatically attacks living beings (not players) if you place your crosshair over them and in reach. Primarily meant for AFK farms.
 
-## Preview (v1.7.1)
+## Preview (v1.10.1)
 
 <details><summary>Static crosshair color, HUD info, death message & tool breaking warning. (CLICK ME)</summary>
 <p>
@@ -195,7 +195,7 @@ List of all toggleable features. Configuration is in in-game options menu called
 <details><summary>Ingame menu with default settings. (CLICK ME)</summary>
 <p>
 
-![menu](https://user-images.githubusercontent.com/33128006/131262470-925cadf0-a89c-41e1-8d0d-fce44b37ddc2.png)
+![menu](https://user-images.githubusercontent.com/33128006/172046184-360a30a2-0093-4b1e-876c-5fd746bfa532.png)
 
 </p>
 </details>
