@@ -1,16 +1,16 @@
 package me.flourick.fvt.mixin;
 
-import net.minecraft.client.render.Camera;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.BlockView;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import net.minecraft.client.render.Camera;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.BlockView;
 
 import me.flourick.fvt.FVT;
 
@@ -38,7 +38,7 @@ abstract class CameraMixin
 	@Inject(method = "update", at = @At("HEAD"), cancellable = true)
 	private void onUpdate(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo info)
 	{
-		if(FVT.OPTIONS.freecam.getValueRaw()) {
+		if(FVT.OPTIONS.freecam.getValue()) {
 			if(!FVT_preFreecam) {
 				FVT_preFreecam = true;
 				FVT_freecamToggleCheck();
@@ -64,7 +64,7 @@ abstract class CameraMixin
 	@Inject(method = "isThirdPerson", at = @At("HEAD"), cancellable = true)
 	private void onIsThirdPerson(CallbackInfoReturnable<Boolean> info)
 	{
-		if(FVT.OPTIONS.freecam.getValueRaw()) {
+		if(FVT.OPTIONS.freecam.getValue()) {
 			info.setReturnValue(true);
 		}
 	}
@@ -72,7 +72,7 @@ abstract class CameraMixin
 	// called on enable/disable of freecam to prepare/cleanup variables
 	private void FVT_freecamToggleCheck()
 	{
-		if(FVT.OPTIONS.freecam.getValueRaw() && FVT.MC.player != null) {
+		if(FVT.OPTIONS.freecam.getValue() && FVT.MC.player != null) {
 			FVT.MC.chunkCullingEnabled = false;
 
 			FVT.VARS.freecamPitch = FVT.MC.player.getPitch();

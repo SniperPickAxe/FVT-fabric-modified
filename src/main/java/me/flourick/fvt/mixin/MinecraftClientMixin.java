@@ -11,8 +11,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import me.flourick.fvt.FVT;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ServerInfo;
@@ -29,8 +27,10 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 
+import me.flourick.fvt.FVT;
+
 /**
- * FEATURES: Prevent Tool Breaking, Freecam, Use Delay, Entity Outline, AutoReconnect, Placement Lock, Hotbar Autohide, Offhand AutoEat
+ * FEATURES: Prevent Tool Breaking, Freecam, Use Delay, Entity Outline, Placement Lock, Hotbar Autohide, Offhand AutoEat
  * 
  * @author Flourick, gliscowo
  */
@@ -60,7 +60,7 @@ abstract class MinecraftClientMixin
 	@Inject(method = "doAttack", at = @At("HEAD"), cancellable = true)
 	private void onDoAttack(CallbackInfoReturnable<Boolean> info)
 	{
-		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
+		if(FVT.OPTIONS.noToolBreaking.getValue() && !FVT.INSTANCE.isToolBreakingOverriden()) {
 			ItemStack mainHandItem = player.getMainHandStack();
 
 			if(mainHandItem.isDamaged()) {
@@ -82,11 +82,11 @@ abstract class MinecraftClientMixin
 			}
 		}
 
-		if(FVT.OPTIONS.autoHideHotbarUse.getValueRaw()) {
+		if(FVT.OPTIONS.autoHideHotbarUse.getValue()) {
 			FVT.VARS.resetHotbarLastInteractionTime();
 		}
 
-		if(FVT.OPTIONS.freecam.getValueRaw()) {
+		if(FVT.OPTIONS.freecam.getValue()) {
 			info.setReturnValue(false);
 		}
 	}
@@ -94,7 +94,7 @@ abstract class MinecraftClientMixin
 	@Inject(method = "handleBlockBreaking", at = @At("HEAD"), cancellable = true)
 	private void onHandleBlockBreaking(boolean bl, CallbackInfo info)
 	{
-		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
+		if(FVT.OPTIONS.noToolBreaking.getValue() && !FVT.INSTANCE.isToolBreakingOverriden()) {
 			ItemStack mainHandItem = player.getMainHandStack();
 
 			if(mainHandItem.isDamaged()) {
@@ -116,7 +116,7 @@ abstract class MinecraftClientMixin
 			}
 		}
 
-		if(FVT.OPTIONS.freecam.getValueRaw()) {
+		if(FVT.OPTIONS.freecam.getValue()) {
 			info.cancel();
 		}
 	}
@@ -124,7 +124,7 @@ abstract class MinecraftClientMixin
 	@Inject(method = "doItemUse", at = @At("HEAD"), cancellable = true)
 	private void onDoItemUseBefore(CallbackInfo info)
 	{
-		if(FVT.OPTIONS.noToolBreaking.getValueRaw() && !FVT.INSTANCE.isToolBreakingOverriden()) {
+		if(FVT.OPTIONS.noToolBreaking.getValue() && !FVT.INSTANCE.isToolBreakingOverriden()) {
 			ItemStack mainHandItem = player.getStackInHand(Hand.MAIN_HAND).isEmpty() ? null : player.getStackInHand(Hand.MAIN_HAND);
 			ItemStack offHandItem = player.getStackInHand(Hand.OFF_HAND).isEmpty() ? null : player.getStackInHand(Hand.OFF_HAND);
 
@@ -175,11 +175,11 @@ abstract class MinecraftClientMixin
 			}
 		}
 
-		if(FVT.OPTIONS.autoHideHotbarUse.getValueRaw()) {
+		if(FVT.OPTIONS.autoHideHotbarUse.getValue()) {
 			FVT.VARS.resetHotbarLastInteractionTime();
 		}
 
-		if(FVT.OPTIONS.freecam.getValueRaw()) {
+		if(FVT.OPTIONS.freecam.getValue()) {
 			info.cancel();
 		}
 	}
@@ -187,7 +187,7 @@ abstract class MinecraftClientMixin
 	@Redirect(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Hand;values()[Lnet/minecraft/util/Hand;", ordinal = 0))
 	private Hand[] hijackHandValues()
 	{
-		if(FVT.OPTIONS.autoEat.getValueRaw() && FVT.VARS.autoEating) {
+		if(FVT.OPTIONS.autoEat.getValue() && FVT.VARS.autoEating) {
 			crosshairTarget = null; // so we don't target interactable blocks or entities while eating
 			return new Hand[] {Hand.OFF_HAND};
 		}
@@ -198,14 +198,14 @@ abstract class MinecraftClientMixin
 	@Inject(method = "doItemUse", at = @At(value = "FIELD", target = "Lnet/minecraft/client/MinecraftClient;itemUseCooldown:I", ordinal = 0, shift = At.Shift.AFTER))
 	private void onDoItemUseCooldown(CallbackInfo info)
 	{
-		itemUseCooldown = FVT.OPTIONS.useDelay.getValueAsInteger();
+		itemUseCooldown = FVT.OPTIONS.useDelay.getValue();
 	}
 
 	@Inject(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getCount()I", ordinal = 0, shift = At.Shift.AFTER), cancellable = true)
 	private void onDoItemUsePlaceBlock(CallbackInfo info)
 	{
 		// user placed three blocks so that's our cue to limit the placement!
-		if(FVT.OPTIONS.placementLock.getValueRaw() && FVT_placementHistory.size() == 3) {
+		if(FVT.OPTIONS.placementLock.getValue() && FVT_placementHistory.size() == 3) {
 			BlockPos expected = ((BlockHitResult) crosshairTarget).getBlockPos().offset(((BlockHitResult) crosshairTarget).getSide());
 			
 			if((FVT_xAligned && FVT_xAlign != expected.getX()) || (FVT_yAligned && FVT_yAlign != expected.getY()) || (FVT_zAligned && FVT_zAlign != expected.getZ())) {
@@ -217,7 +217,7 @@ abstract class MinecraftClientMixin
 	@Inject(method = "doItemUse", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/ActionResult;isAccepted()Z", ordinal = 2))
 	private void onInteractBlock(CallbackInfo info)
 	{
-		if(FVT.OPTIONS.placementLock.getValueRaw() && FVT_placementHistory.size() < 3) {
+		if(FVT.OPTIONS.placementLock.getValue() && FVT_placementHistory.size() < 3) {
 			BlockHitResult blockHitResult = (BlockHitResult)crosshairTarget;
 
 			FVT_placementHistory.add(blockHitResult.getBlockPos().offset(blockHitResult.getSide()));
@@ -266,16 +266,8 @@ abstract class MinecraftClientMixin
 	@Inject(method = "hasOutline", at = @At("HEAD"), cancellable = true)
 	private void onHasOutline(Entity entity, CallbackInfoReturnable<Boolean> info)
 	{
-		if(FVT.OPTIONS.entityOutline.getValueRaw() && entity.getType() != EntityType.PLAYER || (FVT.OPTIONS.freecam.getValueRaw() && entity.equals(FVT.MC.player))) {
+		if(FVT.OPTIONS.entityOutline.getValue() && entity.getType() != EntityType.PLAYER || (FVT.OPTIONS.freecam.getValue() && entity.equals(FVT.MC.player))) {
 			info.setReturnValue(true);
-		}
-	}
-
-	@Inject(method = "disconnect", at = @At("HEAD"), cancellable = true)
-	private void onDisconnect(CallbackInfo info)
-	{
-		if(this.currentServerEntry != null) {
-			FVT.VARS.lastJoinedServer = this.currentServerEntry;
 		}
 	}
 }

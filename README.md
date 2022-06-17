@@ -142,10 +142,6 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Adds a drop button to every screen with your inventory (crafting, dropper, horse... screen) that will drop your inventory on the ground (only your inventory, not every slot on the screen!).
 
-* ### AutoReconnect
-
-    Will try to automatically reconnect you to the server you got disconnected from. Number of tries and the time after which it tries to reconnect you are configurable.
-
 * ### Horse Stats
 
     Horses, donkeys and mules have a "Stats" button which upon hover shows it's health, speed and jump height.

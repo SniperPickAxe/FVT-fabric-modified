@@ -1,6 +1,5 @@
 package me.flourick.fvt.utils;
 
-import net.minecraft.client.network.ServerInfo;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -38,10 +37,6 @@ public class FVTVars
 	public float freecamSideSpeed;
 	public float freecamUpSpeed;
 
-	public int autoReconnectTries;
-	public int autoReconnectTicks;
-	public ServerInfo lastJoinedServer;
-
 	private double deathX;
 	private double deathY;
 	private double deathZ;
@@ -66,9 +61,6 @@ public class FVTVars
 		this.deathZ = 0;
 		this.deathWorld = "";
 		this.isAfterDeath = false;
-
-		this.autoReconnectTicks = 0;
-		this.autoReconnectTries = 0;
 
 		this.hotbarLastInteractionTime = 0L;
 		

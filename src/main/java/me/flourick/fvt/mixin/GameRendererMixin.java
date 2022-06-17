@@ -1,5 +1,10 @@
 package me.flourick.fvt.mixin;
 
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -10,11 +15,6 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
-
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import me.flourick.fvt.FVT;
 
@@ -29,7 +29,7 @@ abstract class GameRendererMixin
 	@Inject(method = "updateTargetedEntity", at = @At("HEAD"), cancellable = true)
 	public void onUpdateTargetedEntity(float tickDelta, CallbackInfo info)
 	{
-		if(!FVT.OPTIONS.attackThrough.getValueRaw()) {
+		if(!FVT.OPTIONS.attackThrough.getValue()) {
 			return;
 		}
 
@@ -97,7 +97,7 @@ abstract class GameRendererMixin
 	@Inject(method = "renderHand", at = @At("HEAD"), cancellable = true)
 	private void removeHandRendering(CallbackInfo info)
 	{
-		if(FVT.OPTIONS.freecam.getValueRaw()) {
+		if(FVT.OPTIONS.freecam.getValue()) {
 			info.cancel();
 		}
 	}
