@@ -421,7 +421,7 @@ abstract class InGameHudMixin extends DrawableHelper
 		}
 	}
 
-	@Redirect(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V", ordinal = 0))
+	@Redirect(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V", ordinal = 0), require = 0)
 	private void onRenderCrosshair(InGameHud igHud, MatrixStack matrixStack, int x, int y, int u, int v, int width, int height)
 	{
 		int scaledWidth = this.client.getWindow().getScaledWidth();
