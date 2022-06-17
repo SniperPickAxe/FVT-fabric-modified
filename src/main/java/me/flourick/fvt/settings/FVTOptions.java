@@ -92,6 +92,7 @@ public class FVTOptions
 	public final SimpleOption<Boolean> attackThrough;
 	public final SimpleOption<Boolean> autoElytra;
 	public final SimpleOption<Boolean> fastTrade;
+	public final SimpleOption<DamageTiltMode> damageTilt;
 
 	public FVTOptions()
 	{
@@ -434,6 +435,15 @@ public class FVTOptions
 		);
 		features.put("fastTrade", fastTrade);
 
+		damageTilt = new SimpleOption<DamageTiltMode>(
+			"fvt.feature.name.damage_tilt", 
+			tooltip("fvt.feature.name.damage_tilt.tooltip", DamageTiltMode.DEFAULT), 
+			SimpleOption.enumValueText(), 
+			new SimpleOption.PotentialValuesBasedCallbacks<DamageTiltMode>(Arrays.asList(DamageTiltMode.values()), 
+			Codec.INT.xmap(DamageTiltMode::byId, DamageTiltMode::getId)), DamageTiltMode.DEFAULT, value -> {}
+		);
+		features.put("damageTilt", damageTilt);
+
 		init();
 	}
 
@@ -730,6 +740,46 @@ public class FVTOptions
 		}
 
 		public static HotbarMode byId(int id)
+		{
+			return VALUES[MathHelper.floorMod(id, VALUES.length)];
+		}
+	}
+	
+	public enum DamageTiltMode implements TranslatableOption
+	{
+		OFF(0, "options.off"),
+		MINIMAL(1, "options.particles.minimal"),
+		DEFAULT(1, "options.gamma.default");
+
+		private static final DamageTiltMode[] VALUES = (DamageTiltMode[])Arrays.stream(DamageTiltMode.values()).sorted(Comparator.comparingInt(DamageTiltMode::getId)).toArray(DamageTiltMode[]::new);;
+		private final String translationKey;
+		private final int id;
+
+		private DamageTiltMode(int id, String translationKey)
+		{
+			this.id = id;
+			this.translationKey = translationKey;
+		}
+		
+		@Override
+		public String toString()
+		{
+			return Integer.toString(getId());
+		}
+
+		@Override
+		public int getId()
+		{
+			return this.id;
+		}
+
+		@Override
+		public String getTranslationKey()
+		{
+			return this.translationKey;
+		}
+
+		public static DamageTiltMode byId(int id)
 		{
 			return VALUES[MathHelper.floorMod(id, VALUES.length)];
 		}

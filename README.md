@@ -106,6 +106,10 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Disables spyglass overlay while zooming in.
 
+* ### Damage Tilt
+
+    Let's you disable or tune down the screen tilt when you take damage.
+
 * ### Attack Through
 
     Let's you attack entities through collisionless blocks such as grass and flowers without destroying them first.

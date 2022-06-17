@@ -117,6 +117,9 @@
 	"fvt.feature.name.no_potion_particles": "No Potion Particles",
 	"fvt.feature.name.no_potion_particles.tooltip": "Disables particles that spawn around you when you use a potion on yourself.",
 
+	"fvt.feature.name.damage_tilt": "Damage Tilt",
+	"fvt.feature.name.damage_tilt.tooltip": "Let's you disable or tune down the screen tilt when you take damage.",
+
 	"fvt.feature.name.no_vignette": "No Vignette",
 	"fvt.feature.name.no_vignette.tooltip": "Disables the black vignette around HUD.",
 
