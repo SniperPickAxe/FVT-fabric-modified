@@ -4,7 +4,7 @@ on:
     paths-ignore:
       - 'README.md'
       - 'LICENSE'
-      - 'src/main/resources/assets'
+      - 'src/main/resources/assets/**'
 
 jobs:
   build:
