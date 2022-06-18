@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.client.network.ClientPlayerInteractionManager;
@@ -22,7 +23,7 @@ import me.flourick.fvt.FVT;
 
 /**
  * <p>
- * FEATURES: Random Block Placement, Refill Hand, Creative Break Delay
+ * FEATURES: Random Block Placement, Refill Hand, Creative Break Delay, No Break Swap Stop
  * </p>
  * 
  * @author Flourick
@@ -32,6 +33,16 @@ abstract class ClientPlayerInteractionManagerMixin
 {
 	@Shadow
 	private int blockBreakingCooldown;
+
+	@ModifyVariable(method = "isCurrentlyBreaking(Lnet/minecraft/util/math/BlockPos;)Z", at = @At("STORE"), ordinal = 0)
+	private boolean breakStop(boolean bl)
+	{
+		if(FVT.OPTIONS.noBreakSwapStop.getValue()) {
+			return true;
+		}	
+
+		return bl;
+	}
 
 	@Inject(method = "attackBlock", at = @At(value = "FIELD", target = "Lnet/minecraft/client/network/ClientPlayerInteractionManager;blockBreakingCooldown:I", ordinal = 0, shift = At.Shift.AFTER))
 	private void onAttackBlockCooldown(CallbackInfoReturnable<Boolean> info)

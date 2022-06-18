@@ -96,6 +96,9 @@
 	"fvt.feature.name.tool_warning.position.top": "Top",
 	"fvt.feature.name.tool_warning.position.bottom": "Bottom",
 
+	"fvt.feature.name.no_break_swap_stop": "No Break Swap Stop",
+	"fvt.feature.name.no_break_swap_stop.tooltip": "Will no longer stop breaking a block when you swap tools.",
+
 	"fvt.feature.name.cloud_height": "Cloud Height",
 	"fvt.feature.name.cloud_height.tooltip": "Sets the height at which clouds render.",
 

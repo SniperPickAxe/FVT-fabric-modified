@@ -75,8 +75,9 @@ public class FVTSettingsScreen extends Screen
 		this.list.AddOptionEntry(FVT.OPTIONS.fullbright, FVT.OPTIONS.entityOutline);
 		this.list.AddOptionEntry(FVT.OPTIONS.cloudHeight, FVT.OPTIONS.damageTilt);
 		this.list.addCategoryEntry("fvt.feature_category.tools");
-		this.list.AddOptionEntry(FVT.OPTIONS.noToolBreaking, FVT.OPTIONS.toolWarning);
-		this.list.AddOptionEntry(FVT.OPTIONS.toolWarningPosition, FVT.OPTIONS.toolWarningScale);
+		this.list.AddOptionEntry(FVT.OPTIONS.toolWarning, FVT.OPTIONS.toolWarningPosition);
+		this.list.AddOptionEntry(FVT.OPTIONS.toolWarningScale);
+		this.list.AddOptionEntry(FVT.OPTIONS.noToolBreaking, FVT.OPTIONS.noBreakSwapStop);
 		this.list.addCategoryEntry("fvt.feature_category.auto");
 		this.list.AddOptionEntry(FVT.OPTIONS.autoEat, FVT.OPTIONS.autoAttack);
 		this.list.AddOptionEntry(FVT.OPTIONS.autoTotem, FVT.OPTIONS.refillHand);

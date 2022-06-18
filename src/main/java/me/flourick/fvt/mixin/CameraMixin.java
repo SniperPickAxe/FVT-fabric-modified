@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.client.render.Camera;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockView;
 
@@ -74,6 +75,10 @@ abstract class CameraMixin
 	{
 		if(FVT.OPTIONS.freecam.getValue() && FVT.MC.player != null) {
 			FVT.MC.chunkCullingEnabled = false;
+
+			if(FVT.MC.player.getVehicle() instanceof BoatEntity) {
+				((BoatEntity)FVT.MC.player.getVehicle()).setInputs(false, false, false, false);
+			}
 
 			FVT.VARS.freecamPitch = FVT.MC.player.getPitch();
 			FVT.VARS.freecamYaw = FVT.MC.player.getYaw();

@@ -93,6 +93,7 @@ public class FVTOptions
 	public final SimpleOption<Boolean> autoElytra;
 	public final SimpleOption<Boolean> fastTrade;
 	public final SimpleOption<DamageTiltMode> damageTilt;
+	public final SimpleOption<Boolean> noBreakSwapStop;
 
 	public FVTOptions()
 	{
@@ -189,8 +190,8 @@ public class FVTOptions
 
 		showHUDInfo = SimpleOption.ofBoolean(
 			"fvt.feature.name.show_info", 
-			tooltip("fvt.feature.name.show_info.tooltip", true), 
-			true
+			tooltip("fvt.feature.name.show_info.tooltip", false), 
+			false
 		);
 		features.put("showHUDInfo", showHUDInfo);
 
@@ -264,8 +265,8 @@ public class FVTOptions
 
 		noBlockBreakParticles = SimpleOption.ofBoolean(
 			"fvt.feature.name.no_block_break_particles", 
-			tooltip("fvt.feature.name.no_block_break_particles.tooltip", true), 
-			true
+			tooltip("fvt.feature.name.no_block_break_particles.tooltip", false), 
+			false
 		);
 		features.put("noBlockBreakParticles", noBlockBreakParticles);
 
@@ -430,8 +431,8 @@ public class FVTOptions
 
 		fastTrade = SimpleOption.ofBoolean(
 			"fvt.feature.name.fast_trade", 
-			tooltip("fvt.feature.name.fast_trade.tooltip", false), 
-			false
+			tooltip("fvt.feature.name.fast_trade.tooltip", true), 
+			true
 		);
 		features.put("fastTrade", fastTrade);
 
@@ -443,6 +444,13 @@ public class FVTOptions
 			Codec.INT.xmap(DamageTiltMode::byId, DamageTiltMode::getId)), DamageTiltMode.DEFAULT, value -> {}
 		);
 		features.put("damageTilt", damageTilt);
+
+		noBreakSwapStop = SimpleOption.ofBoolean(
+			"fvt.feature.name.no_break_swap_stop", 
+			tooltip("fvt.feature.name.no_break_swap_stop.tooltip", true), 
+			true
+		);
+		features.put("noBreakSwapStop", noBreakSwapStop);
 
 		init();
 	}
