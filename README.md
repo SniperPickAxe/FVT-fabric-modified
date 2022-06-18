@@ -82,6 +82,10 @@ List of all toggleable features. Configuration is in in-game options menu called
 
     Makes your tools stop working at certain durability (will stop at 2 durability for most tools). This includes swords, pickaxes, axes, shovels, hoes, trident, bow and crossbow. Can be overriden (by default holding right ALT).
 
+* ### No Break Swap Stop
+
+    Will no longer stop breaking a block when you swap tools.
+
 * ### Cloud Height
 
     Allows you to set the height at which clouds render (-64 to 320).
