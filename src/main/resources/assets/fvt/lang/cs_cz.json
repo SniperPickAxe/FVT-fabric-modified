@@ -5,7 +5,6 @@
 	"fvt.options.tooltips.hide": "Skrýt popisky funkcí.",
 	"fvt.options.defaults": "Výchozí",
 	"fvt.options.defaults.tooltip": "VAROVÁNÍ! Tímto se obnoví všechny funkce na jejich výchozí hodnoty!",
-	"fvt.chat_messages_prefix": "§8[§7FVT§8]§r %s",
 	"fvt.feature_category.crosshair": "Kurzor",
 	"fvt.feature_category.hud": "HUD",
 	"fvt.feature_category.hotbar": "Panel Nástrojů",
