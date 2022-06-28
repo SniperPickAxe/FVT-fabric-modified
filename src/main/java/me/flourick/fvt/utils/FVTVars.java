@@ -56,13 +56,34 @@ public class FVTVars
 		this.waitForTrade = false;
 		this.tradeItem = null;
 
-		this.deathX = 0;
-		this.deathY = 0;
-		this.deathZ = 0;
+		this.autoEating = false;
+
+		this.freecamYaw = 0.0d;
+		this.freecamPitch = 0.0d;
+
+		this.playerYaw = 0.0d;
+		this.playerPitch = 0.0d;
+		this.playerVelocity = Vec3d.ZERO;
+
+		this.freecamX = 0.0d;
+		this.freecamY = 0.0d;
+		this.freecamZ = 0.0d;
+
+		this.prevFreecamX = 0.0d;
+		this.prevFreecamY = 0.0d;
+		this.prevFreecamZ = 0.0d;
+
+		this.freecamForwardSpeed = 0.0f;
+		this.freecamSideSpeed = 0.0f;
+		this.freecamUpSpeed = 0.0f;
+
+		this.deathX = 0.0d;
+		this.deathY = 0.0d;
+		this.deathZ = 0.0d;
 		this.deathWorld = "";
 		this.isAfterDeath = false;
 
-		this.hotbarLastInteractionTime = 0L;
+		this.hotbarLastInteractionTime = 0;
 		
 		this.toolWarningTextTicksLeft = 0;
 		this.toolDurability = 0;
@@ -106,7 +127,7 @@ public class FVTVars
 
 	public void zeroHotbarLastInteractionTime()
 	{
-		hotbarLastInteractionTime = 0L;
+		hotbarLastInteractionTime = 0;
 	}
 
 	public void resetHotbarLastInteractionTime()

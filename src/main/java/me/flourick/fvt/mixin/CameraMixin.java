@@ -53,11 +53,9 @@ abstract class CameraMixin
 
 			info.cancel();
 		}
-		else {
-			if(FVT_preFreecam) {
-				FVT_preFreecam = false;
-				FVT_freecamToggleCheck();
-			}
+		else if(FVT_preFreecam) {
+			FVT_preFreecam = false;
+			FVT_freecamToggleCheck();
 		}
 	}
 
@@ -94,7 +92,7 @@ abstract class CameraMixin
 		else {
 			FVT.MC.chunkCullingEnabled = true;
 
-			FVT.MC.player.setPitch((float) FVT.VARS.playerPitch);
+			FVT.MC.player.setPitch((float)FVT.VARS.playerPitch);
 			FVT.MC.player.setYaw((float)FVT.VARS.playerYaw);
 
 			FVT.VARS.freecamForwardSpeed = 0.0f;
